@@ -1,20 +1,20 @@
 # beleth
 
-Interpretación libre e implementación de Colonos de Catán.
+Free interpretation and implementation of the game Colonos de Catán. 
 
 # Run server
 
-El primer paso es instalar nodejs y npm. Asegurarse que npm esté en su versión más reciente.
+The first step is to install nodejs and npm. Make sure npm is up-to-date.
 
     sudo npm install npm@latest -g
 
-Instalar las dependencias
+Install the dependencies
 
     npm install
 
-Correr el servidor
+Run the server
 
     npm start
 
-> En Firefox no funciona por un error de configuración que aún no sabemos resolver.
+> It's not working on Firefox; there's a configuration error that we haven't figured out yet.
 
