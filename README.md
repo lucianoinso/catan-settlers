@@ -14,7 +14,7 @@ Instalar las dependencias
 
 Correr el servidor
 
-    npm run
+    npm start
 
 > En Firefox no funciona por un error de configuración que aún no sabemos resolver.
 
