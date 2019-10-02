@@ -17,8 +17,8 @@ the naming convention: `example-feature`.
   ```
 * In case your branch becomes outdated and you'd like to incorporate
   new changes made to master or the branch you're parting from, it's 
-  recommended you `git fetch original-branch`, then either `git merge`,
-  or `git rebase`.
+  recommended you `git fetch`, then either `git merge original-branch`,
+  or `git rebase original-branch`.
 
 # Coding Style
 * Follow the Airbnb style guidelines.
