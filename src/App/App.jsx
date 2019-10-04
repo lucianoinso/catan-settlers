@@ -8,19 +8,26 @@ import Lobby from "../Lobby/Lobby";
 import Game from "../Game/Game";
 import Footer from "./Footer";
 
-function App() {
-  return (
-    <div>
-      <Header />
-      <Switch>
-        <Route exact path="/" component={Home} />
-        <Route exact path="/users/login" component={Login} />
-        <Route exact path="/rooms" component={Lobby} />
-        <Route path="/game/:id" component={Game} />
-      </Switch>
-      <Footer />
-    </div>
-  );
+class App extends React.Component {
+  constructor(props) {
+    alert('hola');
+    // this.userToken = props.userToken;
+  }
+
+  render() {
+    return (
+      <div>
+        <Header />
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route exact path="/users/login" component={Login} />
+          <Route exact path="/rooms" component={Lobby} />
+          <Route path="/game/:id" component={Game} />
+        </Switch>
+        <Footer />
+      </div>
+    );
+  }
 }
 
 export default App;
