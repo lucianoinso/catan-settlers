@@ -15,16 +15,47 @@ class Login extends React.Component {
   }
 
   componentDidMount() {
-    axios.post("/users/login", this.state);
-
     this.mock.onPost("/users/login").reply(200, {
       token: "fgewr234h482o3321j45o3j1"
     });
   }
 
+  onSubmit = e => {
+    axios.post("/users/login", this.state).catch(error => {
+      alert(error);
+    });
+    alert("se mandó al post xdxd");
+  };
+
   render() {
-    return <div>Pagina Login</div>;
+    return (
+      <form onSubmit={this.onSubmit}>
+        <fieldset>
+          <legend>Login</legend>
+          <p>
+            <label htmlFor="username">Username</label>
+            <input
+              type="text"
+              id="username"
+              onChange={e => this.setState({ user: e.target.value })}
+            />
+          </p>
+          <p>
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              onChange={e => this.setState({ pass: e.target.value })}
+            />
+          </p>
+          <p>
+            <button type="submit">Login</button>
+          </p>
+        </fieldset>
+      </form>
+    );
   }
 }
 
 export default Login;
+
