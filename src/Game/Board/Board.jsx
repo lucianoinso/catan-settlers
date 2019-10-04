@@ -3,6 +3,7 @@ import axios from "axios";
 import axiosMock from "../../App/axiosMock.js";
 import Hex from "./Hex.jsx";
 import getMockHexes from "./mockHexes.js";
+import PopupController from "../../PopupController/PopupController.jsx";
 
 const id = 1;
 
@@ -32,6 +33,9 @@ class Board extends React.Component {
         });
       })
       .catch(error => {
+        PopupController.pushError({
+          content: `Hubo un error al conectarse con el servidor.`
+        });
         console.error(error);
       });
   }
