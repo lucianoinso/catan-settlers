@@ -21,10 +21,16 @@ class Login extends React.Component {
   }
 
   onSubmit = e => {
-    axios.post("/users/login", this.state).catch(error => {
-      alert(error);
-    });
-    alert("se mandó al post xdxd");
+    axios
+      .post("/users/login", this.state)
+      .catch(error => {
+        alert(error);
+      })
+      .then(f => {
+        console.log(f);
+      });
+
+    e.preventDefault();
   };
 
   render() {
