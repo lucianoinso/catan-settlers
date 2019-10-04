@@ -6,5 +6,5 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
- .background-color {background-color:red;}
- .text-align {text-align:center;}
+ header {background-color:red;}
+ header h1 {text-align:center;}
