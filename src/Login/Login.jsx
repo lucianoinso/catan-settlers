@@ -1,7 +1,14 @@
 import React from "react";
 
-function Login(){
-    return(<div>Pagina Login</div>);
+class Login extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
+  render() {
+    return <div>Pagina Login</div>;
+  }
 }
 
 export default Login;
