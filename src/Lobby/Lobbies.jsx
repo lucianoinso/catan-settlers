@@ -1,6 +1,8 @@
 import React from "react";
 import axios from "axios";
 import axiosMock from "../App/axiosMock.js";
+import { Link } from "react-router-dom";
+
 import Lobby from "./Lobby";
 
 class Lobbies extends React.Component {
@@ -19,6 +21,13 @@ class Lobbies extends React.Component {
         owner: "beleth",
         players: ["mila", "karen"],
         max_players: 3
+      },
+      {
+        id: 2,
+        name: "Infierno sangrante",
+        owner: "belzebu",
+        players: ["matias", "mateo"],
+        max_players: 4
       }
     ]);
 
@@ -40,6 +49,9 @@ class Lobbies extends React.Component {
           players={players}
           max_players={max_players}
         />
+        <div>
+          < Link to="/rooms/1"> Unirse a la recámara </ Link>
+        </div>
       </li>
     );
   }
