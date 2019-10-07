@@ -10,8 +10,10 @@ import Footer from "./Footer";
 
 class App extends React.Component {
   constructor(props) {
-    alert('hola');
-    // this.userToken = props.userToken;
+    super(props);
+    this.state = {
+         userToken: ""
+    }
   }
 
   render() {
