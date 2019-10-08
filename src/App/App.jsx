@@ -5,7 +5,7 @@ import Header from "./Header";
 import Home from "../Home/Home";
 import Login from "../Login/Login";
 import Lobbies from "../Lobby/Lobbies";
-import Lobby from "../Lobby/Lobby";
+import MyLobby from "../Lobby/MyLobby";
 import Game from "../Game/Game";
 import Footer from "./Footer";
 
@@ -17,7 +17,7 @@ function App() {
         <Route exact path="/" component={Home} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/rooms" component={Lobbies} />
-        <Route path="/rooms/:id" component={Lobby} />
+        <Route path="/rooms/:id" component={MyLobby} />
         <Route path="/game/:id" component={Game} />
       </Switch>
       <Footer />
