@@ -20,28 +20,33 @@ class Login extends React.Component {
     });
   }
 
-  onSubmit = e => {
+  onSubmit() {
+    const { onLogin } = this.props;
+
     // TODO: check if one of the fields is empty before making the request
     // and give an error using the popup in each case
+    const { user } = this.state;
+
     axios
       .post("/users/login", this.state)
       .catch(error => {
         // TODO: handle errors and use the global popup to show them
         alert(error);
       })
-      .then(f => {
+      .then(response => {
         // TODO: Update the app state with the token
-        console.log(f);
-        this.props.setAppState(f)
-
+        onLogin(user, response.data.token);
       });
-
-    e.preventDefault();
-  };
+  }
 
   render() {
     return (
-      <form onSubmit={this.onSubmit}>
+      <form
+        onSubmit={e => {
+          e.preventDefault();
+          this.onSubmit();
+        }}
+      >
         <fieldset>
           <legend>Login</legend>
           <p>
@@ -70,4 +75,3 @@ class Login extends React.Component {
 }
 
 export default Login;
-
