@@ -1,25 +1,38 @@
 import React from "react";
 
-
 class Lobby extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      id: props.id,
+      name: props.name,
+      owner: props.owner,
+      players: props.players,
+      max_players: props.max_players
+    };
+  }
+
+  calc_players() {
+    return this.state.players.length + "/" + this.state.max_players;
+  }
+
   render() {
-    const { id, name, owner, players, max_players } = this.props;
     return (
       <ul>
         <li>
-          <div className={`name ${name}`}> Recámara del horror: {name} </div>
-        </li>
-        <li>
-          <div className={`owner ${owner}`}> Invocador: {owner} </div>
-        </li>
-        <li>
-          <div className={`players ${players}`}> Almas atrapadas: {players} </div>
-        </li>
-        <li>
-          <div className={`max_players ${max_players}`}>
+          <div className={`name ${this.state.name}`}>
             {" "}
-            Máxima cantidad de almas: {max_players}{" "}
+            Recámara del horror: {this.state.name}{" "}
           </div>
+        </li>
+        <li>
+          <div className={`owner ${this.state.owner}`}>
+            {" "}
+            Invocador: {this.state.owner}{" "}
+          </div>
+        </li>
+        <li>
+          <div> Cantidad de almas: {this.calc_players()}</div>
         </li>
       </ul>
     );

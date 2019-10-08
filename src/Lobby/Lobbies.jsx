@@ -19,14 +19,14 @@ class Lobbies extends React.Component {
         id: 1,
         name: "Limbo",
         owner: "beleth",
-        players: ["mila", "karen"],
+        players: ["mila", "karen", "beleth"],
         max_players: 3
       },
       {
         id: 2,
         name: "Infierno sangrante",
         owner: "belzebu",
-        players: ["matias", "mateo"],
+        players: ["matias", "mateo", "belzebu"],
         max_players: 4
       }
     ]);
