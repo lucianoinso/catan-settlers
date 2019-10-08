@@ -21,12 +21,16 @@ class Login extends React.Component {
   }
 
   onSubmit = e => {
+    // TODO: check if one of the fields is empty before making the request
+    // and give an error using the popup in each case
     axios
       .post("/users/login", this.state)
       .catch(error => {
+        // TODO: handle errors and use the global popup to show them
         alert(error);
       })
       .then(f => {
+        // TODO: Update the app state with the token
         console.log(f);
       });
 
