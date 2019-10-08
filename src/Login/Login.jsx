@@ -32,6 +32,8 @@ class Login extends React.Component {
       .then(f => {
         // TODO: Update the app state with the token
         console.log(f);
+        this.props.setAppState(f)
+
       });
 
     e.preventDefault();

@@ -17,13 +17,25 @@ class App extends React.Component {
     };
   }
 
+  setAppState(props) {
+    this.state = {
+      userName: props.userName,
+      userToken: props.userToken
+    };
+  }
+
   render() {
     return (
+      <Login setAppState={this.setAppState} />
       <div>
         <Header />
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route exact path="/users/login" component={Login} />
+          <Route
+            path="/users/login"
+            render={(props) => <Login {this.setAppState} />}
+          />
+//          <Route exact path="/users/login" component={Login} />
           <Route exact path="/rooms" component={Lobby} />
           <Route path="/game/:id" component={Game} />
         </Switch>
