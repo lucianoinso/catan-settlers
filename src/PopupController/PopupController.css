@@ -1,0 +1,59 @@
+#popup-controller {
+  position: fixed;
+  width: 600px;
+  top: 4px;
+  left: calc(50% - calc(600px / 2));
+  text-align: center;
+}
+
+#popup-controller .popup-container {
+  margin: 5px 0;
+}
+
+#popup-controller .popup {
+  display: inline-block;
+  padding: 3px 12px;
+  background-color: palegoldenrod;
+  border: 1px solid gray;
+  border-radius: 4px;
+
+  animation: fadein 0.4s;
+}
+
+#popup-controller .popup.closed {
+  animation: fadeout 0.4s;
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.9;
+  }
+}
+
+@keyframes fadeout {
+  from {
+    opacity: 0.9;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+#popup-controller .popup-button {
+  /* Resetear estilos para que parezca un link. */
+  background-color: transparent;
+  border: 0px;
+  text-decoration: underline;
+  color: blue;
+  padding: 0;
+  line-height: 1em;
+  font-size: 1em;
+}
+
+#popup-controller .error {
+  background-color: pink;
+  border-color: red;
+}
