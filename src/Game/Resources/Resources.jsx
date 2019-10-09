@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import axiosMock from "../../App/axiosMock.js";
 import Resource from "./Resource.jsx";
+import PopupController from "../../PopupController/PopupController.jsx";
 
 class Resources extends React.Component {
   constructor(props) {
@@ -30,8 +31,10 @@ class Resources extends React.Component {
         this.setState(countedResources);
       })
       .catch(err => {
+        PopupController.pushError({
+          content: `Hubo un error al conectarse con el servidor.`
+        });
         console.error(err);
-        alert(err.message);
       });
   }
 
