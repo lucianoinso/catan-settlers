@@ -28,8 +28,9 @@ class App extends React.Component {
     const isLoggedIn = this.state.userName;
     if (isLoggedIn) {
       return <h4>Welcome {this.state.userName}</h4>;
+    } else {
+      return <Link to="/Users/Login"> Login</Link>;
     }
-    return <Link to="/Users/Login"> Login</Link>;
   }
 
   render() {
