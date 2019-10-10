@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
-import MockAdapter from "axios-mock-adapter";
+import axiosMock from "../App/axiosMock.js";
+import { Redirect } from "react-router-dom";
 
 class Login extends React.Component {
   constructor(props) {
@@ -8,25 +9,23 @@ class Login extends React.Component {
 
     this.state = {
       user: "",
-      pass: ""
+      pass: "",
+      token: "",
+      redirect: false
     };
-
-    this.mock = new MockAdapter(axios);
   }
 
   componentDidMount() {
-    this.mock.onPost("/users/login").reply(200, {
+    axiosMock.onPost("/users/login").reply(200, {
       token: "fgewr234h482o3321j45o3j1"
     });
   }
 
   onSubmit() {
     const { onLogin } = this.props;
-
     // TODO: check if one of the fields is empty before making the request
     // and give an error using the popup in each case
     const { user } = this.state;
-
     axios
       .post("/users/login", this.state)
       .catch(error => {
@@ -34,12 +33,21 @@ class Login extends React.Component {
         alert(error);
       })
       .then(response => {
-        // TODO: Update the app state with the token
         onLogin(user, response.data.token);
+        this.setState({
+          user: user,
+          token: response.data.token,
+          redirect: true
+        });
       });
   }
 
   render() {
+    const { redirect } = this.state;
+    if (redirect) {
+      return <Redirect to="/" />;
+    }
+
     return (
       <form
         onSubmit={e => {

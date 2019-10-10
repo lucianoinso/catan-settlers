@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Link } from "react-router-dom";
 
 import Header from "./Header";
 import Home from "../Home/Home";
@@ -24,10 +24,19 @@ class App extends React.Component {
     });
   }
 
+  greeting() {
+    const isLoggedIn = this.state.userName;
+    if (isLoggedIn) {
+      return <h4>Welcome {this.state.userName}</h4>;
+    }
+    return <Link to="/Users/Login"> Login</Link>;
+  }
+
   render() {
     return (
-      <div>
+      <div id="App">
         <Header />
+        <div id="login">{this.greeting()}</div>
         <Switch>
           <Route exact path="/" component={Home} />
           <Route
