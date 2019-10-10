@@ -1,10 +1,10 @@
 
 const resourceNames = {
     brick: "Ladrillo",
-    wool: "Woolaaa",
-    grain: "GRANO",
-    ore: "ORO",
-    lumber: "Luces"
+    wool: "Lana",
+    grain: "Grano",
+    ore: "Mineral",
+    lumber: "Leña"
 };
 
 const devCardNames = {
