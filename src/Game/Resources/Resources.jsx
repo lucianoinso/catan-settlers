@@ -19,11 +19,6 @@ class Resources extends React.Component {
   componentDidMount() {
     const id = 1;
 
-    axiosMock.onGet(`/games/${id}/player`).reply(200, {
-      resources: ["brick", "wool", "brick"],
-      cards: ["road_building", "monopoly"]
-    });
-
     axios
       .get(`/games/${id}/player`)
       .then(response => {
@@ -56,23 +51,26 @@ class Resources extends React.Component {
 
   render() {
     return (
-      <ul>
-        <li>
-          <Resource type="brick" amount={this.state.brickAmount} />
-        </li>
-        <li>
-          <Resource type="wool" amount={this.state.woolAmount} />
-        </li>
-        <li>
-          <Resource type="grain" amount={this.state.grainAmount} />
-        </li>
-        <li>
-          <Resource type="lumber" amount={this.state.lumberAmount} />
-        </li>
-        <li>
-          <Resource type="ore" amount={this.state.oreAmount} />
-        </li>
-      </ul>
+      <div className="resourceCards">
+        <h4>Cartas de recursos</h4>
+        <ul>
+          <li>
+            <Resource type="brick" amount={this.state.brickAmount} />
+          </li>
+          <li>
+            <Resource type="wool" amount={this.state.woolAmount} />
+          </li>
+          <li>
+            <Resource type="grain" amount={this.state.grainAmount} />
+          </li>
+          <li>
+            <Resource type="lumber" amount={this.state.lumberAmount} />
+          </li>
+          <li>
+            <Resource type="ore" amount={this.state.oreAmount} />
+          </li>
+        </ul>
+      </div>
     );
   }
 }
