@@ -1,17 +1,17 @@
 const resourceNames = {
-    brick: "Ladrillo",
-    wool: "Lana",
-    grain: "Grano",
-    ore: "Mineral",
-    lumber: "Leña"
+    brick: "Incienso",
+    wool: "Vino",
+    grain: "Oro",
+    ore: "Virgenes",
+    lumber: "Ternero"
 };
 
 const devCardNames = {
-    knight: "Caballero",
-    roadBuilding: "Construccion de Carreteras",
-    yearOfPlenty: "Descubrimiento",
-    monopoly: "Monopolio",
-    victoryPoints: "Puntos de Victoria"
+    knight: "Llamada de Valefar",
+    roadBuilding: "Conjuro de Malphas",
+    yearOfPlenty: "Regalo de Seire",
+    monopoly: "Justicia de Andromalius",
+    victoryPoints: "Beleth"
 };
 
 export { resourceNames, devCardNames };

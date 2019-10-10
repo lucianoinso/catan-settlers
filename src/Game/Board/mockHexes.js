@@ -1,12 +1,13 @@
 import { resourceNames } from "../SatanDictionary.js";
 
+
 // Create a mock [HEX] to use in a mock board.
 
 const getMockHexes = () => {
   const resources = Object.keys(resourceNames);
 
   const getHex = (level, index, resource, token) => {
-    return { position: { level, index }, resource, token };
+    return { position: { level, index }, resource: resourceNames[resource], token };
   };
 
   const mockHexes = [];
