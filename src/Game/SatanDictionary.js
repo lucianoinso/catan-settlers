@@ -7,4 +7,12 @@ const resourceNames = {
     lumber: "Luces"
 };
 
-export { resourceNames };
+const devCardNames = {
+    knight: "Caballero",
+    roadBuilding: "Construccion de Carreteras",
+    yearOfPlenty: "Descubrimiento",
+    monopoly: "Monopolio",
+    victoryPoints: "Puntos de Victoria",
+};
+
+export { resourceNames, devCardNames };

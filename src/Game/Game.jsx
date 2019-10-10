@@ -2,18 +2,18 @@ import React from "react";
 
 import Board from "./Board/Board";
 import Build from "./Build/Build";
-import DevCard from "./DevCard/DevCard";
+import DevCards from "./DevCard/DevCards";
 import Resources from "./Resources/Resources";
 
 function Game() {
   return (
-    <>
-      <div>Pagina de una partida </div>
+    <div className="game">
+      <h2>Pagina de una partida</h2>
       <Board />
       <Build />
-      <DevCard />
+      <DevCards />
       <Resources />
-    </>
+    </div>
   );
 }
 
