@@ -12,7 +12,7 @@ class DevCards extends React.Component {
       roadBuildingAmount: 0,
       yearOfPlentyAmount: 0,
       monopolyAmount: 0,
-      victoryPointsAmount: 0,
+      victoryPointsAmount: 0
     };
   }
 
@@ -50,23 +50,39 @@ class DevCards extends React.Component {
   }
 
   render() {
+    return (
       <div className="devCards">
         <h4>Cartas de desarrollo</h4>
         <ul>
           <li>
-            <DevCard cardName="knight" amount={this.state.knightAmount} />
+            <DevCard
+              cardName="knight"
+              amount={this.state.knightAmount}
+            />
           </li>
           <li>
-            <DevCard cardName="roadBuilding" amount={this.state.roadBuildingAmount} />
+            <DevCard
+              cardName="roadBuilding"
+              amount={this.state.roadBuildingAmount}
+            />
           </li>
           <li>
-            <DevCard cardName="yearOfPlenty" amount={this.state.yearOfPlentyAmount} />
+            <DevCard
+              cardName="yearOfPlenty"
+              amount={this.state.yearOfPlentyAmount}
+            />
           </li>
           <li>
-            <DevCard cardName="monopoly" amount={this.state.monopolyAmount} />
+            <DevCard
+              cardName="monopoly"
+              amount={this.state.monopolyAmount}
+            />
           </li>
           <li>
-            <DevCard cardName="victoryPoints" amount={this.state.victoryPointsAmount} />
+            <DevCard
+              cardName="victoryPoints"
+              amount={this.state.victoryPointsAmount}
+            />
           </li>
         </ul>
       </div>

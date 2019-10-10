@@ -17,7 +17,7 @@ class Game extends React.Component {
         const id = 1;
 
         axiosMock.onGet(`/games/${id}/player`).reply(200, {
-            resources: ["brick", "wool", "brick", "ore"],
+            resources: ["brick", "wool", "brick", "ore", "ore"],
             cards: ["roadBuilding", "monopoly", "victoryPoints", "knight"]
         });
     }
