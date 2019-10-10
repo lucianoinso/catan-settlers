@@ -1,4 +1,3 @@
-
 const resourceNames = {
     brick: "Ladrillo",
     wool: "Lana",
@@ -12,7 +11,7 @@ const devCardNames = {
     roadBuilding: "Construccion de Carreteras",
     yearOfPlenty: "Descubrimiento",
     monopoly: "Monopolio",
-    victoryPoints: "Puntos de Victoria",
+    victoryPoints: "Puntos de Victoria"
 };
 
 export { resourceNames, devCardNames };

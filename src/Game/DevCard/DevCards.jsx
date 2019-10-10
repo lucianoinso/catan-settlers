@@ -7,7 +7,6 @@ import PopupController from "../../PopupController/PopupController.jsx";
 class DevCards extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       knightAmount: 0,
       roadBuildingAmount: 0,
@@ -51,7 +50,6 @@ class DevCards extends React.Component {
   }
 
   render() {
-    return (
       <div className="devCards">
         <h4>Cartas de desarrollo</h4>
         <ul>
