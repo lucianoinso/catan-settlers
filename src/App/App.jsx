@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-
+import store from "../store.js";
+import { Provider } from "react-redux";
 import Header from "./Header";
 import Home from "../Home/Home";
 import Login from "../Login/Login";
@@ -11,7 +12,7 @@ import PopupController from "../PopupController/PopupController";
 
 function App() {
   return (
-    <div>
+    <Provider store={store}>
       <Header />
       <BrowserRouter>
         <Switch>
@@ -23,7 +24,7 @@ function App() {
       </BrowserRouter>
       <Footer />
       <PopupController />
-    </div>
+    </Provider>
   );
 }
 
