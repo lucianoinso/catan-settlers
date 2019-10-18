@@ -1,36 +1,13 @@
 import React from "react";
-import axios from "axios";
+import { connect } from "react-redux";
 import Resource from "./Resource.jsx";
-import countResources from "./utils";
-import PopupController from "../../PopupController/PopupController.jsx";
+import { mapStateToProps, mapDispatchToProps } from "./Resources.ducks.js";
 
 class Resources extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      brickAmount: 0,
-      woolAmount: 0,
-      grainAmount: 0,
-      lumberAmount: 0,
-      oreAmount: 0
-    };
-  }
 
-  componentDidMount() {
-    const id = 1;
-
-    axios
-      .get(`/games/${id}/player`)
-      .then(response => {
-        const countedResources = countResources(response.data.resources);
-        this.setState(countedResources);
-      })
-      .catch(err => {
-        PopupController.pushError({
-          content: `Hubo un error al conectarse con el servidor.`
-        });
-        console.error(err);
-      });
+    this.props.saveResource();
   }
 
   render() {
@@ -39,19 +16,19 @@ class Resources extends React.Component {
         <h4>Cartas de recursos</h4>
         <ul>
           <li>
-            <Resource type="brick" amount={this.state.brickAmount} />
+            <Resource type="brick" amount={this.props.brickAmount} />
           </li>
           <li>
-            <Resource type="wool" amount={this.state.woolAmount} />
+            <Resource type="wool" amount={this.props.woolAmount} />
           </li>
           <li>
-            <Resource type="grain" amount={this.state.grainAmount} />
+            <Resource type="grain" amount={this.props.grainAmount} />
           </li>
           <li>
-            <Resource type="lumber" amount={this.state.lumberAmount} />
+            <Resource type="lumber" amount={this.props.lumberAmount} />
           </li>
           <li>
-            <Resource type="ore" amount={this.state.oreAmount} />
+            <Resource type="ore" amount={this.props.oreAmount} />
           </li>
         </ul>
       </div>
@@ -59,4 +36,7 @@ class Resources extends React.Component {
   }
 }
 
-export default Resources;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Resources);
