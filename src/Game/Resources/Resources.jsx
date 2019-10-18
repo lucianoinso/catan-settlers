@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
-import axiosMock from "../../App/axiosMock.js";
 import Resource from "./Resource.jsx";
+import countResources from "./utils";
 import PopupController from "../../PopupController/PopupController.jsx";
 
 class Resources extends React.Component {
@@ -22,7 +22,7 @@ class Resources extends React.Component {
     axios
       .get(`/games/${id}/player`)
       .then(response => {
-        const countedResources = this.countResources(response.data.resources);
+        const countedResources = countResources(response.data.resources);
         this.setState(countedResources);
       })
       .catch(err => {
@@ -31,22 +31,6 @@ class Resources extends React.Component {
         });
         console.error(err);
       });
-  }
-
-  countResources(resources) {
-    return resources.reduce(
-      (countedResources, resource) => {
-        countedResources[`${resource}Amount`]++;
-        return countedResources;
-      },
-      {
-        brickAmount: 0,
-        woolAmount: 0,
-        grainAmount: 0,
-        lumberAmount: 0,
-        oreAmount: 0
-      }
-    );
   }
 
   render() {

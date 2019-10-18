@@ -1,6 +1,5 @@
 import React from "react";
 import axios from "axios";
-import axiosMock from "../../App/axiosMock.js";
 import DevCard from "./DevCard.jsx";
 import PopupController from "../../PopupController/PopupController.jsx";
 

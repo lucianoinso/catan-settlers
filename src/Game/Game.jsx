@@ -4,15 +4,9 @@ import Board from "./Board/Board";
 import Build from "./Build/Build";
 import DevCards from "./DevCard/DevCards";
 import Resources from "./Resources/Resources";
-import axios from "axios";
 import axiosMock from "../App/axiosMock.js";
-import PopupController from "../PopupController/PopupController.jsx";
 
 class Game extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     componentDidMount() {
         const id = 1;
 
