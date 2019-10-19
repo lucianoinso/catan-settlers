@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import store from "../store.js";
 import { Provider } from "react-redux";
+import store from "../store";
 import Header from "./Header";
 import Home from "../Home/Home";
 import Login from "../Login/Login";
@@ -17,7 +17,7 @@ function App() {
       <BrowserRouter>
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route exact path="/login" component={Login} />
+          <Route exact path="/users/login" component={Login} />
           <Route exact path="/rooms" component={Lobby} />
           <Route path="/game/:id" component={Game} />
         </Switch>
