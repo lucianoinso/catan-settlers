@@ -18,7 +18,9 @@ class Game extends React.Component {
                 "brick",
                 "ore",
                 "ore",
-                
+                "ore",
+                "ore",
+                "brick",
                 "brick"
             ],
             cards: ["roadBuilding", "monopoly", "victoryPoints", "knight"]

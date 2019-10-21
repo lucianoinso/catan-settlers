@@ -5,6 +5,8 @@ import PopupController from "../../PopupController/PopupController.jsx";
 // Action types
 
 const SAVE_RESOURCE = "save_resource";
+const OFFER_BANK = "offer_bank";
+const REQUEST_BANK = "request_bank";
 
 //Reducer
 
@@ -17,6 +19,7 @@ const initialState = {
 };
 
 const resourcesReducer = (state = initialState, action) => {
+    let trade = { ...state };
     switch (action.type) {
         case SAVE_RESOURCE:
             return {
@@ -27,6 +30,12 @@ const resourcesReducer = (state = initialState, action) => {
                 lumberAmount: action.payload.lumberAmount,
                 oreAmount: action.payload.oreAmount
             };
+        case OFFER_BANK:
+            trade[`${action.payload}Amount`] = trade[`${action.payload}Amount`] - 4;
+            return trade;
+        case REQUEST_BANK:
+            trade[`${action.payload}Amount`] = trade[`${action.payload}Amount`] + 1;
+            return trade;
         default:
             return state;
     }
@@ -54,6 +63,19 @@ const saveResource = (payload, dispatch) => {
         });
 };
 
+const offerBank = (payload, dispatch) => {
+    dispatch({
+        type: OFFER_BANK,
+        payload
+    });
+};
+
+const requestBank = (payload, dispatch) => {
+    dispatch({
+        type: REQUEST_BANK,
+        payload
+    });
+};
 //Maps
 
 const mapStateToProps = state => {
@@ -72,4 +94,10 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export { resourcesReducer, mapStateToProps, mapDispatchToProps };
+export {
+    resourcesReducer,
+    mapStateToProps,
+    mapDispatchToProps,
+    offerBank,
+    requestBank
+};

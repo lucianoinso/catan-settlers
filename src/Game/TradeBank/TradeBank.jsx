@@ -8,8 +8,11 @@ import "./TradeBank.css";
 class TradeBank extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {offer: ""}
     this.props.saveAction();
+    this.state = {
+      offer: {},
+      request: ""
+    };
   }
 
   canTrade() {
@@ -18,7 +21,7 @@ class TradeBank extends React.Component {
       this.props.brickAmount > 3 ||
       this.props.oreAmount > 3 ||
       this.props.lumberAmount > 3 ||
-      this.props.grain > 3
+      this.props.grainAmount > 3
     ) {
       return true;
     } else {
@@ -34,13 +37,21 @@ class TradeBank extends React.Component {
     }
   }
 
+  setOffer(resource) {
+    this.setState({ offer: resource });
+  }
+
+  setRequest(resource) {
+    this.setState({ request: resource });
+  }
+
   render() {
     return (
       <Popup
         trigger={
           <button className="button" disabled={!this.props.bank_trade}>
             {" "}
-            Hacer pacto con el Diablo{" "}
+            Hacer pacto con el Diablo
           </button>
         }
         modal
@@ -52,6 +63,7 @@ class TradeBank extends React.Component {
               {this.enoughResources()}
               <button
                 className="resourceButton"
+                onClick={() => this.setOffer("brick")}
                 disabled={this.props.brickAmount < 4}
               >
                 {resourceNames["brick"]} <br />
@@ -59,6 +71,7 @@ class TradeBank extends React.Component {
               </button>
               <button
                 className="resourceButton"
+                onClick={() => this.setOffer("ore")}
                 disabled={this.props.oreAmount < 4}
               >
                 {resourceNames["ore"]} <br />
@@ -66,6 +79,7 @@ class TradeBank extends React.Component {
               </button>
               <button
                 className="resourceButton"
+                onClick={() => this.setOffer("wool")}
                 disabled={this.props.woolAmount < 4}
               >
                 {resourceNames["wool"]} <br />
@@ -73,6 +87,7 @@ class TradeBank extends React.Component {
               </button>
               <button
                 className="resourceButton"
+                onClick={() => this.setOffer("grain")}
                 disabled={this.props.grainAmount < 4}
               >
                 {resourceNames["grain"]}
@@ -80,6 +95,7 @@ class TradeBank extends React.Component {
               </button>
               <button
                 className="resourceButton"
+                onClick={() => this.setOffer("lumber")}
                 disabled={this.props.lumberAmount < 4}
               >
                 {resourceNames["lumber"]}
@@ -87,32 +103,54 @@ class TradeBank extends React.Component {
               </button>
               <br />
               Seleccionar ...
-              <button className="resourceButton" disabled={!this.canTrade()}>
+              <button
+                className="resourceButton"
+                onClick={() => this.setRequest("brick")}
+                disabled={!this.canTrade()}
+              >
                 {resourceNames["brick"]}
               </button>
-              <button className="resourceButton" disabled={!this.canTrade()}>
+              <button
+                className="resourceButton"
+                onClick={() => this.setRequest("ore")}
+                disabled={!this.canTrade()}
+              >
                 {resourceNames["ore"]}
               </button>
-              <button className="resourceButton" disabled={!this.canTrade()}>
+              <button
+                className="resourceButton"
+                onClick={() => this.setRequest("wool")}
+                disabled={!this.canTrade()}
+              >
                 {resourceNames["wool"]}
               </button>
-              <button className="resourceButton" disabled={!this.canTrade()}>
+              <button
+                className="resourceButton"
+                onClick={() => this.setRequest("grain")}
+                disabled={!this.canTrade()}
+              >
                 {resourceNames["grain"]}
               </button>
-              <button className="resourceButton" disabled={!this.canTrade()}>
+              <button
+                className="resourceButton"
+                onClick={() => this.setRequest("lumber")}
+                disabled={!this.canTrade()}
+              >
                 {resourceNames["lumber"]}
               </button>
               <br />
-              <Popup
-                trigger={
-                  <button className="button" disabled={!this.canTrade()}>
-                    {" "}
-                    Realizar pacto{" "}
-                  </button>
-                }
-                position="top center"
-              />
-
+              <button
+                className="button"
+                onClick={() => {
+                  this.props.offerBank(this.state.offer);
+                  this.props.requestBank(this.state.request);
+                  close();
+                }}
+                disabled={!this.canTrade()}
+              >
+                {" "}
+                Realizar pacto{" "}
+              </button>
               <button
                 className="button"
                 onClick={() => {

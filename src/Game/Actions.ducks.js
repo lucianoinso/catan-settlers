@@ -1,6 +1,7 @@
 import axiosMock from "../App/axiosMock";
 import axios from "axios";
 import PopupController from "../PopupController/PopupController.jsx";
+import {offerBank, requestBank} from "./Resources/Resources.ducks"
 
 axiosMock
     .onGet(`/games/1/player/actions`)
@@ -106,7 +107,9 @@ const mapStateToPropsBank = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        saveAction: payload => saveAction(payload, dispatch)
+        saveAction: payload => saveAction(payload, dispatch),
+        offerBank: payload => offerBank(payload, dispatch),
+        requestBank: payload => requestBank(payload, dispatch)
     };
 };
 
