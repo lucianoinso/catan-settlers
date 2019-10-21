@@ -21,7 +21,7 @@ function App() {
           <Route exact path="/login" component={Login} />
           <Route exact path="/rooms" component={Lobbies} />
           <Route path="/rooms/:id" component={MyLobby} />
-          <Route path="/game/:id" component={Game} />
+          <Route path="/games/:id" component={Game} />
         </Switch>
       </BrowserRouter>
       <Footer />
