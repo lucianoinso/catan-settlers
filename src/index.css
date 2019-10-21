@@ -8,3 +8,5 @@ body {
 }
  header {background-color:red;}
  header h1 {text-align:center;}
+ li { margin-bottom: 10px;}
+ ul { margin-top: 30px;}

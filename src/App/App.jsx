@@ -5,7 +5,8 @@ import { Provider } from "react-redux";
 import Header from "./Header";
 import Home from "../Home/Home";
 import Login from "../Login/Login";
-import Lobby from "../Lobby/Lobby";
+import Lobbies from "../Lobby/Lobbies";
+import MyLobby from "../Lobby/MyLobby";
 import Game from "../Game/Game";
 import Footer from "./Footer";
 import PopupController from "../PopupController/PopupController";
@@ -14,14 +15,13 @@ function App() {
   return (
     <Provider store={store}>
       <Header />
-      <BrowserRouter>
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/rooms" component={Lobby} />
-          <Route path="/game/:id" component={Game} />
-        </Switch>
-      </BrowserRouter>
+      <Switch>
+        <Route exact path="/" component={Home} />
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/rooms" component={Lobbies} />
+        <Route path="/rooms/:id" component={MyLobby} />
+        <Route path="/game/:id" component={Game} />
+      </Switch>
       <Footer />
       <PopupController />
     </Provider>
