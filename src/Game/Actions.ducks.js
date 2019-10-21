@@ -75,7 +75,6 @@ function possibleActions(actions) {
 //Action creators
 
 const saveAction = (payload, dispatch) => {
-    const id = 1;
     axios
         .get(`/games/1/player/actions`)
         .then(response => {
@@ -94,9 +93,14 @@ const saveAction = (payload, dispatch) => {
         });
 };
 
-const mapStateToPropsBankTrade = state => {
+const mapStateToPropsBank = state => {
     return {
-        bank_trade: state.game.actions.bank_trade
+        bank_trade: state.game.actions.bank_trade,
+        brickAmount: state.game.resources.brickAmount,
+        woolAmount: state.game.resources.woolAmount,
+        grainAmount: state.game.resources.grainAmount,
+        lumberAmount: state.game.resources.lumberAmount,
+        oreAmount: state.game.resources.oreAmount
     };
 };
 
@@ -106,4 +110,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export { actionsReducer, mapStateToPropsBankTrade, mapDispatchToProps };
+export { actionsReducer, mapStateToPropsBank, mapDispatchToProps };
