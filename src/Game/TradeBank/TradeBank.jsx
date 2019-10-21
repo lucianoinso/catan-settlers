@@ -31,9 +31,9 @@ class TradeBank extends React.Component {
 
   enoughResources() {
     if (this.canTrade()) {
-      return "Elegir un recurso";
+      return "Elegir una ofrenda";
     } else {
-      return "No tienes recursos disponibles para hacer un pacto";
+      return "No tienes recursos disponibles para ofrecer al Diablo";
     }
   }
 
@@ -61,6 +61,7 @@ class TradeBank extends React.Component {
             <div className="header"> Pacto con el Diablo </div>
             <div className="actions">
               {this.enoughResources()}
+              <br />
               <button
                 className="resourceButton"
                 onClick={() => this.setOffer("brick")}
@@ -103,6 +104,7 @@ class TradeBank extends React.Component {
               </button>
               <br />
               Seleccionar ...
+              <br />
               <button
                 className="resourceButton"
                 onClick={() => this.setRequest("brick")}

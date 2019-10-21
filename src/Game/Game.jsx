@@ -32,10 +32,10 @@ class Game extends React.Component {
             <div className="game">
                 <h2>Pagina de una partida</h2>
                 <TradeBank />
+                <Resources />
                 <Board />
                 <Build />
                 <DevCards />
-                <Resources />
             </div>
         );
     }
