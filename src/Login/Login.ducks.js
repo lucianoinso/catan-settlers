@@ -1,7 +1,11 @@
-import axiosMock from "../App/axiosMock";
 import axios from "axios";
+import axiosMock from "../App/axiosMock";
+import apiURL from "../api";
+import PopupController from "../PopupController/PopupController";
 
-axiosMock.onPost("https://axiosMock.com/users/login").reply(200, {
+const route = `${apiURL}/users/login`;
+
+axiosMock.onPost(route).reply(200, {
   token: "fgewr234h482o3321j45o3j1"
 });
 
@@ -12,10 +16,10 @@ const LOG_IN = "log_in";
 // Reducer
 
 const initialState = {
-  user: "",
+  user: localStorage.getItem("user") || "",
   pass: "",
-  token: "",
-  isLogged: false
+  token: localStorage.getItem("token") || "",
+  isLogged: Boolean(localStorage.getItem("token"))
 };
 
 const loginReducer = (state = initialState, action) => {
@@ -37,10 +41,11 @@ const loginReducer = (state = initialState, action) => {
 
 const logIn = (payload, dispatch) => {
   axios
-    .post("https://axiosMock.com/users/login", payload)
+    .post(route, payload)
     .catch(error => {
-      // TODO: handle errors and use the global popup to show them
-      alert(error);
+      PopupController.pushError({
+        content: error.response.data
+      });
     })
     .then(response => {
       payload.token = response.data.token;
@@ -49,6 +54,9 @@ const logIn = (payload, dispatch) => {
         type: LOG_IN,
         payload
       });
+
+      localStorage.setItem("user", payload.user);
+      localStorage.setItem("token", payload.token);
     });
 };
 
