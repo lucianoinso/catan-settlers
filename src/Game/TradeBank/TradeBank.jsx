@@ -144,9 +144,11 @@ class TradeBank extends React.Component {
                 onClick={() => {
                   this.props.offerBank(this.state.offer);
                   this.props.requestBank(this.state.request);
+                  this.setOffer("");
+                  this.setRequest("");
                   close();
                 }}
-                disabled={!this.canTrade()}
+                disabled={!this.canTrade() || !this.state.offer || !this.state.request}
               >
                 {" "}
                 Realizar pacto{" "}
