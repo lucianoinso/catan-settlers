@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import DevCard from "./DevCard.jsx";
 import PopupController from "../../PopupController/PopupController.jsx";
+import apiURL from "../../api";
 
 class DevCards extends React.Component {
   constructor(props) {
@@ -19,7 +20,7 @@ class DevCards extends React.Component {
     const id = 1;
 
     axios
-      .get(`/games/${id}/player`)
+      .get(`${apiURL}/games/${id}/player`)
       .then(response => {
         const countedDevCards = this.countDevCards(response.data.cards);
         this.setState(countedDevCards);
