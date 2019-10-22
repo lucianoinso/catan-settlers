@@ -10,7 +10,7 @@ class TradeBank extends React.Component {
     super(props);
     this.props.saveAction();
     this.state = {
-      offer: {},
+      offer: "",
       request: ""
     };
   }
@@ -58,7 +58,7 @@ class TradeBank extends React.Component {
       >
         {close => (
           <div className="modal">
-            <div className="header"> Pacto con el Diablo </div>
+            <div className="header"><h2>Pacto con el Diablo</h2></div>
             <div className="actions">
               {this.enoughResources()}
               <br />
@@ -103,7 +103,7 @@ class TradeBank extends React.Component {
                 <br /> {this.props.lumberAmount}
               </button>
               <br />
-              Seleccionar ...
+              A cambio de un...
               <br />
               <button
                 className="resourceButton"
@@ -141,8 +141,9 @@ class TradeBank extends React.Component {
                 {resourceNames["lumber"]}
               </button>
               <br />
+              <br />
               <button
-                className="button"
+                className="confirm"
                 onClick={() => {
                   this.props.offerBank(this.state.offer);
                   this.props.requestBank(this.state.request);
@@ -156,7 +157,7 @@ class TradeBank extends React.Component {
                 Realizar pacto{" "}
               </button>
               <button
-                className="button"
+                className="cancel"
                 onClick={() => {
                   close();
                 }}

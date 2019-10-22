@@ -1,13 +1,14 @@
 .modal {
-  font-size: 12px;
+  font-size: 0.8em !important;
 }
 .modal > .header {
-  width: 100%;
-  border-bottom: 1px solid gray;
-  font-size: 18px;
   text-align: center;
-  padding: 5px;
 }
+.modal > .header h2 {
+  margin: 0;
+  padding: .3em 0;
+}
+
 .modal > .content {
   width: 100%;
   padding: 10px 5px;
@@ -30,4 +31,15 @@
   background: #ffffff;
   border-radius: 18px;
   border: 1px solid #cfcece;
+}
+
+.popup-content {
+  background-color: inherit !important;
+  background-image: linear-gradient(to bottom, black, transparent);
+}
+
+.modal .confirm, .modal .cancel {
+  background-color: #f22;
+  font-size: 1.2em;
+  padding: 6px;
 }

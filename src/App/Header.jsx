@@ -2,8 +2,12 @@ import React from 'react';
 
 function Header() {
   return (
-    <header>
-      <h1>Los Colonos de Satán</h1>
+    <header style={{
+        textAlign: "center",
+        padding: "20px 0",
+        fontSize: "2em"
+    }}>
+      <h1> Los colonos de satán</h1>
     </header>
   );
 }
