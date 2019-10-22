@@ -23,7 +23,10 @@ class PopupController extends React.Component {
   static pushPopup({ className, content, onClose }) {
     const instance = PopupController._instance;
 
-    console.assert(instance, "PopupController is not initialized yet");
+    if (!instance) {
+      console.warn("PopupController is not initialized yet");
+      return;
+    }
 
     const popupId = ++PopupController._lastPopupId;
 

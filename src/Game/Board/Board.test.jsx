@@ -6,11 +6,18 @@ import axiosMock from "../../App/axiosMock";
 import Board from "./Board";
 import { waitForSeconds } from "../../setupTests";
 
+import { Provider } from "react-redux";
+import store from "../../store";
+
 describe("Board", () => {
   let board;
 
   beforeAll(async () => {
-    board = mount(<Board />);
+    board = mount(
+      <Provider store={store}>
+        <Board />
+      </Provider>
+    );
 
     await waitForSeconds(0.3);
 
@@ -26,7 +33,7 @@ describe("Board", () => {
       )
     ).to.have.length.greaterThan(0);
   });
-
+  
   it("shows 19 hexagons", () => {
     expect(board.find(".hex")).to.have.lengthOf(19);
   });
