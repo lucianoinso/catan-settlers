@@ -3,12 +3,13 @@ import { resourcesReducer } from "./Resources/Resources.ducks";
 import { boardReducer } from "./Board/Board.ducks";
 import axiosMock from "../App/axiosMock";
 import { actionsReducer} from "./Actions.ducks";
+import { statusReducer} from "./Status.ducks";
 import apiURL from "../api";
 
 // import { lobbyReducer } from "./Lobby/Lobby.ducks";
 const id = 1;
     
-    axiosMock.onGet(`${apiURL}/games/{id}`).reply(200, {
+    axiosMock.onGet(`${apiURL}/games/${id}`).reply(200, {
       players: [
         {
           username: "joker",
@@ -37,7 +38,7 @@ const id = 1;
       },
       current_turn: {
         user: "joker",
-        dice: (4, 2)
+        dice: [4, 2]
       },
       winner: ""
     });
@@ -60,7 +61,8 @@ const id = 1;
 const gameReducer = combineReducers({
     resources: resourcesReducer,
     board: boardReducer,
-    actions: actionsReducer
+    actions: actionsReducer,
+    status: statusReducer
 });
 
 export { gameReducer };
