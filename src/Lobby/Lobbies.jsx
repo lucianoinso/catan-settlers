@@ -1,64 +1,52 @@
 import React from "react";
-import axios from "axios";
-import axiosMock from "../App/axiosMock.js";
 import { Link } from "react-router-dom";
-
+import { connect } from "react-redux";
 import Lobby from "./Lobby";
+import { mapStateToProps, mapDispatchToProps } from "./Lobbies.ducks";
 
 class Lobbies extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      lobbyList: []
-    };
-  }
-
   componentDidMount() {
-    axiosMock.onGet(`/rooms`).reply(200, [
-      {
-        id: 1,
-        name: "Limbo",
-        owner: "beleth",
-        players: ["mila", "karen", "beleth"],
-        max_players: 3
-      },
-      {
-        id: 2,
-        name: "Infierno sangrante",
-        owner: "belzebu",
-        players: ["matias", "mateo", "belzebu"],
-        max_players: 4
-      }
-    ]);
-
-    axios.get(`/rooms`).then(response => {
-      this.setState({
-        lobbyList: response.data.map(this.makeComponentFromLobby, this)
-      });
-    });
-    //.catch(error=> { console.log(error);})
-  }
-
-  makeComponentFromLobby({ id, name, owner, players, max_players }) {
-    return (
-      <li>
-        <Lobby
-          id={id}
-          name={name}
-          owner={owner}
-          players={players}
-          max_players={max_players}
-        />
-        <div>
-          < Link to="/rooms/1"> Unirse a la recámara </ Link>
-        </div>
-      </li>
-    );
+    this.props.updateLobbies();
   }
 
   render() {
-    return <ul className="lobbies">{this.state.lobbyList}</ul>;
+    if (this.props.lobbies === null) return <div className="loading">...</div>;
+
+    if (this.props.lobbies.length === 0)
+      return (
+        <div className="tooltip">No hay ninguna recámara para unirse.</div>
+      );
+
+    return (
+      <ul className="lobbies-list fade-in">
+        {this.props.lobbies.map(lobby => {
+          const { id, name, owner, players, max_players } = lobby;
+          return (
+            <li key={id}>
+              <Lobby
+                id={id}
+                name={name}
+                owner={owner}
+                players={players}
+                max_players={max_players}
+              />
+              <div>
+                <Link to={`/rooms/${id}`}>Unirse a la recámara</Link>
+              </div>
+            </li>
+          );
+        })}
+      </ul>
+    );
   }
 }
 
-export default Lobbies;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Lobbies);
+
+// Esto es necesario para hacer unit testing.
+// Cuando hacemos unit testing la idea es no conectar el
+// componente al estado global.
+export { Lobbies as UnconnectedLobbies };

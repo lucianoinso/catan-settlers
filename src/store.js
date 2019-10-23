@@ -1,12 +1,12 @@
 import { createStore, applyMiddleware, combineReducers } from "redux";
 import { loginReducer } from "./Login/Login.ducks";
 import { gameReducer } from "./Game/Game.ducks";
-// import { lobbyReducer } from "./Lobby/Lobby.ducks";
+import { lobbiesReducer } from "./Lobby/Lobbies.ducks";
 
 const rootReducer = combineReducers({
     login: loginReducer,
-    game: gameReducer
-    //  lobby: lobbyReducer
+    game: gameReducer,
+    lobbies: lobbiesReducer
 });
 
 const thunk = store => next => action => {

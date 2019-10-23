@@ -38,7 +38,7 @@ button {
     box-shadow: 0 0 4px rgba(255,255,255,0.5);
 }
 
-button.selected {
+button.selected, button:active {
     background-color: lightgrey;
     color:black;
     text-shadow: 1px 1px 1px rgba(255,255,255,0.5);
@@ -48,5 +48,30 @@ button:disabled {
     background-color: grey !important;
     box-shadow: none !important;
     cursor: not-allowed;
+}
 
+button:hover {
+  background-color: brown;
+}
+
+.tooltip {
+  font-style: italic;
+  opacity: 0.4;
+}
+
+@keyframes fadein {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.fade-in {
+  animation: 0.3s fadein;
+}
+
+a, a:active, a:visited {
+  color: red;
+}
+
+a:hover {
+  color: brown;
 }
