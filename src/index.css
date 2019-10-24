@@ -65,7 +65,7 @@ button:hover {
 }
 
 .fade-in {
-  animation: 0.3s fadein;
+  animation: 3s fadein;
 }
 
 a, a:active, a:visited {
@@ -75,3 +75,4 @@ a, a:active, a:visited {
 a:hover {
   color: brown;
 }
+

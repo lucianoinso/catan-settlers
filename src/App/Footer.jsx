@@ -4,7 +4,7 @@ function Footer() {
   return (
     <footer>
       <p>
-        (c) Beleth. 2019.
+        © Beleth. 2019.
       </p>
     </footer>
   );
