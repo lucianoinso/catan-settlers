@@ -50,7 +50,10 @@ const updateBoard = (_, dispatch) => {
 
 // Map to Props
 
-const mapStateToProps = state => ({ board: state.game.board });
+const mapStateToProps = state => ({
+  board: state.game.board,
+  settlements: state.game.status.settlements
+});
 const mapDispatchToProps = dispatch => ({
   updateBoard: _ => updateBoard(_, dispatch)
 });
