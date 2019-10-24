@@ -1,5 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { Redirect } from "react-router-dom";
+import Signup from "../Signup/Signup";
 
 class Home extends React.Component {
   constructor(props) {
@@ -9,20 +11,8 @@ class Home extends React.Component {
     };
   }
 
-  greeting() {
-    const isLoggedIn = this.state.userName;
-    if (isLoggedIn) {
-      return <h4>Welcome {this.state.userName}</h4>;
-    } else {
-      return <Link to="/Users/Login"> Login</Link>;
-    }
-  }
-
   render() {
-    return (
-      // <div id="login">{this.greeting()}</div>
-      <div>Main Page</div>
-    );
+    return <Signup />;
   }
 }
 

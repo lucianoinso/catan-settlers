@@ -74,6 +74,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-// const mapDispatchToProps = { logIn };
-
-export { loginReducer, mapStateToProps, mapDispatchToProps };
+export { loginReducer, mapStateToProps, mapDispatchToProps, logIn };

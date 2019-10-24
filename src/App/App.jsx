@@ -10,6 +10,7 @@ import MyLobby from "../Lobby/MyLobby";
 import Game from "../Game/Game";
 import Footer from "./Footer";
 import PopupController from "../PopupController/PopupController";
+import Signup from "../Signup/Signup";
 
 function App() {
   return (
@@ -18,7 +19,8 @@ function App() {
       <BrowserRouter>
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route exact path="/login" component={Login} />
+          <Route exact path="/users/" component={Signup} />
+          <Route exact path="/users/login" component={Login} />
           <Route exact path="/rooms" component={Lobbies} />
           <Route path="/rooms/:id" component={MyLobby} />
           <Route path="/games/:id" component={Game} />
