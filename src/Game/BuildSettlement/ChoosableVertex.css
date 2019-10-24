@@ -1,0 +1,8 @@
+
+.choosable-vertex {
+    opacity: 0.8;
+}
+
+.choosable-vertex:hover, .choosable-vertex.selected {
+    opacity: 1;
+}

@@ -1,6 +1,6 @@
 import React from "react";
 import Board from "./Board/Board";
-import Build from "./Build/Build";
+import BuildSettlement from "./BuildSettlement/BuildSettlement";
 import Dice from "./Dice/Dice";
 import DevCards from "./DevCard/DevCards";
 import Resources from "./Resources/Resources";
@@ -13,7 +13,7 @@ class Game extends React.Component {
 				<Board />
 				<Dice />
 				<TradeBank />
-				<Build />
+				<BuildSettlement />
 				<DevCards />
 				<Resources />
 			</div>

@@ -10,6 +10,7 @@ const SAVE_STATUS = "save_status";
 
 const initialState = {
   currentPlayer: "",
+  settlements: [],
   dices: []
 };
 
@@ -17,8 +18,17 @@ const statusReducer = (state = initialState, action) => {
   switch (action.type) {
     case SAVE_STATUS:
       return {
-        currentPlayer: action.payload.user,
-        dices: action.payload.dice
+        currentPlayer: action.payload.current_turn.user,
+        dices: action.payload.current_turn.dice,
+        settlements: action.payload.players
+          .map(playerInfo =>
+            playerInfo.settlements.map(settlement => ({
+              ...settlement,
+              owner: playerInfo.username,
+              color: playerInfo.colour
+            }))
+          )
+          .reduce((list, sublist) => [...list, ...sublist], [])
       };
     default:
       return state;
@@ -30,7 +40,7 @@ const saveStatus = (payload, dispatch) => {
   axios
     .get(`${apiURL}/games/${id}`)
     .then(response => {
-      payload = response.data.current_turn;
+      payload = response.data;
       dispatch({
         type: SAVE_STATUS,
         payload
@@ -57,8 +67,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export {
-  statusReducer,
-  mapStateToProps,
-  mapDispatchToProps,
-};
+export { statusReducer, mapStateToProps, mapDispatchToProps };
