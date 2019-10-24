@@ -4,7 +4,7 @@ import { expect } from "chai";
 
 import axiosMock from "../../App/axiosMock";
 import Board from "./Board";
-import { waitForSeconds } from "../../setupTests";
+import { waitForSeconds } from "../../../setupTest";
 
 import { Provider } from "react-redux";
 import store from "../../store";
