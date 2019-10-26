@@ -20,7 +20,7 @@ axiosMock.onGet(`${apiURL}/games/${id}`).reply(200, {
       cities: [{ level: 2, index: 1 }, { level: 1, index: 2 }],
       roads: [({ level: 2, index: 1 }, { level: 1, index: 2 })],
       development_cards: 6,
-      resources_cards: 9,
+      resources_cards: 13,
       last_gained: ["ore", "brick"]
     },
     {
@@ -55,6 +55,10 @@ axiosMock.onGet(`${apiURL}/games/${id}/player`).reply(200, {
     "ore",
     "ore",
     "brick",
+    "lumber",
+    "grain",
+    "grain",
+    "ore",
     "brick"
   ],
   cards: ["roadBuilding", "monopoly", "victoryPoints", "knight"]
