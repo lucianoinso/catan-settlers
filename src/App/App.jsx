@@ -12,6 +12,14 @@ import Footer from "./Footer";
 import PopupController from "../PopupController/PopupController";
 import Signup from "../Signup/Signup";
 
+const InvalidUrl = () => {
+  return (
+    <div id='404-page' style={{ textAlign:'center' }}>
+    <h3 style={{ width:'400px', textAlign:'center', color:'white', margin:'auto' }}>Error 404: Dirección Inválida</h3>
+    </div>
+  );
+};
+
 function App() {
   return (
     <Provider store={store}>
@@ -22,8 +30,9 @@ function App() {
           <Route exact path="/users/" component={Signup} />
           <Route exact path="/users/login" component={Login} />
           <Route exact path="/rooms" component={Lobbies} />
-          <Route path="/rooms/:id" component={MyLobby} />
-          <Route path="/games/:id" component={Game} />
+          <Route exact path="/rooms/:id" component={MyLobby} />
+          <Route exact path="/games/:id" component={Game} />
+          <Route component={InvalidUrl} />
         </Switch>
       </BrowserRouter>
       <Footer />
