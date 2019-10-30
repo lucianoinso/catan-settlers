@@ -3,7 +3,9 @@ import PopupController from "../PopupController/PopupController";
 import apiURL from "../api";
 import axios from "axios";
 
-const mockedLobbies = [
+// Axios Mock
+
+let mockedLobbies = [
   {
     id: 1,
     name: "Limbo",
@@ -24,32 +26,65 @@ const mockedLobbies = [
     id: 3,
     name: "Aculturación forzosa",
     owner: "cristobal_colon",
-    players: ["remus", "lupin"],
+    players: ["remus", "cristobal_colon"],
     max_players: 4,
     game_has_started: false
   }
 ];
 
-axiosMock.onGet(`${apiURL}/rooms/`).reply(200, mockedLobbies);
+// Para poder editarlo desde la consola del navegador
+Object.defineProperty(window, "mockedLobbies", {
+  get: () => mockedLobbies,
+  set: value => (mockedLobbies = value)
+});
 
-axiosMock.onGet(`${apiURL}/rooms/1/`).reply(200, mockedLobbies[0]);
-axiosMock.onGet(`${apiURL}/rooms/2/`).reply(200, mockedLobbies[1]);
-axiosMock.onGet(`${apiURL}/rooms/3/`).reply(200, mockedLobbies[2]);
+// Cargar lobbie(s)
+
+// WTF BUG. Era necesario cambiar esa línea para que no quede "cacheada" la referencia a mockedLobbies.
+// Nota: antes era `.reply(200, mockedLobbies);`
+axiosMock.onGet(`${apiURL}/rooms/`).reply(config => [200, mockedLobbies]);
+
+axiosMock.onGet(`${apiURL}/rooms/1/`).reply(config => [200, mockedLobbies[0]]);
+axiosMock.onGet(`${apiURL}/rooms/2/`).reply(config => [200, mockedLobbies[1]]);
+axiosMock.onGet(`${apiURL}/rooms/3/`).reply(config => [200, mockedLobbies[2]]);
+
+// Empezar partida
 
 const startMockedLobby = config => {
-  const lobbyNumber = config.url.match(/\/(\d+)\/$/)[1];
+  const lobbyNumber = Number(config.url.match(/\/(\d+)\/$/)[1]);
   const lobby = mockedLobbies[lobbyNumber - 1];
 
   if (lobby === null) return [400, {}];
 
   lobby.game_has_started = true;
-  
+
   return [200, {}];
 };
 
 axiosMock.onPatch(`${apiURL}/rooms/1/`).reply(startMockedLobby);
 axiosMock.onPatch(`${apiURL}/rooms/2/`).reply(startMockedLobby);
 axiosMock.onPatch(`${apiURL}/rooms/3/`).reply(startMockedLobby);
+
+// Unirse a lobby
+const joinMockedLobby = config => {
+  const lobbyNumber = Number(config.url.match(/\/(\d+)\/$/)[1]);
+  const lobby = mockedLobbies[lobbyNumber - 1];
+  const user = localStorage.getItem("user");
+
+  if (!user) return [(401, {})];
+  if (lobby.players.includes(user)) return [400, {}];
+
+  // Tenemos que cambiar la respuesta del mock.
+  lobby.players.push(user);
+  // Pero no sirve a menos que redux lo reconozca como un array diferente!
+  mockedLobbies = [...mockedLobbies];
+
+  return [200, {}];
+};
+
+axiosMock.onPut(`${apiURL}/rooms/1/`).reply(joinMockedLobby);
+axiosMock.onPut(`${apiURL}/rooms/2/`).reply(joinMockedLobby);
+axiosMock.onPut(`${apiURL}/rooms/3/`).reply(joinMockedLobby);
 
 // Action types
 
@@ -77,6 +112,7 @@ const lobbiesReducer = (state = initialState, action) => {
 // Action dispatchers
 
 const updateLobbies = (_, dispatch) => {
+  console.log("updating lobbies");
   axios
     .get(`${apiURL}/rooms/`)
     .then(response => {
@@ -136,6 +172,25 @@ const startGame = (id, dispatch) => {
     });
 };
 
+const joinLobby = (id, dispatch) => {
+  axios
+    .put(`${apiURL}/rooms/${id}/`)
+    .then(response => {
+      // Nos unimos al lobby.
+      PopupController.pushLog({
+        content: "Te uniste a la recámara"
+      });
+      // Recargamos la lista de lobbies.
+      updateLobbies(null, dispatch);
+    })
+    .catch(error => {
+      PopupController.pushError({
+        content: `Hubo un error al unirse al lobby.`
+      });
+      console.log(error);
+    });
+};
+
 // Map to props
 
 const mapStateToProps = state => ({
@@ -148,6 +203,7 @@ const mapDispatchToProps = dispatch => ({
   updateLobbies: _ => updateLobbies(_, dispatch),
   loadLobby: lobby => loadLobby(lobby, dispatch),
   unloadLobby: _ => unloadLobby(_, dispatch),
+  joinLobby: id => joinLobby(id, dispatch),
   startGame: id => startGame(id, dispatch)
 });
 

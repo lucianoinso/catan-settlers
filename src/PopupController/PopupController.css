@@ -15,6 +15,7 @@
   padding: 3px 12px;
   background-color: palegoldenrod;
   border: 1px solid gray;
+  color: black;
   border-radius: 4px;
 
   animation: fadein 0.4s;
@@ -45,15 +46,27 @@
 #popup-controller .popup-button {
   /* Resetear estilos para que parezca un link. */
   background-color: transparent;
+  margin: 0;
+  padding: 0;
   border: 0px;
   text-decoration: underline;
-  color: blue;
-  padding: 0;
-  line-height: 1em;
-  font-size: 1em;
+  color: white;
+  line-height: inherit;
+  font-size: inherit;
+  box-shadow: 0 0 0 transparent !important;
+  outline: 0;
 }
 
 #popup-controller .error {
-  background-color: pink;
-  border-color: red;
+  background-color: red;
+  border-color: white;
+}
+
+#popup-controller .log {
+  background-color: white;
+  border-color: yellow;
+}
+
+#popup-controller .log a{
+ color:inherit;
 }
