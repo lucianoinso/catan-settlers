@@ -8,6 +8,14 @@ class MyLobby extends React.Component {
   componentDidMount() {
     this.props.unloadLobby(); // borramos otro lobby cargado previamente
     this.props.loadLobby(this.props.match.params.id);
+
+    this.interval = setInterval(() => {
+      this.props.loadLobby(this.props.match.params.id);
+    }, 3000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
   }
 
   render() {
@@ -24,31 +32,42 @@ class MyLobby extends React.Component {
     if (currentLobby.game_has_started === true)
       return <Redirect to={`/games/${currentLobby.id}`} />;
 
+    let startGameButton = "";
+
+    if (this.props.user !== this.props.lobby.owner)
+      startGameButton = (
+        <div className="tooltip">
+          Sólo el dueño de la recámara puede empezar la partida.
+        </div>
+      );
+    else if (currentLobby.players.length < 3)
+      startGameButton = (
+        <div className="tooltip">
+          Se necesitan al menos 3 jugadores para empezar la partida.
+        </div>
+      );
+    else
+      startGameButton = (
+        <div>
+          <button onClick={() => this.props.startGame(currentLobby.id)}>
+            Empezar partida
+          </button>
+        </div>
+      );
+
     return (
-      <ul className="lobbies-list my-lobby fade-in">
-        <li>
+      <div className="lobbies-container margin-left-10 my-lobby fade-in">
+        <div className="lobby-list-item">
           <Lobby
             name={currentLobby.name}
             owner={currentLobby.owner}
             players={currentLobby.players}
             max_players={currentLobby.max_players}
           />
-          {currentLobby.players.length < 3 ? (
-            <span className="tooltip">
-              Se necesitan al menos 3 jugadores para empezar la partida.
-            </span>
-          ) : (
-            <button
-              onClick={() => this.props.startGame(currentLobby.id)}
-              disabled={this.props.user !== this.props.lobby.owner}
-            >
-              Empezar partida
-            </button>
-          )}
-          <br />
-          <Link to="/rooms">Salir de la recámara</Link>
-        </li>
-      </ul>
+          {startGameButton}
+          <Link to="/rooms">Volver</Link>
+        </div>
+      </div>
     );
   }
 }

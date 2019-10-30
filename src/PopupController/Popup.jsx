@@ -7,6 +7,20 @@ class Popup extends React.Component {
     this.state = { closed: false };
   }
 
+  componentDidMount() {
+    if (this.props.autoClose) {
+      this.closeTimeout = setTimeout(() => {
+        this.close();
+        this.closeTimeout = false;
+      }, this.props.autoClose);
+    }
+  }
+
+  componentWillUnmount() {
+    if (this.closeTimeout)
+      clearTimeout(this.closeTimeout);
+  }
+
   close() {
     if (this.state.closed) return;
     this.setState({ closed: true });
