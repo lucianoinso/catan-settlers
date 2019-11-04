@@ -39,12 +39,11 @@ class Resources extends React.Component {
   }
 
   updateAndNotify(previous, current, type) {
-    if (previous === current) {
+    const amount = current - previous;
+    if (previous === current || amount < 0) {
       return "";
     }
 
-    const amount = current - previous;
-    this.previousState.current = amount;
     const changed = `Recibiste ${amount} ${resourceNames[type]}s`;
     PopupController.pushLog({ content: changed });
 
@@ -76,6 +75,14 @@ class Resources extends React.Component {
     changed += this.updateAndNotify(prevGrain, grainAmount, "grain");
     changed += this.updateAndNotify(prevLumber, lumberAmount, "lumber");
     changed += this.updateAndNotify(prevOre, oreAmount, "ore");
+
+    this.previousState = {
+      prevBrick: brickAmount,
+      prevWool: woolAmount,
+      prevGrain: grainAmount,
+      prevLumber: lumberAmount,
+      prevOre: oreAmount
+    };
 
     if (changed === "") {
       changed = "Didn't receive any resources";
