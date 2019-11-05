@@ -26,3 +26,5 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(ChooseVertex);
+
+export { ChooseVertex as UnconnectedChooseVertex };
