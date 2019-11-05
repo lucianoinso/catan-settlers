@@ -36,3 +36,5 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(BuildSettlement);
+
+export { BuildSettlement as UnconnectedBuildSettlement };
