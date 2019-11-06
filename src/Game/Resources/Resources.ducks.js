@@ -100,5 +100,6 @@ export {
     mapStateToProps,
     mapDispatchToProps,
     offerBank,
+    saveResource as updateResources,
     requestBank
 };

@@ -7,18 +7,18 @@ import { actionsReducer } from "./Actions.ducks";
 import { statusReducer } from "./Status.ducks";
 import apiURL from "../api";
 import { buildSettlementReducer } from "./BuildSettlement/BuildSettlement.ducks";
-
-// import { lobbyReducer } from "./Lobby/Lobby.ducks";
+import { moveRobberReducer } from "./Robber/Robber.ducks";
+import { buildRoadReducer } from "./BuildRoad/BuildRoad.ducks";
 const id = 1;
 
-axiosMock.onGet(`${apiURL}/games/${id}`).reply(200, {
+let gameStatusMock = {
   players: [
     {
       username: "joker",
       colour: "#3c5e66",
       settlements: [{ level: 2, index: 5 }, { level: 1, index: 4 }],
       cities: [{ level: 2, index: 1 }, { level: 1, index: 2 }],
-      roads: [({ level: 2, index: 1 }, { level: 1, index: 2 })],
+      roads: [[{ level: 2, index: 4 }, { level: 1, index: 2 }]],
       development_cards: 6,
       resources_cards: 13,
       last_gained: ["ore", "brick"]
@@ -28,7 +28,7 @@ axiosMock.onGet(`${apiURL}/games/${id}`).reply(200, {
       colour: "#43450d",
       settlements: [{ level: 2, index: 3 }],
       cities: [{ level: 2, index: 1 }, { level: 1, index: 2 }],
-      roads: [({ level: 3, index: 2 }, { level: 2, index: 3 })],
+      roads: [[{ level: 0, index: 0 }, { level: 0, index: 1 }]],
       development_cards: 4,
       resources_cards: 2,
       last_gained: ["ore", "ore", "wool"]
@@ -43,7 +43,14 @@ axiosMock.onGet(`${apiURL}/games/${id}`).reply(200, {
     dice: [4, 2]
   },
   winner: ""
+};
+
+Object.defineProperty(window, "gameStatusMock", {
+  get: () => gameStatusMock,
+  set: value => (gameStatusMock = value)
 });
+
+axiosMock.onGet(`${apiURL}/games/${id}`).reply(config => [200, gameStatusMock]);
 
 axiosMock.onGet(`${apiURL}/games/${id}/player`).reply(200, {
   resources: [
@@ -69,8 +76,10 @@ const gameReducer = combineReducers({
   board: boardReducer,
   actions: actionsReducer,
   buildSettlement: buildSettlementReducer,
+  buildRoad: buildRoadReducer,
   status: statusReducer,
-  devCards: devCardsReducer
+  devCards: devCardsReducer,
+  moveRobber: moveRobberReducer
 });
 
 export { gameReducer };
