@@ -1,0 +1,8 @@
+.choosable-edge {
+  transition: opacity 0.3s ease-in-out;
+  opacity: 0.7;
+}
+
+.choosable-edge:hover, .choosable-edge.selected {
+  opacity: 1;
+}

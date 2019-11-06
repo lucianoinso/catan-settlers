@@ -11,6 +11,8 @@ const SAVE_STATUS = "save_status";
 const initialState = {
   currentPlayer: "",
   settlements: [],
+  roads: [],
+  robber: null,
   dices: []
 };
 
@@ -20,15 +22,21 @@ const statusReducer = (state = initialState, action) => {
       return {
         currentPlayer: action.payload.current_turn.user,
         dices: action.payload.current_turn.dice,
-        settlements: action.payload.players
-          .map(playerInfo =>
-            playerInfo.settlements.map(settlement => ({
-              ...settlement,
-              owner: playerInfo.username,
-              color: playerInfo.colour
-            }))
-          )
-          .reduce((list, sublist) => [...list, ...sublist], [])
+        roads: action.payload.players.flatMap(playerInfo =>
+          playerInfo.roads.map(edge => ({
+            edge,
+            owner: playerInfo.username,
+            color: playerInfo.colour
+          }))
+        ),
+        robber: action.payload.robber,
+        settlements: action.payload.players.flatMap(playerInfo =>
+          playerInfo.settlements.map(settlement => ({
+            ...settlement,
+            owner: playerInfo.username,
+            color: playerInfo.colour
+          }))
+        )
       };
     default:
       return state;
@@ -67,4 +75,9 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export { statusReducer, mapStateToProps, mapDispatchToProps };
+export {
+  statusReducer,
+  mapStateToProps,
+  mapDispatchToProps,
+  saveStatus as updateGameStatus
+};

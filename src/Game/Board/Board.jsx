@@ -3,7 +3,9 @@ import Hex from "./Hex.jsx";
 import { connect } from "react-redux";
 import { mapStateToProps, mapDispatchToProps } from "./Board.ducks.js";
 import Settlement from "./Settlement";
+import Robber from "./Robber";
 import ChooseVertex from "../BuildSettlement/ChooseVertex";
+import Roads from "../BuildRoad/Roads";
 
 function makeComponentFromHex({ position, resource, token }) {
   return (
@@ -28,7 +30,14 @@ function makeComponentFromSettlement({ level, index, owner, color: colour }) {
   );
 }
 
-function Board({ board, updateBoard, settlements }) {
+function makeComponentFromRobber(robber) {
+  if (robber !== null) {
+    return <Robber robber={robber} />;
+  }
+  return "";
+}
+
+function Board({ board, updateBoard, settlements, robber }) {
   if (board.length === 0) updateBoard();
 
   return (
@@ -41,7 +50,9 @@ function Board({ board, updateBoard, settlements }) {
       className="board"
     >
       {board.map(makeComponentFromHex)}
+      <Roads />
       {settlements.map(makeComponentFromSettlement)}
+      {makeComponentFromRobber(robber)}
       <ChooseVertex />
     </div>
   );
