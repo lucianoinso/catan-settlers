@@ -72,7 +72,6 @@ class Resources extends React.Component {
     } = this.props;
 
     let changed = "";
-    let amount = 0;
 
     changed += this.updateAndNotify(prevBrick, brickAmount, "brick");
     changed += this.updateAndNotify(prevWool, woolAmount, "wool");
