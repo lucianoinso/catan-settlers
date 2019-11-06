@@ -44,9 +44,16 @@ Object.defineProperty(window, "mockedLobbies", {
 // Nota: antes era `.reply(200, mockedLobbies);`
 axiosMock.onGet(`${apiURL}/rooms/`).reply(config => [200, mockedLobbies]);
 
-axiosMock.onGet(`${apiURL}/rooms/1/`).reply(config => [200, mockedLobbies[0]]);
-axiosMock.onGet(`${apiURL}/rooms/2/`).reply(config => [200, mockedLobbies[1]]);
-axiosMock.onGet(`${apiURL}/rooms/3/`).reply(config => [200, mockedLobbies[2]]);
+for (let i = 0; i < 15; i++) {
+  // eslint-disable-next-line
+  axiosMock.onGet(`${apiURL}/rooms/${i}/`).reply(config => {
+    const lobby = mockedLobbies.filter(lobby => lobby.id === i);
+
+    if (lobby) return [200, mockedLobbies[i - 1]];
+
+    return [404, {}];
+  });
+}
 
 // Empezar partida
 

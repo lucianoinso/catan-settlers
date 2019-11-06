@@ -5,6 +5,8 @@ import Dice from "./Dice/Dice";
 import DevCards from "./DevCard/DevCards";
 import Resources from "./Resources/Resources";
 import TradeBank from "./TradeBank/TradeBank";
+import MoveRobber from "./Robber/MoveRobber";
+import BuildRoad from "./BuildRoad/BuildRoad";
 
 class Game extends React.Component {
 	render() {
@@ -14,6 +16,8 @@ class Game extends React.Component {
 				<Dice />
 				<TradeBank />
 				<BuildSettlement />
+				<MoveRobber />
+				<BuildRoad />
 				<DevCards />
 				<Resources />
 			</div>
