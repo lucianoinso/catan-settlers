@@ -44,7 +44,11 @@ class Resources extends React.Component {
       return "";
     }
 
-    const changed = `Recibiste ${amount} ${resourceNames[type]}s`;
+    let changed = `Recibiste ${amount} ${resourceNames[type]}`;
+    if (amount > 1) {
+      changed += `s`;
+    }
+
     PopupController.pushLog({ content: changed });
 
     return changed;
