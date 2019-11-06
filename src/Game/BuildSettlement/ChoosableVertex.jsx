@@ -79,3 +79,5 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(ChoosableVertex);
+
+export { ChoosableVertex as UnconnectedChoosableVertex };
