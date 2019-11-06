@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import Lobby from "./Lobby";
 import { mapStateToProps, mapDispatchToProps } from "./Lobbies.ducks";
 import "./Lobbies.css";
+import CreateLobby from "./CreateLobby/CreateLobby";
 
 class Lobbies extends React.Component {
   componentDidMount() {
@@ -57,6 +58,10 @@ class Lobbies extends React.Component {
 
     return (
       <div className="lobbies-container">
+        <div className="margin-left-10">
+          <CreateLobby />
+        </div>
+        
         <h2>Partidas en curso</h2>
         <div className="margin-left-10 fade-in">
           {noStartedLobbiesTooltip}
