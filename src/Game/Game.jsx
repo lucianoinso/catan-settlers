@@ -7,6 +7,7 @@ import Resources from "./Resources/Resources";
 import TradeBank from "./TradeBank/TradeBank";
 import MoveRobber from "./Robber/MoveRobber";
 import BuildRoad from "./BuildRoad/BuildRoad";
+import EndTurn from "./EndTurn/EndTurn"
 
 class Game extends React.Component {
 	render() {
@@ -18,6 +19,7 @@ class Game extends React.Component {
 				<BuildSettlement />
 				<MoveRobber />
 				<BuildRoad />
+				<EndTurn />
 				<DevCards />
 				<Resources />
 			</div>

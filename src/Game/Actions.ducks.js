@@ -45,6 +45,12 @@ axiosMock.onPost(`${apiURL}/games/${id}/player/actions`).reply(config => {
   const params = JSON.parse(config.data);
 
   switch (params.type) {
+    case "end_turn":
+      console.log(`Terminaste tu turno`);
+      // Check si se usa lo siguiente para actualizar el estado del juego
+      window.gameStatusMock = { ...window.gameStatusMock };
+      return [200, {}];
+
     case "buy_card":
       console.log("Se compró una carta", params.payload);
       return [200, {}];
