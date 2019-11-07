@@ -50,7 +50,7 @@ axiosMock.onPost(`${apiURL}/games/${id}/player/actions`).reply(config => {
       return [200, {}];
 
     case "build_settlement":
-      console.log("Se construyó un templo!!!", params.payload);
+      console.log("Settlement was built!!!", params.payload);
       return [200, {}];
 
     case "move_robber":
