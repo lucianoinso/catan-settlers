@@ -6,7 +6,7 @@ import axiosMock from "../../App/axiosMock";
 axiosMock.onPost(`${apiURL}/games/1/player/actions`).reply(200, {});
 
 // Action types
-// const BUY_CARD = "buy_card";
+const BUY_CARD = "buy_card";
 const UPDATE_CARDS = "update_cards";
 
 // Reducer
@@ -20,7 +20,7 @@ const initialState = {
 
 const devCardsReducer = (state = initialState, action) => {
   switch (action.type) {
-    case UPDATE_CARDS:
+    case (UPDATE_CARDS, BUY_CARD):
       return {
         ...state,
         knightAmount: action.payload.knightAmount,
