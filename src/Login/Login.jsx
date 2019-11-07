@@ -59,11 +59,13 @@ class Login extends React.Component {
                 onChange={e => this.setState({ pass: e.target.value })}
               />
             </p>
-            <p> <br />
+            <p>
+              {" "}
+              <br />
               <button
                 type="submit"
                 disabled={!this.state.user || !this.state.pass}
-                style={{padding: '7px 15px 8px 15px',  marginTop:'25px' }}
+                style={{ padding: "7px 15px 8px 15px", marginTop: "25px" }}
               >
                 Login
               </button>
