@@ -2,7 +2,6 @@ import axios from "axios";
 import axiosMock from "../App/axiosMock";
 import PopupController from "../PopupController/PopupController.jsx";
 import { offerBank, requestBank } from "./Resources/Resources.ducks";
-import { gameStatusMock } from "./Game.ducks";
 import apiURL from "../api";
 import { edgeEquality } from "./BuildRoad/ChoosableEdge";
 
@@ -64,7 +63,7 @@ axiosMock.onPost(`${apiURL}/games/${id}/player/actions`).reply(config => {
       return [200, {}];
 
     case "move_robber":
-      gameStatusMock.robber = params.payload.position;
+      window.gameStatusMock.robber = params.payload.position;
       console.log(`Diste un mal augurio`);
       console.log(`Le diste un mal augurio a ${  params.payload.player}`);
       return [200, {}];
