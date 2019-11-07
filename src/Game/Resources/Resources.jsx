@@ -10,11 +10,11 @@ class Resources extends React.Component {
     super(props);
 
     this.previousState = {
-      brickAmount: 0,
-      woolAmount: 0,
-      grainAmount: 0,
-      lumberAmount: 0,
-      oreAmount: 0
+      prevBrick: 0,
+      prevWool: 0,
+      prevGrain: 0,
+      prevLumber: 0,
+      prevOre: 0
     };
   }
 
@@ -93,9 +93,11 @@ class Resources extends React.Component {
     }
   }
 
-  render() {
+  componentDidUpdate(prevProps, prevState) {
     this.checkChangedResources();
+  }
 
+  render() {
     return (
       <div className="resourceCards">
         <h4>Cartas de recursos</h4>
