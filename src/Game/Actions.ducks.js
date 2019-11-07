@@ -23,6 +23,7 @@ let availableActionsMock = [
       [{ level: 2, index: 10 }, { level: 2, index: 11 }]
     ]
   },
+  { type: "buy_card", payload: {} },
   {
     type: "build_settlement",
     payload: [{ level: 0, index: 1 }, { level: 1, index: 5 }]
@@ -44,12 +45,18 @@ axiosMock.onPost(`${apiURL}/games/${id}/player/actions`).reply(config => {
   const params = JSON.parse(config.data);
 
   switch (params.type) {
+    case "buy_card":
+      console.log("Se compró una carta", params.payload);
+      return [200, {}];
+
     case "build_settlement":
       console.log("Se construyó un templo!!!", params.payload);
       return [200, {}];
+
     case "move_robber":
       console.log(`Diste un mal augurio`);
       return [200, { position: { level: 2, index: 1 }, players: ["batman"] }];
+
     case "build_road":
       if (!localStorage.getItem("user")) return [401, {}];
 
@@ -75,6 +82,7 @@ axiosMock.onPost(`${apiURL}/games/${id}/player/actions`).reply(config => {
       window.gameStatusMock = { ...window.gameStatusMock };
 
       return [200, {}];
+
     default:
       console.warn(`insert mock of action ${params.type} here.`);
       return [500, {}];
