@@ -43,7 +43,7 @@ const statusReducer = (state = initialState, action) => {
   }
 };
 
-const saveStatus = (payload, dispatch) => {
+const updateGameStatus = (payload, dispatch) => {
   const id = 1;
   axios
     .get(`${apiURL}/games/${id}`)
@@ -71,13 +71,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    saveStatus: payload => saveStatus(payload, dispatch)
+    updateGameStatus: payload => updateGameStatus(payload, dispatch)
   };
 };
 
-export {
-  statusReducer,
-  mapStateToProps,
-  mapDispatchToProps,
-  saveStatus as updateGameStatus
-};
+export { statusReducer, mapStateToProps, mapDispatchToProps, updateGameStatus };

@@ -1,7 +1,7 @@
 import React from "react";
+import { connect } from "react-redux";
 import { getHexCoords, getHexPosition, hexSize } from "../Board/Hex";
 import { mapStateToProps, mapDispatchToProps } from "./Robber.ducks";
-import { connect } from "react-redux";
 
 const hexWidth = 35;
 const hexHeight = 35;
@@ -16,7 +16,8 @@ class ChoosableHex extends React.Component {
   }
 
   draw() {
-    const canvas = this.refs.canvas;
+    const { canvas } = this.refs;
+
     if (!canvas || process.env.JEST_WORKER_ID !== undefined) return;
 
     const ctx = canvas.getContext("2d");
@@ -26,20 +27,28 @@ class ChoosableHex extends React.Component {
 
     ctx.beginPath();
     ctx.arc(...center, 15, 0, Math.PI * 2);
-    ctx.fillStyle = "palegoldenrod";
+    ctx.fillStyle = "red";
     ctx.fill();
 
     if (this.isChosen) {
-      ctx.strokeStyle = "#505";
+      ctx.strokeStyle = "#450";
       ctx.lineWidth = 5;
       ctx.stroke();
     }
   }
 
   render() {
-    const { level, index } = this.props;
+    const { level, index, selectedHex } = this.props;
 
-    let [x, y] = getHexCoords(level, index);
+    if (selectedHex) {
+      const chosenLevel = selectedHex.level;
+      const chosenIndex = selectedHex.index;
+      this.isChosen = chosenLevel === level && chosenIndex === index;
+    } else {
+      this.isChosen = false;
+    }
+
+    const [x, y] = getHexCoords(level, index);
     let [left, top] = getHexPosition(x, y);
 
     left += hexSize / 2 - hexWidth / 2;
@@ -49,16 +58,16 @@ class ChoosableHex extends React.Component {
       <div
         style={{
           position: "absolute",
-          left: left + "px",
-          top: top + "px"
+          left: `${left}px`,
+          top: `${top}px`
         }}
         onClick={() => {
-          this.props.chooseRobberHex({ level, index }); //esto rompe cosas?
+          this.props.chooseRobberHex({ level, index });
           this.draw();
         }}
-        className={`choosable-hex ${this.isChosen ? "selected" : ""}`} //donde esta definido?
+        className={`choosable-hex ${this.isChosen ? "selected" : ""}`}
       >
-        <canvas ref="canvas" width={hexWidth} height={hexHeight}></canvas>
+        <canvas ref="canvas" width={hexWidth} height={hexHeight} />
       </div>
     );
   }

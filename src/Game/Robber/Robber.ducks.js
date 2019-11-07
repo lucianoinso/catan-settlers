@@ -1,29 +1,64 @@
 import axios from "axios";
 import PopupController from "../../PopupController/PopupController";
 import apiURL from "../../api";
-
+import { updateGameStatus } from "../Status.ducks";
 
 const BEGIN_MOVE_ROBBER = "begin_move_robber";
 const END_MOVE_ROBBER = "end_move_robber";
 const MOVE_ROBBER = "move_robber";
 const CHOOSE_ROBBER_PLACE = "choose_robber_place";
+const CHOOSE_ROBBED_PLAYER = "choose_robbed_player";
+const SAVE_AVAILABLE_PLAYERS = "save_available_players";
 
 const initialState = {
   isMovingRobber: false,
   selectedHex: null,
-  playerToRob: null
+  playerToRob: null,
+  availablePlayers: null
 };
 
 const moveRobberReducer = (state = initialState, action) => {
   switch (action.type) {
     case BEGIN_MOVE_ROBBER:
-      return { isMovingRobber: true, selectedHex: null, playerToRob: null };
+      return {
+        ...state,
+        isMovingRobber: true,
+        selectedHex: null,
+        playerToRob: null
+      };
     case END_MOVE_ROBBER:
-      return { isMovingRobber: false, selectedHex: null, playerToRob: null };
+      return {
+        ...state,
+        isMovingRobber: false,
+        selectedHex: null,
+        playerToRob: null
+      };
     case CHOOSE_ROBBER_PLACE:
-      return { isMovingRobber: true, selectedHex: action.payload.hex, playerToRob:null };
+      return {
+        ...state,
+        isMovingRobber: true,
+        selectedHex: action.payload,
+        playerToRob: null
+      };
+    case CHOOSE_ROBBED_PLAYER:
+      return {
+        ...state,
+        isMovingRobber: true,
+        selectedHex: null,
+        playerToRob: action.payload
+      };
+    case SAVE_AVAILABLE_PLAYERS:
+      return {
+        ...state,
+        availablePlayers: action.payload
+      };
     case MOVE_ROBBER:
-      return { isMovingRobber: false, selectedHex: null, playerToRob: action.payload.players };
+      return {
+        ...state,
+        isMovingRobber: false,
+        selectedHex: action.payload,
+        playerToRob: null
+      };
     default:
       return state;
   }
@@ -41,40 +76,48 @@ const endMoveRobber = (_, dispatch) => {
   });
 };
 
-const chooseRobberPlace = (hex, dispatch) => {
+const chooseRobberHex = (hex, dispatch) => {
   dispatch({
     type: CHOOSE_ROBBER_PLACE,
     payload: hex
   });
 };
 
+const chooseRobbedPlayer = (player, dispatch) => {
+  dispatch({
+    type: CHOOSE_ROBBED_PLAYER,
+    payload: player
+  });
+};
+
 const moveRobber = (payload, dispatch) => {
   const id = 1;
-
-  axios.post(`${apiURL}/games/${id}/player/actions`, {
-    type: "move_robber",
-    payload: payload
-  }).then(resp => {
-    dispatch({
-      type: MOVE_ROBBER,
-      payload: payload
+  axios
+    .post(`${apiURL}/games/${id}/player/actions`, {
+      type: "move_robber",
+      payload
+    })
+    .catch(err => {
+      PopupController.pushError({
+        content: "Hubo un error al dar el mal augurio."
+      });
     });
-  }).catch(err => {
-    PopupController.pushError({ content: "Hubo un error al dar el mal augurio." });
-  });
 };
 
 const mapStateToProps = state => ({
   availableHexes: state.game.actions.move_robber,
   isMovingRobber: state.game.moveRobber.isMovingRobber,
-  selectedHex: state.game.moveRobber.selectedHex
+  selectedHex: state.game.moveRobber.selectedHex,
+  availablePlayers: state.game.actions.move_robber
 });
 
 const mapDispatchToProps = dispatch => ({
   beginMoveRobber: _ => beginMoveRobber(_, dispatch),
   endMoveRobber: _ => endMoveRobber(_, dispatch),
-  chooseRobberPlace: hex => chooseRobberPlace(hex, dispatch),
-  moveRobber: hex => moveRobber(hex, dispatch)
+  chooseRobberHex: hex => chooseRobberHex(hex, dispatch),
+  chooseRobbedPlayer: player => chooseRobbedPlayer(player, dispatch),
+  moveRobber: hex => moveRobber(hex, dispatch),
+  updateGameStatus: payload => updateGameStatus(payload, dispatch)
 });
 
 export { moveRobberReducer, mapStateToProps, mapDispatchToProps };

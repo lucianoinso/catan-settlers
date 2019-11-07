@@ -1,35 +1,43 @@
 import React from "react";
 import { connect } from "react-redux";
 import { mapStateToProps, mapDispatchToProps } from "./Robber.ducks";
+import Popup from "reactjs-popup";
+import ChoosePlayer from "./ChoosePlayer.jsx";
 
-function MoveRobber({
-  availableHex,
-  beginMoveRobber,
-  selectedHex,
-  isMovingRobber,
-  endMoveRobber,
-  moveRobber
-}) {
-  if (!isMovingRobber)
+class MoveRobber extends React.Component {
+  render() {
+    if (!this.props.isMovingRobber)
+      return (
+        <button
+          type="button"
+          onClick={() => this.props.beginMoveRobber()}
+          disabled={!this.props.availableHexes}
+        >
+          Dar mal augurio
+        </button>
+      );
     return (
-      <button
-        onClick={() => beginMoveRobber()}
-        disabled={!availableHex || availableHex.length === 0}
-      >
-        Dar mal augurio
-      </button>
+      <span>
+        <Popup
+          trigger={
+            <button type="button" disabled={!this.props.selectedHex}>
+              Confirmar lugar
+            </button>
+          }
+          modal
+        >
+          <ChoosePlayer />
+        </Popup>
+        <button
+          className="cancel"
+          type="button"
+          onClick={() => this.props.endMoveRobber()}
+        >
+          Cancelar
+        </button>
+      </span>
     );
-
-  return (
-    <span>
-      <button disabled={!selectedHex} onClick={() => MoveRobber(selectedHex)}>
-        Confirmar
-      </button>
-      <button className="cancel" onClick={() => endMoveRobber()}>
-        Cancelar
-      </button>
-    </span>
-  );
+  }
 }
 
 export default connect(

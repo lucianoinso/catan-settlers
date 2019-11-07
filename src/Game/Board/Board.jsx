@@ -1,10 +1,11 @@
 import React from "react";
-import Hex from "./Hex.jsx";
 import { connect } from "react-redux";
+import Hex from "./Hex";
 import { mapStateToProps, mapDispatchToProps } from "./Board.ducks.js";
 import Settlement from "./Settlement";
 import Robber from "./Robber";
 import ChooseVertex from "../BuildSettlement/ChooseVertex";
+import ChooseHex from "../Robber/ChooseHex";
 import Roads from "../BuildRoad/Roads";
 
 function makeComponentFromHex({ position, resource, token }) {
@@ -53,6 +54,7 @@ function Board({ board, updateBoard, settlements, robber }) {
       <Roads />
       {settlements.map(makeComponentFromSettlement)}
       {makeComponentFromRobber(robber)}
+      <ChooseHex />
       <ChooseVertex />
     </div>
   );

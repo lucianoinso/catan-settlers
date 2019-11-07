@@ -73,7 +73,7 @@ class ChoosableVertex extends React.Component {
       </div>
     );
   }
-}
+} 
 
 export default connect(
   mapStateToProps,
