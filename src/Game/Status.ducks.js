@@ -6,7 +6,7 @@ import apiURL from "../api";
 
 const SAVE_STATUS = "save_status";
 
-//Reducer
+// Reducer
 
 const initialState = {
   currentPlayer: "",

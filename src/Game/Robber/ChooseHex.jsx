@@ -5,7 +5,7 @@ import ChoosableHex from "./ChoosableHex";
 
 class ChooseHex extends React.Component {
   render() {
-    if (!this.props.isMovingRobber) return <span></span>;
+    if (!this.props.isMovingRobber) return <span />;
     return (
       <div>
         {this.props.availableHexes.map(Hex => (
