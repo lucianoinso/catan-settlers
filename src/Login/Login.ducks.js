@@ -12,6 +12,7 @@ axiosMock.onPost(route).reply(200, {
 // Action types
 
 const LOG_IN = "log_in";
+const LOG_OUT = "log_out";
 
 // Reducer
 
@@ -31,6 +32,14 @@ const loginReducer = (state = initialState, action) => {
         user: action.payload.user,
         pass: action.payload.pass,
         isLogged: true
+      };
+    case LOG_OUT:
+      return {
+        ...state,
+        token: "",
+        user: "",
+        pass: "",
+        isLogged: false
       };
     default:
       return state;
@@ -60,18 +69,32 @@ const logIn = (payload, dispatch) => {
     });
 };
 
+
+const logOut = (payload, dispatch) => {
+      payload = {};
+      dispatch({
+        type: LOG_OUT,
+        payload
+      });
+
+      localStorage.clear();
+};
+
+
 // Map to props
 
 const mapStateToProps = state => {
   return {
-    isLogged: state.login.isLogged
+    isLogged: state.login.isLogged,
+    user: state.login.user
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    logIn: payload => logIn(payload, dispatch)
+    logIn: payload => logIn(payload, dispatch),
+    logOut: payload => logOut(payload, dispatch)
   };
 };
 
-export { loginReducer, mapStateToProps, mapDispatchToProps, logIn };
+export { loginReducer, mapStateToProps, mapDispatchToProps, logIn, logOut };
