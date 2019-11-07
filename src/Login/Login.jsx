@@ -2,6 +2,7 @@ import React from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { mapStateToProps, mapDispatchToProps } from "./Login.ducks.js";
+import "./Login.css";
 
 class Login extends React.Component {
   constructor(props) {
@@ -19,7 +20,7 @@ class Login extends React.Component {
     }
 
     return (
-      <div id="registerForm" style={{ textAlign: "center", width: "100%" }}>
+      <div id="registerForm">
         <form
           className="regist-log-form"
           onSubmit={event => {
@@ -29,13 +30,8 @@ class Login extends React.Component {
             });
             event.preventDefault();
           }}
-          style={{
-            display: "inline-block",
-            margin: "0 auto",
-            width: "413px"
-          }}
         >
-          <fieldset style={{ border: "4px double red" }}>
+          <fieldset>
             <legend>Login</legend>
             <p>
               <label className="regInput" htmlFor="username">
@@ -60,12 +56,11 @@ class Login extends React.Component {
               />
             </p>
             <p>
-              {" "}
+               
               <br />
               <button
                 type="submit"
                 disabled={!this.state.user || !this.state.pass}
-                style={{ padding: "7px 15px 8px 15px", marginTop: "25px" }}
               >
                 Login
               </button>

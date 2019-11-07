@@ -4,7 +4,7 @@ import { mapStateToProps, mapDispatchToProps } from "./Robber.ducks";
 
 class ChoosePlayer extends React.Component {
   listAvailablePlayers() {
-    var listPlayer = [];
+    let listPlayer = [];
     this.props.availablePlayers.forEach(robberData => {
       if (this.props.selectedHex !== null) {
         if (
@@ -39,9 +39,9 @@ class ChoosePlayer extends React.Component {
           {`${Player}`}
         </button>
       ));
-    } else {
+    } 
       return null;
-    }
+    
   }
 }
 

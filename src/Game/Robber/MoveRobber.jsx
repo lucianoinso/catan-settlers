@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
-import { mapStateToProps, mapDispatchToProps } from "./Robber.ducks";
 import Popup from "reactjs-popup";
+import { mapStateToProps, mapDispatchToProps } from "./Robber.ducks";
 import ChoosePlayer from "./ChoosePlayer.jsx";
 
 class MoveRobber extends React.Component {
@@ -19,11 +19,11 @@ class MoveRobber extends React.Component {
     return (
       <span>
         <Popup
-          trigger={
+          trigger={(
             <button type="button" disabled={!this.props.selectedHex}>
               Confirmar lugar
             </button>
-          }
+          )}
           modal
         >
           <ChoosePlayer />

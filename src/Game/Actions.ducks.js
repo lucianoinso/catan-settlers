@@ -1,5 +1,5 @@
-import axiosMock from "../App/axiosMock";
 import axios from "axios";
+import axiosMock from "../App/axiosMock";
 import PopupController from "../PopupController/PopupController.jsx";
 import { offerBank, requestBank } from "./Resources/Resources.ducks";
 import { gameStatusMock } from "./Game.ducks";
@@ -15,6 +15,7 @@ let availableActionsMock = [
     ]
   },
   { type: "bank_trade", payload: {} },
+
   {
     type: "build_road",
     payload: [
@@ -59,13 +60,13 @@ axiosMock.onPost(`${apiURL}/games/${id}/player/actions`).reply(config => {
       return [200, {}];
 
     case "build_settlement":
-      console.log("Settlement was built!!!", params.payload);
+      console.log("Se construyó un templo!!!", params.payload);
       return [200, {}];
 
     case "move_robber":
       gameStatusMock.robber = params.payload.position;
       console.log(`Diste un mal augurio`);
-      console.log("Le diste un mal augurio a " + params.payload.player);
+      console.log(`Le diste un mal augurio a ${  params.payload.player}`);
       return [200, {}];
 
     case "build_road":
@@ -104,7 +105,7 @@ axiosMock.onPost(`${apiURL}/games/${id}/player/actions`).reply(config => {
 
 const SAVE_ACTIONS = "save_actions";
 
-//Reducer
+// Reducer
 
 const initialState = {
   build_settlement: false,
@@ -162,7 +163,7 @@ function possibleActions(actions) {
     }
   );
 }
-//Action creators
+// Action creators
 
 const saveAction = (payload, dispatch) => {
   axios
