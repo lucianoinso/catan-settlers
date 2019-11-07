@@ -7,26 +7,49 @@ import Resources from "./Resources/Resources";
 import TradeBank from "./TradeBank/TradeBank";
 import MoveRobber from "./Robber/MoveRobber";
 import BuildRoad from "./BuildRoad/BuildRoad";
-import IsLoggedIn from "../IsLoggedIn/IsLoggedIn";
+import { connect } from "react-redux";
+import { mapStateToProps, mapDispatchToProps } from "./Status.ducks";
 import EndTurn from "./EndTurn/EndTurn";
+import IsLoggedIn from "../IsLoggedIn/IsLoggedIn";
 
 class Game extends React.Component {
-  render() {
+  componentDidMount() {
+    const id = Number(this.props.match.params.id);
+
+    if (Number.isNaN(id)) return;
+
+    this.props.setGameId({ id });
+
+    this.interval = setInterval(() => {
+			console.log(`updating game`);
+			this.props.updateGameStatus({ id });
+    }, 3000);
+  }
+  
+  componentWillUnmount() {
+    if (this.interval)
+    clearInterval(this.interval);
+  }
+  
+	render() {
     return (
       <div className="game">
         <IsLoggedIn />
-        <Board />
-        <Dice />
-        <TradeBank />
-        <BuildSettlement />
-        <MoveRobber />
-        <BuildRoad />
+				<Board />
+				<Dice />
+				<TradeBank />
+				<BuildSettlement />
+				<MoveRobber />
+				<BuildRoad />
         <EndTurn />
-        <DevCards />
-        <Resources />
-      </div>
-    );
-  }
+				<DevCards />
+				<Resources />
+			</div>
+		);
+	}
 }
 
-export default Game;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Game);
