@@ -3,6 +3,7 @@ import { mapStateToProps, mapDispatchToProps } from "./Lobbies.ducks";
 import { connect } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
 import Lobby from "./Lobby";
+import IsLoggedIn from "../IsLoggedIn/IsLoggedIn";
 import CancelLobby from "./CancelLobby/CancelLobby";
 
 class MyLobby extends React.Component {
@@ -58,6 +59,7 @@ class MyLobby extends React.Component {
 
     return (
       <div className="lobbies-container margin-left-10 my-lobby fade-in">
+        <IsLoggedIn />
         <div className="lobby-list-item">
           <Lobby
             name={currentLobby.name}
