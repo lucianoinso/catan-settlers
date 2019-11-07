@@ -3,6 +3,7 @@ import { mapStateToProps, mapDispatchToProps } from "./Lobbies.ducks";
 import { connect } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
 import Lobby from "./Lobby";
+import CancelLobby from "./CancelLobby/CancelLobby";
 
 class MyLobby extends React.Component {
   componentDidMount() {
@@ -65,6 +66,7 @@ class MyLobby extends React.Component {
             max_players={currentLobby.max_players}
           />
           {startGameButton}
+          <CancelLobby />
           <Link to="/rooms">Volver</Link>
         </div>
       </div>
