@@ -26,7 +26,7 @@ let gameStatusMock = {
     {
       username: "batman",
       colour: "#43450d",
-      settlements: [{ level: 2, index: 3 }],
+      settlements: [{ level: 2, index: 3 }, { level: 1, index: 3 }],
       cities: [{ level: 2, index: 1 }, { level: 1, index: 2 }],
       roads: [[{ level: 0, index: 0 }, { level: 0, index: 1 }]],
       development_cards: 4,
@@ -82,4 +82,4 @@ const gameReducer = combineReducers({
   moveRobber: moveRobberReducer
 });
 
-export { gameReducer };
+export { gameReducer, gameStatusMock };

@@ -6,7 +6,7 @@ import ChoosableVertex from "./ChoosableVertex";
 class ChooseVertex extends React.Component {
   render() {
     if (!this.props.isBuilding) return <span></span>;
-
+    
     return (
       <div>
         {this.props.availableVertices.map(({ level, index }) => (
@@ -21,7 +21,7 @@ class ChooseVertex extends React.Component {
     );
   }
 }
-
+ 
 export default connect(
   mapStateToProps,
   mapDispatchToProps

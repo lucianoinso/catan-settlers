@@ -1,11 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
-import { mapStateToProps, mapDispatchToProps } from "../Status.ducks.js";
+import { mapStateToProps, mapDispatchToProps } from "../Status.ducks";
 
 class Dice extends React.Component {
   constructor(props) {
     super(props);
-    this.props.saveStatus();
+    this.props.updateGameStatus();
   }
 
   render() {

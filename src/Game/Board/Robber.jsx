@@ -1,8 +1,8 @@
 import React from "react";
-import { getHexPosition, getHexCoords, hexSize, hexRadius } from "./Hex";
+import { getHexPosition, getHexCoords, hexSize } from "./Hex";
 
-const robberWidth = 40;
-const robberHeight = 40;
+export const robberWidth = 40;
+export const robberHeight = 40;
 
 class Robber extends React.Component {
   componentDidMount() {
@@ -16,7 +16,6 @@ class Robber extends React.Component {
   }
 
   render() {
-    console.log(this.props.robber);
     const { level, index } = this.props.robber;
     let [x, y] = getHexCoords(level, index);
     let [left, top] = getHexPosition(x, y);

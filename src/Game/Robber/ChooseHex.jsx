@@ -1,19 +1,18 @@
 import React from "react";
 import { connect } from "react-redux";
-import { mapStateToProps, mapDispatchToProps } from "./BuildSettlement.ducks";
+import { mapStateToProps, mapDispatchToProps } from "./Robber.ducks";
 import ChoosableHex from "./ChoosableHex";
 
 class ChooseHex extends React.Component {
   render() {
     if (!this.props.isMovingRobber) return <span></span>;
-
     return (
       <div>
-        {this.props.availableHex.map(({ level, index }) => (
+        {this.props.availableHexes.map(Hex => (
           <ChoosableHex
-            key={`(${level},${index})`}
-            level={level}
-            index={index}
+            key={`(${Hex.position.level},${Hex.position.index})`}
+            level={Hex.position.level}
+            index={Hex.position.index}
             chosenHex={this.props.selectedHex}
           />
         ))}
