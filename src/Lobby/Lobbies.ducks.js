@@ -44,22 +44,25 @@ Object.defineProperty(window, "mockedLobbies", {
 // Nota: antes era `.reply(200, mockedLobbies);`
 axiosMock.onGet(`${apiURL}/rooms/`).reply(config => [200, mockedLobbies]);
 
+const getMockedLobby = config => {
+  const lobbyNumber = Number(config.url.match(/\/(\d+)\/$/)[1]);
+  const lobby = mockedLobbies.find(lobby => lobby.id === lobbyNumber);
+
+  if (lobby)
+    return [200, lobby];
+  
+  return [400, {}];
+}
+
 for (let i = 0; i < 15; i++) {
-  // eslint-disable-next-line
-  axiosMock.onGet(`${apiURL}/rooms/${i}/`).reply(config => {
-    const lobby = mockedLobbies.filter(lobby => lobby.id === i);
-
-    if (lobby) return [200, mockedLobbies[i - 1]];
-
-    return [404, {}];
-  });
+  axiosMock.onGet(`${apiURL}/rooms/${i}/`).reply(getMockedLobby);
 }
 
 // Empezar partida
 
 const startMockedLobby = config => {
   const lobbyNumber = Number(config.url.match(/\/(\d+)\/$/)[1]);
-  const lobby = mockedLobbies[lobbyNumber - 1];
+  const lobby = mockedLobbies.find(lobby => lobby.id === lobbyNumber);
 
   if (lobby === null) return [400, {}];
 
@@ -75,7 +78,7 @@ axiosMock.onPatch(`${apiURL}/rooms/3/`).reply(startMockedLobby);
 // Unirse a lobby
 const joinMockedLobby = config => {
   const lobbyNumber = Number(config.url.match(/\/(\d+)\/$/)[1]);
-  const lobby = mockedLobbies[lobbyNumber - 1];
+  const lobby = mockedLobbies.find(lobby => lobby.id === lobbyNumber);
   const user = localStorage.getItem("user");
 
   if (!user) return [(401, {})];
