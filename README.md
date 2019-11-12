@@ -16,5 +16,7 @@ Run the server
 
     npm start
 
-> It's not working on Firefox; there's a configuration error that we haven't figured out yet.
+# Run tests
+
+    npm test
 
