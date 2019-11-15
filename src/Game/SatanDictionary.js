@@ -2,7 +2,7 @@ const resourceNames = {
     brick: "Incienso",
     wool: "Vino",
     grain: "Oro",
-    ore: "Virgenes",
+    ore: "Vírgenes",
     lumber: "Ternero"
 };
 

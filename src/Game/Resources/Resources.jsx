@@ -4,6 +4,7 @@ import PopupController from "../../PopupController/PopupController";
 import Resource from "./Resource";
 import { mapStateToProps, mapDispatchToProps } from "./Resources.ducks";
 import { resourceNames } from "../SatanDictionary";
+import "./Resources.css";
 
 class Resources extends React.Component {
   constructor(props) {
@@ -45,11 +46,11 @@ class Resources extends React.Component {
     }
 
     let changed = `Recibiste ${amount} ${resourceNames[type]}`;
-    if (amount > 1) {
+    if (amount > 1 && !resourceNames[type].endsWith("s")) {
       changed += `s`;
     }
 
-    PopupController.pushLog({ content: changed });
+    PopupController.pushLog({ content: changed, autoClose: 2000 });
 
     return changed;
   }
@@ -88,7 +89,7 @@ class Resources extends React.Component {
     };
 
     if (changed === "") {
-      changed = "Didn't receive any resources";
+      changed = "No recibiste ningún recurso";
       PopupController.pushLog({ content: changed });
     }
   }
@@ -100,7 +101,7 @@ class Resources extends React.Component {
   render() {
     return (
       <div className="resourceCards">
-        <h4>Cartas de recursos</h4>
+        <h4>Ofrendas</h4>
         <ul>
           <li>
             <Resource type="brick" amount={this.props.brickAmount} />

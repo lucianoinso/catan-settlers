@@ -67,12 +67,12 @@ class PopupController extends React.Component {
     return PopupController.pushPopup({ className: "error", content, onClose });
   }
 
-  static pushLog({ content, onClose }) {
+  static pushLog({ content, onClose, autoClose }) {
     return PopupController.pushPopup({
       className: "log",
       content,
       onClose,
-      autoClose: 4500
+      autoClose: autoClose || 4500
     });
   }
 

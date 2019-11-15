@@ -38,12 +38,12 @@ function BuyCard() {
 
   return (
     <Popup
-      trigger={<button className="button">Comprar carta de desarrollo</button>}
+      trigger={<button className="button">Comprar conjuro</button>}
       modal
     >
       {close => (
         <div className="modal">
-          <h2 className="header">Comprar carta de desarrollo</h2>
+          <h2 className="header">Comprar conjuro</h2>
           <div className="actions">
             {enoughResources()}
             <br />

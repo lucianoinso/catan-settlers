@@ -8,9 +8,10 @@ function Resource({ type, amount }) {
         src={`/assets/resources/${resourceNames[type]}.png`}
         alt={resourceNames[type]}
       />
-      <span>
-        {resourceNames[type]}: {amount}
-      </span>
+      <span className="resource-amount">{amount}</span>
+      <div className="resource-name">
+        {resourceNames[type]}
+      </div>
     </div>
   );
 }

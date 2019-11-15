@@ -3,16 +3,17 @@ import { connect } from "react-redux";
 import DevCard from "./DevCard";
 import BuyCard from "./BuyCard";
 import { mapStateToProps, mapDispatchToProps } from "./DevCards.ducks";
+import "./DevCards.css";
 
 class DevCards extends React.Component {
   componentDidMount() {
     this.props.updateCards();
   }
-
+  
   render() {
     return (
       <div className="devCards">
-        <h4>Cartas de desarrollo</h4>
+        <h4>Conjuros</h4>
         <BuyCard />
         <ul>
           <li>
@@ -40,6 +41,7 @@ class DevCards extends React.Component {
             />
           </li>
         </ul>
+        <div style={{ clear: "both" }} />
       </div>
     );
   }
