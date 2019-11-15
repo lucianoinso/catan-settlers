@@ -1,0 +1,36 @@
+.devCards ul {
+  list-style: none;
+  padding: 0;
+}
+
+.devCards li {
+  float: left;
+
+  width: 100px;
+  padding: 5px;
+  margin: 5px;
+
+  border: 3px double red;
+  border-radius: 5px;
+}
+
+.devCards img {
+  width: 100px;
+  height: 100px;
+}
+
+.devCards span {
+  display: block;
+  text-align: center;
+}
+
+.devCards .card-title {
+  font-size: 0.8em;
+  height: 2.5em;
+  padding-top: 6px;
+}
+
+.devCards .card-amount {
+  color: orange;
+  font-family: "UnifrakturMaguntia", cursive;
+}

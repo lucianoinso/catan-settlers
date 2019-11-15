@@ -6,9 +6,8 @@ function DevCard({ cardName, amount }) {
   return (
     <div className={`devcard ${cardName}`} title={cardTitle}>
       <img src={`/assets/devcards/${cardName}.png`} alt={cardTitle} />
-      <span>
-        {cardTitle}: {amount}
-      </span>
+      <span className="card-title">{cardTitle}</span>{" "}
+      <span className="card-amount">{amount}</span>
     </div>
   );
 }

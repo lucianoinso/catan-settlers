@@ -1,0 +1,18 @@
+.resourceCards ul {
+  list-style: none;
+  padding: 0;
+}
+
+.resourceCards li {
+  display: inline-block;
+  margin: 2px 4px;
+  min-width: 45px;
+}
+
+.resourceCards .resource-amount {
+  margin-left: 4px;
+}
+
+.resourceCards .resource-name {
+  font-size: 0.7em;
+}
