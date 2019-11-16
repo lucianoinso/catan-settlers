@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { route } from "./Signup.ducks";
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 import { logIn } from "../Login/Login.ducks";
 import store from "../store";
 import PopupController from "../PopupController/PopupController";
@@ -107,6 +107,9 @@ class Signup extends Component {
               </p>
             </fieldset>
           </form>
+          <div>
+            ¿Ya tenés una cuenta? <Link to="/users/login">Entrar al infierno</Link>
+          </div>
         </div>
       ); // End return (not logged in)
     } else {

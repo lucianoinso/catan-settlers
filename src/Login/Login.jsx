@@ -1,5 +1,5 @@
 import React from "react";
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { mapStateToProps, mapDispatchToProps } from "./Login.ducks.js";
 import "./Login.css";
@@ -54,6 +54,9 @@ class Login extends React.Component {
                 id="password"
                 onChange={e => this.setState({ pass: e.target.value })}
               />
+              <span style={{ fontSize: "12px" }}>
+                <br/>(exactamente 8 caracteres)
+              </span>
             </p>
             <p>
                
@@ -67,6 +70,9 @@ class Login extends React.Component {
             </p>
           </fieldset>
         </form>
+        <div>
+          ¿No tenés una cuenta? <Link to="/">Registrate</Link>
+        </div>
       </div>
     );
   }
