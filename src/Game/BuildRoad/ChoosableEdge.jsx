@@ -4,8 +4,8 @@ import { connect } from "react-redux";
 import { mapStateToProps, mapDispatchToProps } from "./BuildRoad.ducks";
 import "./ChoosableEdge.css";
 
-const SELECTED_EDGE_COLOR = "white";
-const UNSELECTED_EDGE_COLOR = "#bbb";
+export const SELECTED_EDGE_COLOR = "white";
+export const UNSELECTED_EDGE_COLOR = "#bbb";
 
 export function edgeEquality(edge0, edge1) {
   return (

@@ -9,6 +9,7 @@ import apiURL from "../api";
 import { buildSettlementReducer } from "./BuildSettlement/BuildSettlement.ducks";
 import { moveRobberReducer } from "./Robber/Robber.ducks";
 import { buildRoadReducer } from "./BuildRoad/BuildRoad.ducks";
+import { roadBuildingCardReducer } from "./RoadBuilding/RoadBuilding.ducks";
 
 const id = 1;
 
@@ -80,6 +81,7 @@ const gameReducer = combineReducers({
   buildRoad: buildRoadReducer,
   status: statusReducer,
   devCards: devCardsReducer,
+  roadBuildingCard: roadBuildingCardReducer,
   moveRobber: moveRobberReducer
 });
 

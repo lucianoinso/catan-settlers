@@ -11,6 +11,7 @@ import { connect } from "react-redux";
 import { mapStateToProps, mapDispatchToProps } from "./Status.ducks";
 import EndTurn from "./EndTurn/EndTurn";
 import IsLoggedIn from "../IsLoggedIn/IsLoggedIn";
+import RoadBuilding from "./RoadBuilding/RoadBuilding";
 
 class Game extends React.Component {
   componentDidMount() {
@@ -41,6 +42,7 @@ class Game extends React.Component {
 				<BuildSettlement />
 				<MoveRobber />
 				<BuildRoad />
+        <RoadBuilding />
         <EndTurn />
 				<DevCards />
 				<Resources />

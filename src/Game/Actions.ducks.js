@@ -5,6 +5,25 @@ import { offerBank, requestBank } from "./Resources/Resources.ducks";
 import apiURL from "../api";
 import { edgeEquality } from "./BuildRoad/ChoosableEdge";
 
+let availableVerticesMock = [
+  [{ level: 0, index: 2 }, { level: 0, index: 3 }],
+  [{ level: 1, index: 4 }, { level: 1, index: 5 }],
+  [{ level: 1, index: 5 }, { level: 1, index: 6 }],
+  [{ level: 1, index: 6 }, { level: 1, index: 7 }],
+  [{ level: 1, index: 7 }, { level: 1, index: 8 }],
+  [{ level: 2, index: 7 }, { level: 2, index: 8 }],
+  [{ level: 2, index: 10 }, { level: 2, index: 11 }]
+];
+
+function filterInPlace(array, predicate) {
+  let i = 0;
+
+  while (i < array.length) {
+    if (predicate(array[i])) i++;
+    else array.splice(i, 1);
+  }
+}
+
 let availableActionsMock = [
   {
     type: "move_robber",
@@ -17,20 +36,16 @@ let availableActionsMock = [
 
   {
     type: "build_road",
-    payload: [
-      [{ level: 0, index: 2 }, { level: 0, index: 3 }],
-      [{ level: 1, index: 4 }, { level: 1, index: 5 }],
-      [{ level: 1, index: 5 }, { level: 1, index: 6 }],
-      [{ level: 1, index: 6 }, { level: 1, index: 7 }],
-      [{ level: 1, index: 7 }, { level: 1, index: 8 }],
-      [{ level: 2, index: 7 }, { level: 2, index: 8 }],
-      [{ level: 2, index: 10 }, { level: 2, index: 11 }]
-    ]
+    payload: availableVerticesMock
   },
   { type: "buy_card", payload: {} },
   {
     type: "build_settlement",
     payload: [{ level: 0, index: 1 }, { level: 1, index: 5 }]
+  },
+  {
+    type: "play_road_building_card",
+    payload: availableVerticesMock
   }
 ];
 
@@ -65,17 +80,15 @@ axiosMock.onPost(`${apiURL}/games/${id}/player/actions`).reply(config => {
     case "move_robber":
       window.gameStatusMock.robber = params.payload.position;
       console.log(`Diste un mal augurio`);
-      console.log(`Le diste un mal augurio a ${  params.payload.player}`);
+      console.log(`Le diste un mal augurio a ${params.payload.player}`);
       return [200, {}];
 
-    case "build_road":
+    case "build_road": {
       if (!localStorage.getItem("user")) return [401, {}];
 
       // Borramos el vértice de los vértices disponibles.
-      const buildRoadMock = availableActionsMock.filter(
-        action => action.type === "build_road"
-      )[0];
-      buildRoadMock.payload = buildRoadMock.payload.filter(
+      filterInPlace(
+        availableVerticesMock,
         edge => !edgeEquality(edge, params.payload)
       );
       // Actualizamos para que redux sepa que son arreglos distintos.
@@ -93,6 +106,29 @@ axiosMock.onPost(`${apiURL}/games/${id}/player/actions`).reply(config => {
       window.gameStatusMock = { ...window.gameStatusMock };
 
       return [200, {}];
+    }
+
+    case "play_road_building_card": {
+      if (!localStorage.getItem("user")) return [401, {}];
+
+      filterInPlace(availableVerticesMock, edge =>
+        params.payload.every(selectedEdge => !edgeEquality(edge, selectedEdge))
+      );
+
+      availableActionsMock = [...availableActionsMock];
+
+      const playerStatusMock = window.gameStatusMock.players.find(
+        playerStatus => playerStatus.username === localStorage.getItem("user")
+      );
+
+      if (!playerStatusMock) return [200, {}];
+
+      playerStatusMock.roads.push(...params.payload);
+
+      window.gameStatusMock = { ...window.gameStatusMock };
+
+      return [200, {}];
+    }
 
     default:
       console.warn(`insert mock of action ${params.type} here.`);
