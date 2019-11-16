@@ -20,7 +20,8 @@ const initialState = {
 
 const devCardsReducer = (state = initialState, action) => {
   switch (action.type) {
-    case (UPDATE_CARDS, BUY_CARD):
+    case UPDATE_CARDS:
+    case BUY_CARD:
       return {
         ...state,
         knightAmount: action.payload.knightAmount,
@@ -104,4 +105,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export { devCardsReducer, mapStateToProps, mapDispatchToProps };
+export { devCardsReducer, mapStateToProps, mapDispatchToProps, updateCards };
