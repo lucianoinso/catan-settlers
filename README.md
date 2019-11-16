@@ -12,9 +12,13 @@ Install the dependencies
 
     npm install
 
-Run the server
+Run the server with the mock
 
     npm start
+
+Run with the actual server
+
+    REACT_APP_API="<address here>" npm start
 
 # Run tests
 
