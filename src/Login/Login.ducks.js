@@ -18,7 +18,6 @@ const LOG_OUT = "log_out";
 
 const initialState = {
   user: localStorage.getItem("user") || "",
-  pass: "",
   token: localStorage.getItem("token") || "",
   isLogged: Boolean(localStorage.getItem("token"))
 };
@@ -30,7 +29,6 @@ const loginReducer = (state = initialState, action) => {
         ...state,
         token: action.payload.token,
         user: action.payload.user,
-        pass: action.payload.pass,
         isLogged: true
       };
     case LOG_OUT:
@@ -38,7 +36,6 @@ const loginReducer = (state = initialState, action) => {
         ...state,
         token: "",
         user: "",
-        pass: "",
         isLogged: false
       };
     default:
@@ -66,6 +63,8 @@ const logIn = (payload, dispatch) => {
 
       localStorage.setItem("user", payload.user);
       localStorage.setItem("token", payload.token);
+
+      axios.defaults.headers.common['Authorization'] = `Bearer ${payload.token}`;
     });
 };
 
@@ -78,8 +77,13 @@ const logOut = (payload, dispatch) => {
       });
 
       localStorage.clear();
+
+      delete axios.defaults.headers.common['Authorization'];
 };
 
+// Así hice para testear --manualmente-- que el header se envíe con cada petición.
+// (ver `axiosMock.history`)
+window.axiosMock = axiosMock;
 
 // Map to props
 
