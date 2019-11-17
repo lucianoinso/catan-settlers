@@ -1,7 +1,7 @@
 import axios from "axios";
 import axiosMock from "../App/axiosMock";
 import PopupController from "../PopupController/PopupController.jsx";
-import { offerBank, requestBank } from "./Resources/Resources.ducks";
+import { updateResources } from "./Resources/Resources.ducks";
 import apiURL from "../api";
 import { edgeEquality } from "./BuildRoad/ChoosableEdge";
 
@@ -55,7 +55,7 @@ Object.defineProperty(window, "availableActionsMock", {
 });
 
 axiosMock
-  .onGet(`/games/1/player/actions`)
+  .onGet(`${apiURL}/games/1/player/actions`)
   .reply(config => [200, availableActionsMock]);
 
 const id = 1;
@@ -81,6 +81,23 @@ axiosMock.onPost(`${apiURL}/games/${id}/player/actions`).reply(config => {
       window.gameStatusMock.robber = params.payload.position;
       console.log(`Diste un mal augurio`);
       console.log(`Le diste un mal augurio a ${params.payload.player}`);
+      return [200, {}];
+
+    case "bank_trade":
+      let resourceCount = 0;
+      let index = 0;
+      while (resourceCount < 4) {
+        while (window.resourcesMock.resources[index] !== params.payload.give) {
+          index++;
+        }
+        resourceCount++;
+        window.resourcesMock.resources.splice(index, 1);
+        index = 0;
+      }
+      resourceCount = 0;
+      window.resourcesMock.resources = window.resourcesMock.resources.concat(
+        params.payload.receive
+      );
       return [200, {}];
 
     case "build_road": {
@@ -202,7 +219,7 @@ function possibleActions(actions) {
 
 const saveAction = (payload, dispatch) => {
   axios
-    .get(`/games/1/player/actions`)
+    .get(`${apiURL}/games/1/player/actions`)
     .then(response => {
       const possibleAction = possibleActions(response.data);
       payload = possibleAction;
@@ -216,6 +233,19 @@ const saveAction = (payload, dispatch) => {
         content: `Hubo un error al conectarse con el servidor.`
       });
       console.error(err);
+    });
+};
+
+const tradeBank = payload => {
+  axios
+    .post(`${apiURL}/games/${id}/player/actions`, {
+      type: "bank_trade",
+      payload: payload
+    })
+    .catch(err => {
+      PopupController.pushError({
+        content: `Hubo un error al conectarse con el servidor.`
+      });
     });
 };
 
@@ -233,8 +263,8 @@ const mapStateToPropsBank = state => {
 const mapDispatchToProps = dispatch => {
   return {
     saveAction: payload => saveAction(payload, dispatch),
-    offerBank: payload => offerBank(payload, dispatch),
-    requestBank: payload => requestBank(payload, dispatch)
+    tradeBank: payload => tradeBank(payload),
+    updateResources: payload => updateResources(payload, dispatch)
   };
 };
 

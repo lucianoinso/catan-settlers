@@ -33,14 +33,11 @@ function BuyCard() {
       return "No tienes suficientes recursos";
     }
 
-    return "¿Comprar una carta al azar?";
+    return "¿Comprar un conjuro al azar?";
   }
 
   return (
-    <Popup
-      trigger={<button className="button">Comprar conjuro</button>}
-      modal
-    >
+    <Popup trigger={<button className="button">Comprar conjuro</button>} modal>
       {close => (
         <div className="modal">
           <h2 className="header">Comprar conjuro</h2>

@@ -16,17 +16,13 @@ class TradeBank extends React.Component {
   }
 
   canTrade() {
-    if (
+    return (
       this.props.woolAmount > 3 ||
       this.props.brickAmount > 3 ||
       this.props.oreAmount > 3 ||
       this.props.lumberAmount > 3 ||
       this.props.grainAmount > 3
-    ) {
-      return true;
-    } else {
-      return false;
-    }
+    );
   }
 
   enoughResources() {
@@ -39,31 +35,32 @@ class TradeBank extends React.Component {
     return this.canTrade() ? "A cambio de un ..." : "";
   }
 
-  setOffer(resource) {
-    this.setState({ offer: resource });
-  }
-
-  setRequest(resource) {
-    this.setState({ request: resource });
-  }
-
-  disableRequest(resource) {
-    return !this.canTrade() || this.state.offer === resource;
-  }
-
-  selectOffer(resource) {
-    if (this.state.offer === resource) {
+  selectPetition(petition, resource) {
+    if (
+      (petition === "offer" && this.state.offer === resource) ||
+      (petition === "request" && this.state.request === resource)
+    ) {
       return "selected";
     }
   }
 
-  selectRequest(resource) {
-    if (this.state.request === resource) {
-      return "selected";
+  resourceAmount(resource) {
+    if (resource === "brick") {
+      return this.props.brickAmount;
+    } else if (resource === "ore") {
+      return this.props.oreAmount;
+    } else if (resource === "grain") {
+      return this.props.grainAmount;
+    } else if (resource === "lumber") {
+      return this.props.lumberAmount;
+    } else if (resource === "wool") {
+      return this.props.woolAmount;
     }
   }
 
   render() {
+    const resourcesList = ["brick", "ore", "wool", "grain", "lumber"];
+
     return (
       <Popup
         trigger={
@@ -82,93 +79,41 @@ class TradeBank extends React.Component {
             <div className="actions">
               {this.enoughResources()}
               <br />
-              <button
-                className={this.selectOffer("brick")}
-                onClick={() => this.setOffer("brick")}
-                disabled={this.props.brickAmount < 4}
-              >
-                {resourceNames["brick"]} <br />
-                {this.props.brickAmount}
-              </button>
-              <button
-                className={this.selectOffer("ore")}
-                onClick={() => this.setOffer("ore")}
-                disabled={this.props.oreAmount < 4}
-              >
-                {resourceNames["ore"]} <br />
-                {this.props.oreAmount}
-              </button>
-              <button
-                className={this.selectOffer("wool")}
-                onClick={() => this.setOffer("wool")}
-                disabled={this.props.woolAmount < 4}
-              >
-                {resourceNames["wool"]} <br />
-                {this.props.woolAmount}
-              </button>
-              <button
-                className={this.selectOffer("grain")}
-                onClick={() => this.setOffer("grain")}
-                disabled={this.props.grainAmount < 4}
-              >
-                {resourceNames["grain"]}
-                <br /> {this.props.grainAmount}
-              </button>
-              <button
-                className={this.selectOffer("lumber")}
-                onClick={() => this.setOffer("lumber")}
-                disabled={this.props.lumberAmount < 4}
-              >
-                {resourceNames["lumber"]}
-                <br /> {this.props.lumberAmount}
-              </button>
+              {resourcesList.map(resource => (
+                <button
+                  key={`(${resource}Offer)`}
+                  className={this.selectPetition("offer", resource)}
+                  onClick={() => this.setState({ offer: resource })}
+                  disabled={this.resourceAmount(resource) < 4}
+                >
+                  {resourceNames[resource]} <br />
+                  {this.resourceAmount(resource)}
+                </button>
+              ))}
               <br />
               {this.chooseRequest()}
               <br />
-              <button
-                className={this.selectRequest("brick")}
-                onClick={() => this.setRequest("brick")}
-                disabled={this.disableRequest("brick")}
-              >
-                {resourceNames["brick"]}
-              </button>
-              <button
-                className={this.selectRequest("ore")}
-                onClick={() => this.setRequest("ore")}
-                disabled={this.disableRequest("ore")}
-              >
-                {resourceNames["ore"]}
-              </button>
-              <button
-                className={this.selectRequest("wool")}
-                onClick={() => this.setRequest("wool")}
-                disabled={this.disableRequest("wool")}
-              >
-                {resourceNames["wool"]}
-              </button>
-              <button
-                className={this.selectRequest("grain")}
-                onClick={() => this.setRequest("grain")}
-                disabled={this.disableRequest("grain")}
-              >
-                {resourceNames["grain"]}
-              </button>
-              <button
-                className={this.selectRequest("lumber")}
-                onClick={() => this.setRequest("lumber")}
-                disabled={this.disableRequest("lumber")}
-              >
-                {resourceNames["lumber"]}
-              </button>
+              {resourcesList.map(resource => (
+                <button
+                  key={`(${resource}Request)`}
+                  className={this.selectPetition("request", resource)}
+                  onClick={() => this.setState({ request: resource })}
+                  disabled={!this.canTrade() || this.state.offer === resource}
+                >
+                  {resourceNames[resource]}
+                </button>
+              ))}
               <br />
               <br />
               <button
                 className="confirm"
                 onClick={() => {
-                  this.props.offerBank(this.state.offer);
-                  this.props.requestBank(this.state.request);
-                  this.setOffer("");
-                  this.setRequest("");
+                  this.props.tradeBank({
+                    give: this.state.offer,
+                    receive: this.state.request
+                  });
+                  this.setState({ offer: "", request: "" });
+                  this.props.updateResources();
                   close();
                 }}
                 disabled={
@@ -184,8 +129,7 @@ class TradeBank extends React.Component {
               <button
                 className="cancel"
                 onClick={() => {
-                  this.setOffer("");
-                  this.setRequest("");
+                  this.setState({ offer: "", request: "" });
                   close();
                 }}
               >

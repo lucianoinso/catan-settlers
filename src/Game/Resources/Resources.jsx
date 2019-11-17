@@ -20,7 +20,10 @@ class Resources extends React.Component {
   }
 
   componentDidMount() {
-    this.props.saveResource();
+    this.props.updateResources();
+    this.interval = setInterval(() => {
+      this.props.updateResources();
+    }, 3000);
 
     const {
       brickAmount,
@@ -37,6 +40,10 @@ class Resources extends React.Component {
       prevLumber: lumberAmount,
       prevOre: oreAmount
     };
+  }
+
+  componentWillUnmount() {
+    if (this.interval) clearInterval(this.interval);
   }
 
   updateAndNotify(previous, current, type) {

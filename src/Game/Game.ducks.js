@@ -54,7 +54,7 @@ Object.defineProperty(window, "gameStatusMock", {
 
 axiosMock.onGet(`${apiURL}/games/${id}`).reply(config => [200, gameStatusMock]);
 
-axiosMock.onGet(`${apiURL}/games/${id}/player`).reply(200, {
+var resourcesMock = {
   resources: [
     "brick",
     "wool",
@@ -71,7 +71,14 @@ axiosMock.onGet(`${apiURL}/games/${id}/player`).reply(200, {
     "brick"
   ],
   cards: ["roadBuilding", "monopoly", "victoryPoints", "knight"]
+};
+
+Object.defineProperty(window, "resourcesMock", {
+  get: () => resourcesMock,
+  set: value => (resourcesMock = value)
 });
+
+axiosMock.onGet(`${apiURL}/games/${id}/player`).reply(200, resourcesMock);
 
 const gameReducer = combineReducers({
   resources: resourcesReducer,
@@ -85,4 +92,4 @@ const gameReducer = combineReducers({
   moveRobber: moveRobberReducer
 });
 
-export { gameReducer, gameStatusMock };
+export { gameReducer, gameStatusMock, resourcesMock };

@@ -76,7 +76,7 @@ const updateCards = (payload, dispatch) => {
 const buyCard = (payload, dispatch) => {
   const id = 1;
   axios
-    .post(`/games/${id}/player/actions`, payload)
+    .post(`${apiURL}/games/${id}/player/actions`, payload)
     .then(() => {
       updateCards({}, dispatch);
     })
