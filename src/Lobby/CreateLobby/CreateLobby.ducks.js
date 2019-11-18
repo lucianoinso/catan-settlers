@@ -39,7 +39,7 @@ function createLobby(payload, dispatch) {
     .catch(error => {
       console.error(error);
       PopupController.pushError({
-        content: `Hubo un error al crear la recámara.`
+        content: error.response.data
       });
     });
 }
