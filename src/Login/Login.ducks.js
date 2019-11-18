@@ -63,9 +63,12 @@ const logIn = (payload, dispatch) => {
     })
     .catch(error => {
       console.log(error);
-      PopupController.pushError({
-        content: error.response.data.non_field_errors
-      });
+      const content =
+        (error.response &&
+          error.response.data &&
+          error.response.data.non_field_errors) ||
+        "Hubo un error al iniciar sesión.";
+      PopupController.pushError({ content });
     });
 };
 
