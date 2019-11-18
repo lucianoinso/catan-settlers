@@ -23,7 +23,6 @@ class Game extends React.Component {
     this.props.setGameId({ id });
 
     this.interval = setInterval(() => {
-			console.log(`updating game`);
 			this.props.updateGameStatus({ id });
     }, 3000);
   }

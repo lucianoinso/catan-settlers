@@ -25,17 +25,25 @@ class MoveRobber extends React.Component {
     return (
       <span>
         <Popup
-          trigger={(
-            <button type="button" className="confirm" disabled={!this.props.selectedHex}>
+          trigger={
+            <button
+              type="button"
+              className="confirm"
+              disabled={!this.props.selectedHex}
+            >
               Confirmar lugar
             </button>
-          )}
+          }
           modal
         >
-          <div className="header">
-            <h2>{this.check_knight()}</h2>
-          </div>
-          <ChoosePlayer />
+          {close => (
+            <>
+              <div className="header">
+                <h2>{this.check_knight()}</h2>
+              </div>
+              <ChoosePlayer />
+            </>
+          )}
         </Popup>
         <button
           className="cancel"

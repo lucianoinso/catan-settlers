@@ -36,29 +36,26 @@ class Signup extends Component {
         .catch(error => {
           console.log(error);
           PopupController.pushError({
-            content: error.response.data
+            content: "Hubo un error al registrarse."
           });
         });
     } else {
       PopupController.pushError({
-        content: "Longitud de firma invalida (longitud requerida: 8 caracteres)"
+        content: "Longitud de firma invalida (longitud requerida: 8 caracteres)."
       });
     }
   };
 
   handleResponse = res => {
-    if (res.status === 201) {
-      console.log("success!");
-      console.log(res);
-
-      // Call to Login with new user and pass
-      const payload = { user: this.state.user, pass: this.state.pass };
-      logIn(payload, store.dispatch);
-      this.setState({ isLogged: true });
-    } else {
-      // TODO: show status code error
-      this.setState({ failed: true });
-    }
+    // Call to Login with new user and pass
+    const payload = { user: this.state.user, pass: this.state.pass };
+    logIn(payload, store.dispatch);
+    // Dejamos que se redireccione despues de hacer login.
+    let unsuscribe = store.subscribe(() => {
+      if (store.getState().login.isLogged)
+        this.setState({ isLogged: true });
+      unsuscribe();
+    });
   };
 
   handleChange = event => {

@@ -121,7 +121,6 @@ const lobbiesReducer = (state = initialState, action) => {
 // Action dispatchers
 
 const updateLobbies = (_, dispatch) => {
-  console.log("updating lobbies");
   axios
     .get(`${apiURL}/rooms/`)
     .then(response => {
@@ -132,9 +131,10 @@ const updateLobbies = (_, dispatch) => {
     })
     .catch(error => {
       console.log(error);
-      PopupController.pushError({
-        content: error.response.data.detail
-      });
+      const content =
+        (error.response && error.response.data && error.response.data.detail) ||
+        "Hubo un error al actualizar las recámaras.";
+      PopupController.pushError({ content });
     });
 };
 
@@ -150,7 +150,7 @@ const loadLobby = (id, dispatch) => {
     .catch(error => {
       console.log(error);
       PopupController.pushError({
-        content: error.response.data
+        content: "Hubo un error al cargar la recámara."
       });
     });
 };
@@ -176,7 +176,7 @@ const startGame = (id, dispatch) => {
     .catch(error => {
       console.log(error);
       PopupController.pushError({
-        content: error.response.data
+        content: "Hubo un error al empezar la conquista."
       });
     });
 };
@@ -194,7 +194,7 @@ const joinLobby = (id, dispatch) => {
     })
     .catch(error => {
       PopupController.pushError({
-        content: `Hubo un error al unirse al lobby.`
+        content: `Hubo un error al unirse a la recámara.`
       });
       console.log(error);
     });
