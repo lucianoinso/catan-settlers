@@ -35,6 +35,7 @@ class ChoosePlayer extends React.Component {
           {listPlayer.map(Player => (
             <button
               key={`(${Player})`}
+              className="confirm"
               onClick={() => {
                 this.props.chooseRobbedPlayer(Player);
                 this.props.moveRobber({
@@ -50,26 +51,25 @@ class ChoosePlayer extends React.Component {
           ))}
         </div>
       );
-    } else {
-      return (
-        <div className="actions">
-          Ningun alma sera condenada por un Mal Augurio
-          <br />
-          <br />
-          <button
-            onClick={() => {
-              this.props.moveRobber({
-                position: this.props.selectedHex
-              });
-              this.props.endMoveRobber();
-              this.props.updateGameStatus();
-            }}
-          >
-            Dar Mal Augurio
-          </button>
-        </div>
-      );
     }
+    return (
+      <div className="actions">
+        Ningun alma sera condenada por un Mal Augurio
+        <br />
+        <br />
+        <button
+          onClick={() => {
+            this.props.moveRobber({
+              position: this.props.selectedHex
+            });
+            this.props.endMoveRobber();
+            this.props.updateGameStatus();
+          }}
+        >
+          Dar Mal Augurio
+        </button>
+      </div>
+    );
   }
 }
 
