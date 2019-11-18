@@ -5,7 +5,7 @@ import { updateResources } from "./Resources/Resources.ducks";
 import apiURL from "../api";
 import { edgeEquality } from "./BuildRoad/ChoosableEdge";
 
-let availableVerticesMock = [
+const availableVerticesMock = [
   [{ level: 0, index: 2 }, { level: 0, index: 3 }],
   [{ level: 1, index: 4 }, { level: 1, index: 5 }],
   [{ level: 1, index: 5 }, { level: 1, index: 6 }],
@@ -49,6 +49,10 @@ let availableActionsMock = [
       { position: { level: 2, index: 1 }, players: [] },
       { position: { level: 1, index: 3 }, players: [] }
     ]
+  },
+  {
+    type: "play_road_building_card",
+    payload: availableVerticesMock
   }
 ];
 
@@ -176,7 +180,7 @@ const initialState = {
 };
 
 const actionsReducer = (state = initialState, action) => {
-  //console.log(action)
+  // console.log(action)
   switch (action.type) {
     case SAVE_ACTIONS:
       return {
@@ -243,7 +247,7 @@ const tradeBank = payload => {
   axios
     .post(`${apiURL}/games/${id}/player/actions`, {
       type: "bank_trade",
-      payload: payload
+      payload
     })
     .catch(err => {
       PopupController.pushError({

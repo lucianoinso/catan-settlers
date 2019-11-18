@@ -8,7 +8,6 @@ function RoadBuilding(props) {
       props.cancelRoadBuilding();
       return "";
     }
-
     const cannotConfirm =
       !props.availableEdges ||
       !props.availableEdges.length ||

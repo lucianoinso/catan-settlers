@@ -19,7 +19,9 @@ class BuildRoad extends React.Component {
     }
     return (
       <button
-        disabled={!this.props.availableEdges || !this.props.availableEdges.length}
+        disabled={
+          !this.props.availableEdges || !this.props.availableEdges.length
+        }
         onClick={this.props.startBuildingRoad}
       >
         Construir portal
