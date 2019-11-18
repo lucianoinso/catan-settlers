@@ -14,7 +14,7 @@ class Logout extends Component {
             return (
                 <div
                     className="logout-header"
-                    style={{ position: "absolute", right: "0" }}
+                    style={{ position: "relative", float: "right", width:"100%", textAlign:"right", paddingBottom:"10px" }}
                 >
                     <div
                         className="header-welcome"

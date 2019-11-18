@@ -7,13 +7,15 @@ class Header extends Component {
       <header
         style={{
           textAlign: "center",
-          padding: "20px 0",
+          padding: "5px 0px 20px 0px",
           fontSize: "2em"
         }}
       >
         <Logout />
-        <h1> Los colonos de satán</h1>
-        <br />
+        <div id="gameTitle">
+          <h1> Los colonos de satán</h1>
+          <br />
+        </div>
       </header>
     );
   }
