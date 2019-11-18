@@ -1,7 +1,7 @@
+import axios from "axios";
 import { mapStateToProps } from "../Lobbies.ducks";
 import apiURL from "../../api";
 import PopupController from "../../PopupController/PopupController";
-import axios from "axios";
 import axiosMock from "../../App/axiosMock";
 
 for (let i = 0; i < 15; i++) {
@@ -28,7 +28,7 @@ const cancelLobby = (payload, dispatch) => {
     .catch(error => {
       console.error(error);
       PopupController.pushError({
-        content: `Hubo un error al cancelar la partida.`
+        content: `Hubo un error al cancelar la conquista.`
       });
     });
 };

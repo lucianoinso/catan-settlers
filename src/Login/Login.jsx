@@ -32,10 +32,10 @@ class Login extends React.Component {
           }}
         >
           <fieldset>
-            <legend>Login</legend>
+            <legend>Reanudar contrato</legend>
             <p>
               <label className="regInput" htmlFor="username">
-                Nombre de usuario
+                Identificador de alma
               </label>
               <br />
               <input
@@ -46,7 +46,7 @@ class Login extends React.Component {
             </p>
             <p>
               <label className="regInput" htmlFor="password">
-                Password
+                Firma
               </label>
               <br />
               <input
@@ -55,23 +55,23 @@ class Login extends React.Component {
                 onChange={e => this.setState({ pass: e.target.value })}
               />
               <span style={{ fontSize: "12px" }}>
-                <br/>(exactamente 8 caracteres)
+                <br />
+                (exactamente 8 caracteres)
               </span>
             </p>
             <p>
-               
               <br />
               <button
                 type="submit"
                 disabled={!this.state.user || !this.state.pass}
               >
-                Login
+                Ingresar...
               </button>
             </p>
           </fieldset>
         </form>
         <div>
-          ¿No tenés una cuenta? <Link to="/">Registrate</Link>
+          ¿Primera vez?           <Link to="/"> Identifica tu alma</Link>
         </div>
       </div>
     );

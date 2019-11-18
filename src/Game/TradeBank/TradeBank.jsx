@@ -28,7 +28,7 @@ class TradeBank extends React.Component {
   enoughResources() {
     return this.canTrade()
       ? "Elegir una ofrenda"
-      : "No tienes recursos disponibles para ofrecer al Diablo";
+      : "No tienes ofrendas suficientes para el Diablo";
   }
 
   chooseRequest() {
@@ -47,7 +47,7 @@ class TradeBank extends React.Component {
   resourceAmount(resource) {
     if (resource === "brick") {
       return this.props.brickAmount;
-    } else if (resource === "ore") {
+    } if (resource === "ore") {
       return this.props.oreAmount;
     } else if (resource === "grain") {
       return this.props.grainAmount;
@@ -63,12 +63,12 @@ class TradeBank extends React.Component {
 
     return (
       <Popup
-        trigger={
+        trigger={(
           <button className="button" disabled={!this.props.bank_trade}>
             {" "}
             Hacer pacto con el Diablo
           </button>
-        }
+        )}
         modal
       >
         {close => (
@@ -86,7 +86,9 @@ class TradeBank extends React.Component {
                   onClick={() => this.setState({ offer: resource })}
                   disabled={this.resourceAmount(resource) < 4}
                 >
-                  {resourceNames[resource]} <br />
+                  {resourceNames[resource]} 
+{' '}
+<br />
                   {this.resourceAmount(resource)}
                 </button>
               ))}
@@ -123,8 +125,8 @@ class TradeBank extends React.Component {
                   this.state.offer === this.state.request
                 }
               >
-                {" "}
-                Realizar pacto{" "}
+                 
+                Realizar pacto 
               </button>
               <button
                 className="cancel"

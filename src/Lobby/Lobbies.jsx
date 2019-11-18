@@ -5,7 +5,7 @@ import Lobby from "./Lobby";
 import { mapStateToProps, mapDispatchToProps } from "./Lobbies.ducks";
 import "./Lobbies.css";
 import CreateLobby from "./CreateLobby/CreateLobby";
-import IsLoggedIn from "../IsLoggedIn/IsLoggedIn"
+import IsLoggedIn from "../IsLoggedIn/IsLoggedIn";
 
 class Lobbies extends React.Component {
   componentDidMount() {
@@ -44,15 +44,15 @@ class Lobbies extends React.Component {
       return lobbyA.players.length - lobbyB.players.length;
     });
 
-    let noStartedLobbiesTooltip = this.tooltipIfEmpty(
+    const noStartedLobbiesTooltip = this.tooltipIfEmpty(
       started_lobbies,
-      "No estás en ninguna partida en curso."
+      "No estás en ninguna conquista en curso."
     );
-    let noJoinedLobbiesTooltip = this.tooltipIfEmpty(
+    const noJoinedLobbiesTooltip = this.tooltipIfEmpty(
       joined_lobbies,
       "No estás unido a ninguna recámara."
     );
-    let noOpenLobbiesTooltip = this.tooltipIfEmpty(
+    const noOpenLobbiesTooltip = this.tooltipIfEmpty(
       unstarted_lobbies,
       "No hay ninguna recámara abierta."
     );
@@ -64,7 +64,7 @@ class Lobbies extends React.Component {
           <CreateLobby />
         </div>
 
-        <h2>Partidas en curso</h2>
+        <h2>Conquistas en curso</h2>
         <div className="margin-left-10 fade-in">
           {noStartedLobbiesTooltip}
           {started_lobbies.map(lobby => {

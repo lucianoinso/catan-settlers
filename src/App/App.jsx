@@ -14,8 +14,17 @@ import Signup from "../Signup/Signup";
 
 const InvalidUrl = () => {
   return (
-    <div id='404-page' style={{ textAlign:'center' }}>
-    <h3 style={{ width:'400px', textAlign:'center', color:'white', margin:'auto' }}>Error 404: Dirección Inválida</h3>
+    <div id="404-page" style={{ textAlign: "center" }}>
+        <h3
+        style={{
+          width: "400px",
+          textAlign: "center",
+          color: "white",
+          margin: "auto"
+        }}
+      >
+        Error 404: La puerta del Infierno no se encuentra acá
+      </h3>
     </div>
   );
 };

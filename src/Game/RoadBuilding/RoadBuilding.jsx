@@ -1,6 +1,6 @@
 import React from "react";
-import { mapState, mapDispatch } from "./RoadBuilding.ducks";
 import { connect } from "react-redux";
+import { mapState, mapDispatch } from "./RoadBuilding.ducks";
 
 function RoadBuilding(props) {
   if (props.isPlayingRoadBuilding) {
@@ -40,7 +40,7 @@ function RoadBuilding(props) {
     <button
       disabled={!props.availableEdges || !props.availableEdges.length}
       onClick={() => props.startRoadBuilding()}
-      title='La carta "Conjuro de Malphas" te deja construir dos portales'
+      title="El Conjuro de Malphas te deja construir dos portales"
     >
       Usar Conjuro de Malphas
     </button>
