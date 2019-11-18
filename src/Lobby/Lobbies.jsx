@@ -28,15 +28,16 @@ class Lobbies extends React.Component {
 
     const started_lobbies = this.props.lobbies.filter(
       // Las partidas iniciadas que se muestran son aquellas en las que estoy
-      lobby => lobby.game_has_started && lobby.players.includes(this.props.user)
+      lobby =>
+        lobby.game_has_started && lobby.players.includes(this.props.username)
     );
     const joined_lobbies = this.props.lobbies.filter(
       lobby =>
-        !lobby.game_has_started && lobby.players.includes(this.props.user)
+        !lobby.game_has_started && lobby.players.includes(this.props.username)
     );
     const unstarted_lobbies = this.props.lobbies.filter(
       lobby =>
-        !lobby.game_has_started && !lobby.players.includes(this.props.user)
+        !lobby.game_has_started && !lobby.players.includes(this.props.username)
     );
 
     // Ordenamos para que los lobbies llenos queden al final

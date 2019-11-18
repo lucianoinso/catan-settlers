@@ -5,17 +5,17 @@ import PopupController from "../../PopupController/PopupController";
 import axiosMock from "../../App/axiosMock";
 
 axiosMock.onPost(`${apiURL}/rooms/`).reply(config => {
-  if (!localStorage.getItem("user")) {
+  if (!localStorage.getItem("username")) {
     return [401, {}];
   }
-  
+
   const params = JSON.parse(config.data);
 
   const newLobby = {
     id: window.mockedLobbies.length + 1,
     name: params.name,
-    owner: localStorage.getItem("user"),
-    players: [localStorage.getItem("user")],
+    owner: localStorage.getItem("username"),
+    players: [localStorage.getItem("username")],
     max_players: 4,
     game_has_started: false
   };

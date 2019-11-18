@@ -24,7 +24,7 @@ const statusReducer = (state = initialState, action) => {
     case SAVE_STATUS:
       return {
         ...state,
-        currentPlayer: action.payload.current_turn.user,
+        currentPlayer: action.payload.current_turn.username,
         dices: action.payload.current_turn.dice,
         roads: action.payload.players.flatMap(playerInfo =>
           playerInfo.roads.map(edge => ({
@@ -41,7 +41,7 @@ const statusReducer = (state = initialState, action) => {
             color: playerInfo.colour
           }))
         ),
-        winner: (action.payload.winner || "")
+        winner: action.payload.winner || ""
       };
     case SET_GAME_ID:
       return { ...state, id: action.payload.id };

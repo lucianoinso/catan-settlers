@@ -104,7 +104,7 @@ axiosMock.onPost(`${apiURL}/games/${id}/player/actions`).reply(config => {
       return [200, {}];
 
     case "build_road": {
-      if (!localStorage.getItem("user")) return [401, {}];
+      if (!localStorage.getItem("username")) return [401, {}];
 
       // Borramos el vértice de los vértices disponibles.
       filterInPlace(
@@ -116,7 +116,8 @@ axiosMock.onPost(`${apiURL}/games/${id}/player/actions`).reply(config => {
 
       // Agregamos la carretera a las carreteras del jugador, si es que se puede
       const playerStatusMock = window.gameStatusMock.players.filter(
-        playerStatus => playerStatus.username === localStorage.getItem("user")
+        playerStatus =>
+          playerStatus.username === localStorage.getItem("username")
       )[0];
 
       if (!playerStatusMock) return [200, {}];
@@ -129,7 +130,7 @@ axiosMock.onPost(`${apiURL}/games/${id}/player/actions`).reply(config => {
     }
 
     case "play_road_building_card": {
-      if (!localStorage.getItem("user")) return [401, {}];
+      if (!localStorage.getItem("username")) return [401, {}];
 
       filterInPlace(availableVerticesMock, edge =>
         params.payload.every(selectedEdge => !edgeEquality(edge, selectedEdge))
@@ -138,7 +139,8 @@ axiosMock.onPost(`${apiURL}/games/${id}/player/actions`).reply(config => {
       availableActionsMock = [...availableActionsMock];
 
       const playerStatusMock = window.gameStatusMock.players.find(
-        playerStatus => playerStatus.username === localStorage.getItem("user")
+        playerStatus =>
+          playerStatus.username === localStorage.getItem("username")
       );
 
       if (!playerStatusMock) return [200, {}];

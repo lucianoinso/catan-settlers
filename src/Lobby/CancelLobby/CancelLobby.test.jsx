@@ -12,7 +12,7 @@ describe("cancel lobby", () => {
     cancelLobby = shallow(
       <CancelLobby
         cancelLobby={cancelLobbyMock}
-        user="belzebu"
+        username="belzebu"
         lobby={{ owner: "belzebu", id: 0 }}
       />
     );
@@ -26,8 +26,8 @@ describe("cancel lobby", () => {
     expect(cancelLobbyMock.mock.calls).to.have.lengthOf(1);
   });
 
-  it("is hidden if user is not the owner", () => {
-    cancelLobby.setProps({ user: "batman" });
+  it("is hidden if username is not the owner", () => {
+    cancelLobby.setProps({ username: "batman" });
     expect(cancelLobby.find(Link)).to.have.lengthOf(0);
   });
 });

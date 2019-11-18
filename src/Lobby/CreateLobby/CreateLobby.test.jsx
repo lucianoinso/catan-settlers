@@ -82,7 +82,7 @@ describe("create lobby mock", () => {
   });
 
   it("should succeed if we're logged in", async () => {
-    localStorage.setItem("user", "joker");
+    localStorage.setItem("username", "joker");
 
     createLobby({ name: "Lobby", id: 0 });
 

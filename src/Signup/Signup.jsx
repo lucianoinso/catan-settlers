@@ -11,8 +11,8 @@ class Signup extends Component {
     super(props);
 
     this.state = {
-      user: "",
-      pass: "",
+      username: "",
+      password: "",
       failed: false,
       isLogged: Boolean(localStorage.getItem("token"))
     };
@@ -26,8 +26,11 @@ class Signup extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    if (this.validateForm(this.state.user, this.state.pass)) {
-      const payload = { user: this.state.user, pass: this.state.pass };
+    if (this.validateForm(this.state.username, this.state.password)) {
+      const payload = {
+        username: this.state.username,
+        password: this.state.password
+      };
       axios
         .post(route, payload)
         .then(res => {
@@ -51,8 +54,11 @@ class Signup extends Component {
       console.log("success!");
       console.log(res);
 
-      // Call to Login with new user and pass
-      const payload = { user: this.state.user, pass: this.state.pass };
+      // Call to Login with new username and password
+      const payload = {
+        username: this.state.username,
+        password: this.state.password
+      };
       logIn(payload, store.dispatch);
       this.setState({ isLogged: true });
     } else {
@@ -63,10 +69,10 @@ class Signup extends Component {
 
   handleChange = event => {
     if (event.target.id === "username") {
-      this.setState({ user: event.target.value });
+      this.setState({ username: event.target.value });
     }
     if (event.target.id === "password") {
-      this.setState({ pass: event.target.value });
+      this.setState({ password: event.target.value });
     }
   };
 
@@ -114,7 +120,7 @@ class Signup extends Component {
                 <br />
                 <button
                   type="submit"
-                  disabled={!this.state.user || !this.state.pass}
+                  disabled={!this.state.username || !this.state.password}
                   style={{ padding: "7px 15px 8px 15px" }}
                 >
                   Firmar contrato

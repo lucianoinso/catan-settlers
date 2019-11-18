@@ -91,7 +91,7 @@ describe("Build Road button", () => {
     ).to.be.false;
 
     // "Iniciamos sesión"
-    localStorage.setItem("user", "batman");
+    localStorage.setItem("username", "batman");
 
     // Confirmamos
     buildRoadWrapper

@@ -9,8 +9,8 @@ class Login extends React.Component {
     super(props);
 
     this.state = {
-      user: "",
-      pass: ""
+      username: "",
+      password: ""
     };
   }
 
@@ -25,8 +25,8 @@ class Login extends React.Component {
           className="regist-log-form"
           onSubmit={event => {
             this.props.logIn({
-              user: this.state.user,
-              pass: this.state.pass
+              username: this.state.username,
+              password: this.state.password
             });
             event.preventDefault();
           }}
@@ -41,7 +41,7 @@ class Login extends React.Component {
               <input
                 type="text"
                 id="username"
-                onChange={e => this.setState({ user: e.target.value })}
+                onChange={e => this.setState({ username: e.target.value })}
               />
             </p>
             <p>
@@ -52,7 +52,7 @@ class Login extends React.Component {
               <input
                 type="password"
                 id="password"
-                onChange={e => this.setState({ pass: e.target.value })}
+                onChange={e => this.setState({ password: e.target.value })}
               />
               <span style={{ fontSize: "12px" }}>
                 <br />
@@ -63,7 +63,7 @@ class Login extends React.Component {
               <br />
               <button
                 type="submit"
-                disabled={!this.state.user || !this.state.pass}
+                disabled={!this.state.username || !this.state.password}
               >
                 Ingresar...
               </button>
@@ -71,7 +71,7 @@ class Login extends React.Component {
           </fieldset>
         </form>
         <div>
-          ¿Primera vez?           <Link to="/"> Identifica tu alma</Link>
+          ¿Primera vez? <Link to="/"> Identifica tu alma</Link>
         </div>
       </div>
     );

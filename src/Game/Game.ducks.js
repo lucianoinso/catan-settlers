@@ -41,7 +41,7 @@ let gameStatusMock = {
     index: 3
   },
   current_turn: {
-    user: "joker",
+    username: "joker",
     dice: [4, 2]
   },
   winner: "Akibel"

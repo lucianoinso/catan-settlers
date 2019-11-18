@@ -17,7 +17,7 @@ const LOG_OUT = "log_out";
 // Reducer
 
 const initialState = {
-  user: localStorage.getItem("user") || "",
+  username: localStorage.getItem("username") || "",
   token: localStorage.getItem("token") || "",
   isLogged: Boolean(localStorage.getItem("token"))
 };
@@ -28,14 +28,14 @@ const loginReducer = (state = initialState, action) => {
       return {
         ...state,
         token: action.payload.token,
-        user: action.payload.user,
+        username: action.payload.username,
         isLogged: true
       };
     case LOG_OUT:
       return {
         ...state,
         token: "",
-        user: "",
+        username: "",
         isLogged: false
       };
     default:
@@ -56,7 +56,7 @@ const logIn = (payload, dispatch) => {
         payload
       });
 
-      localStorage.setItem("user", payload.user);
+      localStorage.setItem("username", payload.username);
       localStorage.setItem("token", payload.token);
 
       axios.defaults.headers.common["Authorization"] = `Token ${payload.token}`;
@@ -90,7 +90,7 @@ window.axiosMock = axiosMock;
 const mapStateToProps = state => {
   return {
     isLogged: state.login.isLogged,
-    user: state.login.user
+    username: state.login.username
   };
 };
 

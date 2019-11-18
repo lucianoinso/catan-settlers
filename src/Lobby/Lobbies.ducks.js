@@ -78,13 +78,13 @@ axiosMock.onPatch(`${apiURL}/rooms/3/`).reply(startMockedLobby);
 const joinMockedLobby = config => {
   const lobbyNumber = Number(config.url.match(/\/(\d+)\/$/)[1]);
   const lobby = mockedLobbies.find(lobby => lobby.id === lobbyNumber);
-  const user = localStorage.getItem("user");
+  const username = localStorage.getItem("username");
 
-  if (!user) return [(401, {})];
-  if (lobby.players.includes(user)) return [400, {}];
+  if (!username) return [(401, {})];
+  if (lobby.players.includes(username)) return [400, {}];
 
   // Tenemos que cambiar la respuesta del mock.
-  lobby.players.push(user);
+  lobby.players.push(username);
   // Pero no sirve a menos que redux lo reconozca como un array diferente!
   mockedLobbies = [...mockedLobbies];
 
@@ -205,7 +205,7 @@ const joinLobby = (id, dispatch) => {
 const mapStateToProps = state => ({
   lobbies: state.lobbies.list,
   lobby: state.lobbies.selected,
-  user: state.login.user
+  username: state.login.username
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -78,7 +78,7 @@ describe("Use road building card", () => {
   });
 
   it("should send a request on confirmation", async () => {
-    localStorage.setItem("user", "joker");
+    localStorage.setItem("username", "joker");
     setGameId({ id: 1 }, store.dispatch);
 
     roadBuilding.update();

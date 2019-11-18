@@ -36,7 +36,7 @@ class MyLobby extends React.Component {
 
     let startGameButton = "";
 
-    if (this.props.user !== this.props.lobby.owner)
+    if (this.props.username !== this.props.lobby.owner)
       startGameButton = (
         <div className="tooltip">
           Sólo el dueño de la recámara puede empezar la conquista.
