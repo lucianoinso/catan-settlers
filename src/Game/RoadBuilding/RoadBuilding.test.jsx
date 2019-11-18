@@ -1,14 +1,16 @@
 import React from "react";
 import { mount } from "enzyme";
 import { expect } from "chai";
-import store from "../../store";
 import { Provider } from "react-redux";
+import store from "../../store";
 import RoadBuilding from "./RoadBuilding";
 import { selectEdge } from "./RoadBuilding.ducks";
 import axiosMock from "../../App/axiosMock";
 import { updateGameStatus, setGameId } from "../Status.ducks";
 import { waitForSeconds } from "../../../setupTest";
 import { updateAvailableActions } from "../Actions.ducks";
+
+import { ChoosableEdge2 } from "./ChoosableEdge2";
 
 describe("Use road building card", () => {
   let roadBuilding;
@@ -96,13 +98,11 @@ describe("Use road building card", () => {
   });
 });
 
-import { ChoosableEdge2 } from "./ChoosableEdge2";
-
 describe("ChoosableEdge2", () => {
   let choosableEdge2;
-  let edge = [{ level: 0, index: 0 }, { level: 0, index: 1 }];
-  let selectEdge = jest.fn();
-  let selectedEdges = [];
+  const edge = [{ level: 0, index: 0 }, { level: 0, index: 1 }];
+  const selectEdge = jest.fn();
+  const selectedEdges = [];
 
   it("should mount", () => {
     choosableEdge2 = mount(

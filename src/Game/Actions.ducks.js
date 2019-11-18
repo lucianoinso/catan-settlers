@@ -5,7 +5,7 @@ import { updateResources } from "./Resources/Resources.ducks";
 import apiURL from "../api";
 import { edgeEquality } from "./BuildRoad/ChoosableEdge";
 
-let availableVerticesMock = [
+const availableVerticesMock = [
   [{ level: 0, index: 2 }, { level: 0, index: 3 }],
   [{ level: 1, index: 4 }, { level: 1, index: 5 }],
   [{ level: 1, index: 5 }, { level: 1, index: 6 }],
@@ -49,6 +49,10 @@ let availableActionsMock = [
       { position: { level: 2, index: 1 }, players: [] },
       { position: { level: 1, index: 3 }, players: [] }
     ]
+  },
+  {
+    type: "play_road_building_card",
+    payload: availableVerticesMock
   }
 ];
 
@@ -57,11 +61,10 @@ Object.defineProperty(window, "availableActionsMock", {
   set: value => (availableActionsMock = value)
 });
 
-axiosMock
-  .onGet(`${apiURL}/games/1/player/actions`)
-  .reply(config => [200, availableActionsMock]);
-
 const id = 1;
+axiosMock
+  .onGet(`${apiURL}/games/${id}/player/actions`)
+  .reply(config => [200, availableActionsMock]);
 
 axiosMock.onPost(`${apiURL}/games/${id}/player/actions`).reply(config => {
   const params = JSON.parse(config.data);
@@ -179,7 +182,7 @@ const initialState = {
 };
 
 const actionsReducer = (state = initialState, action) => {
-  //console.log(action)
+  // console.log(action)
   switch (action.type) {
     case SAVE_ACTIONS:
       return {
@@ -225,7 +228,7 @@ function possibleActions(actions) {
 
 const saveAction = (payload, dispatch) => {
   axios
-    .get(`${apiURL}/games/1/player/actions`)
+    .get(`${apiURL}/games/${id}/player/actions`)
     .then(response => {
       const possibleAction = possibleActions(response.data);
       payload = possibleAction;
@@ -246,7 +249,7 @@ const tradeBank = payload => {
   axios
     .post(`${apiURL}/games/${id}/player/actions`, {
       type: "bank_trade",
-      payload: payload
+      payload
     })
     .catch(err => {
       PopupController.pushError({
