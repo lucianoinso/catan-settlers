@@ -88,8 +88,6 @@ describe("Use road building card", () => {
 
     await waitForSeconds(0.3);
 
-    console.log(axiosMock.history);
-
     const postReq = axiosMock.history.post.find(post =>
       post.url.endsWith("/player/actions")
     );

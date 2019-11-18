@@ -44,7 +44,7 @@ let gameStatusMock = {
     user: "joker",
     dice: [4, 2]
   },
-  winner: ""
+  winner: "Akibel"
 };
 
 Object.defineProperty(window, "gameStatusMock", {
