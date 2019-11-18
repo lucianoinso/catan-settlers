@@ -1,15 +1,13 @@
-import countResources from "./utils";
 import axios from "axios";
+import countResources from "./utils";
 import PopupController from "../../PopupController/PopupController.jsx";
 import apiURL from "../../api";
 
 // Action types
 
 const SAVE_RESOURCE = "save_resource";
-const OFFER_BANK = "offer_bank";
-const REQUEST_BANK = "request_bank";
 
-//Reducer
+// Reducer
 
 const initialState = {
   brickAmount: 0,
@@ -20,7 +18,6 @@ const initialState = {
 };
 
 const resourcesReducer = (state = initialState, action) => {
-  let trade = { ...state };
   switch (action.type) {
     case SAVE_RESOURCE:
       return {
@@ -31,18 +28,12 @@ const resourcesReducer = (state = initialState, action) => {
         lumberAmount: action.payload.lumberAmount,
         oreAmount: action.payload.oreAmount
       };
-    case OFFER_BANK:
-      trade[`${action.payload}Amount`] = trade[`${action.payload}Amount`] - 4;
-      return trade;
-    case REQUEST_BANK:
-      trade[`${action.payload}Amount`] = trade[`${action.payload}Amount`] + 1;
-      return trade;
     default:
       return state;
   }
 };
 
-//Action creators
+// Action creators
 
 const updateResources = (payload, dispatch) => {
   const id = 1;
@@ -65,7 +56,7 @@ const updateResources = (payload, dispatch) => {
     });
 };
 
-//Maps
+// Maps
 
 const mapStateToProps = state => {
   return {

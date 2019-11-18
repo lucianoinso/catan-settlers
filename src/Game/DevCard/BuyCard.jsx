@@ -24,6 +24,7 @@ function BuyCard() {
 
   function canBuy() {
     const { grainAmount, oreAmount, woolAmount } = store.getState().resources;
+    // console.log(store.getState().resources);
     // Buying a development card requires 1 grain 1 ore and 1 wool
     return grainAmount > 0 && oreAmount > 0 && woolAmount > 0;
   }
@@ -37,7 +38,14 @@ function BuyCard() {
   }
 
   return (
-    <Popup trigger={<button className="button">Comprar conjuro</button>} modal>
+    <Popup
+      trigger={(
+        <button className="button" disabled={!canBuy()}>
+          Comprar conjuro
+        </button>
+      )}
+      modal
+    >
       {close => (
         <div className="modal">
           <h2 className="header">Comprar conjuro</h2>
@@ -45,17 +53,19 @@ function BuyCard() {
             {enoughResources()}
             <br />
             <button
+              className="confirm"
               onClick={() => {
                 if (canBuy()) {
                   buy();
                 }
                 close();
               }}
-              disabled={!canBuy()}
             >
               Confirmar
             </button>
-            <button onClick={close}>Cancelar</button>
+            <button className="cancel" onClick={close}>
+              Cancelar
+            </button>
           </div>
         </div>
       )}
