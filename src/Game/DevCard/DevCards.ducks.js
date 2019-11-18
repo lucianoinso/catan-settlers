@@ -3,7 +3,8 @@ import PopupController from "../../PopupController/PopupController";
 import apiURL from "../../api";
 import axiosMock from "../../App/axiosMock";
 
-axiosMock.onPost(`${apiURL}/games/1/player/actions`).reply(200, {});
+const id = 1;
+axiosMock.onPost(`${apiURL}/games/${id}/player/actions`).reply(200, {});
 
 // Action types
 const BUY_CARD = "buy_card";
@@ -54,8 +55,6 @@ function countDevCards(devCards) {
 }
 
 const updateCards = (payload, dispatch) => {
-  const id = 1;
-
   axios
     .get(`${apiURL}/games/${id}/player`)
     .then(response => {
@@ -74,7 +73,6 @@ const updateCards = (payload, dispatch) => {
 };
 
 const buyCard = (payload, dispatch) => {
-  const id = 1;
   axios
     .post(`${apiURL}/games/${id}/player/actions`, payload)
     .then(() => {

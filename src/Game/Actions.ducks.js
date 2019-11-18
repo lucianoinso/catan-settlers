@@ -57,11 +57,10 @@ Object.defineProperty(window, "availableActionsMock", {
   set: value => (availableActionsMock = value)
 });
 
-axiosMock
-  .onGet(`${apiURL}/games/1/player/actions`)
-  .reply(config => [200, availableActionsMock]);
-
 const id = 1;
+axiosMock
+  .onGet(`${apiURL}/games/${id}/player/actions`)
+  .reply(config => [200, availableActionsMock]);
 
 axiosMock.onPost(`${apiURL}/games/${id}/player/actions`).reply(config => {
   const params = JSON.parse(config.data);
@@ -223,7 +222,7 @@ function possibleActions(actions) {
 
 const saveAction = (payload, dispatch) => {
   axios
-    .get(`${apiURL}/games/1/player/actions`)
+    .get(`${apiURL}/games/${id}/player/actions`)
     .then(response => {
       const possibleAction = possibleActions(response.data);
       payload = possibleAction;
