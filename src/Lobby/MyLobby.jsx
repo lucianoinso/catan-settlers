@@ -1,7 +1,7 @@
 import React from "react";
-import { mapStateToProps, mapDispatchToProps } from "./Lobbies.ducks";
 import { connect } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
+import { mapStateToProps, mapDispatchToProps } from "./Lobbies.ducks";
 import Lobby from "./Lobby";
 import IsLoggedIn from "../IsLoggedIn/IsLoggedIn";
 import CancelLobby from "./CancelLobby/CancelLobby";
@@ -39,20 +39,20 @@ class MyLobby extends React.Component {
     if (this.props.user !== this.props.lobby.owner)
       startGameButton = (
         <div className="tooltip">
-          Sólo el dueño de la recámara puede empezar la partida.
+          Sólo el dueño de la recámara puede empezar la conquista.
         </div>
       );
     else if (currentLobby.players.length < 3)
       startGameButton = (
         <div className="tooltip">
-          Se necesitan al menos 3 jugadores para empezar la partida.
+          Se necesitan al menos 3 jugadores para empezar la conquista.
         </div>
       );
     else
       startGameButton = (
         <div>
           <button onClick={() => this.props.startGame(currentLobby.id)}>
-            Empezar partida
+            Empezar conquista
           </button>
         </div>
       );

@@ -9,7 +9,7 @@ class DevCards extends React.Component {
   componentDidMount() {
     this.props.updateCards();
   }
-  
+
   render() {
     return (
       <div className="devCards">
@@ -17,12 +17,17 @@ class DevCards extends React.Component {
         <BuyCard />
         <ul>
           <li>
-            <DevCard cardName="knight" amount={this.props.knightAmount} />
+            <DevCard
+              cardName="knight"
+              amount={this.props.knightAmount}
+              description="La llamada de Valefar te deja dar un mal augurio"
+            />
           </li>
           <li>
             <DevCard
               cardName="roadBuilding"
               amount={this.props.roadBuildingAmount}
+              description="El Conjuro de Malphas te deja construir dos portales"
             />
           </li>
           <li>

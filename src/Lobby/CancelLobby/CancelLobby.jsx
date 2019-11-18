@@ -10,7 +10,7 @@ function CancelLobby({ user, lobby, cancelLobby }) {
   return (
     <div>
       <Link to="/rooms/" onClick={() => cancelLobby({ id: lobby.id })}>
-        Cancelar partida
+        Cancelar conquista
       </Link>
     </div>
   );

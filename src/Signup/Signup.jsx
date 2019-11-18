@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import { route } from "./Signup.ducks";
 import { Redirect, Link } from "react-router-dom";
+import axios from "axios";
+import { route } from "./Signup.ducks";
 import { logIn } from "../Login/Login.ducks";
 import store from "../store";
 import PopupController from "../PopupController/PopupController";
-import axios from "axios";
 
 class Signup extends Component {
   constructor(props) {
@@ -41,8 +41,7 @@ class Signup extends Component {
         });
     } else {
       PopupController.pushError({
-        content:
-          "Longitud de password invalida (longitud requerida: 8 caracteres)"
+        content: "Longitud de firma invalida (longitud requerida: 8 caracteres)"
       });
     }
   };
@@ -74,7 +73,8 @@ class Signup extends Component {
   render() {
     if (this.state.failed) {
       return <p>"Something went very wrong"</p>;
-    } else if (!this.state.isLogged) {
+    }
+    if (!this.state.isLogged) {
       return (
         <div id="registerForm" style={{ textAlign: "center", width: "100%" }}>
           <form
@@ -87,18 +87,18 @@ class Signup extends Component {
             }}
           >
             <fieldset style={{ border: "4px double red" }}>
-              <legend>Registro</legend>
+              <legend>Contrato</legend>
               <p>
                 <label className="regInput" htmlFor="username">
-                  Nombre de usuario
-                </label>{" "}
+                  Identificador de alma
+                </label>
                 <br />
                 <input type="text" id="username" onChange={this.handleChange} />
               </p>
               <p>
                 <label className="regInput" htmlFor="password">
-                  Password
-                </label>{" "}
+                  Firma
+                </label>
                 <br />
                 <input
                   type="password"
@@ -111,27 +111,25 @@ class Signup extends Component {
                 </span>
               </p>
               <p>
-                {" "}
                 <br />
                 <button
                   type="submit"
                   disabled={!this.state.user || !this.state.pass}
                   style={{ padding: "7px 15px 8px 15px" }}
                 >
-                  Registrarse
+                  Firmar contrato
                 </button>
               </p>
             </fieldset>
           </form>
           <div>
-            ¿Ya tenés una cuenta?{" "}
+            ¿Ya vendiste tu alma?
             <Link to="/users/login">Entrar al infierno</Link>
           </div>
         </div>
       ); // End return (not logged in)
-    } else {
-      return <Redirect to="/rooms/" />;
     }
+    return <Redirect to="/rooms/" />;
   } // End Render
 } // End Signup class
 

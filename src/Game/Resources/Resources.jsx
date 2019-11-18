@@ -96,7 +96,7 @@ class Resources extends React.Component {
     };
 
     if (changed === "") {
-      changed = "No recibiste ningún recurso";
+      changed = "No recibiste ninguna ofrenda";
       PopupController.pushLog({ content: changed });
     }
   }
