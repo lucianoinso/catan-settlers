@@ -46,7 +46,7 @@ function Board({ board, updateBoard, settlements, robber }) {
       style={{
         position: "relative",
         width: "600px",
-        height: "600px"
+        height: "546px"
       }}
       className="board"
     >

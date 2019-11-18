@@ -12,6 +12,7 @@ import { mapStateToProps, mapDispatchToProps } from "./Status.ducks";
 import EndTurn from "./EndTurn/EndTurn";
 import IsLoggedIn from "../IsLoggedIn/IsLoggedIn";
 import RoadBuilding from "./RoadBuilding/RoadBuilding";
+import WinGame from "./WinGame/WinGame";
 
 class Game extends React.Component {
   componentDidMount() {
@@ -34,9 +35,10 @@ class Game extends React.Component {
   
 	render() {
     return (
-      <div className="game">
+      <div className="game" style={{padding:"0px 10px"}}>
         <IsLoggedIn />
 				<Board />
+        <WinGame />
 				<Dice />
 				<TradeBank />
 				<BuildSettlement />
