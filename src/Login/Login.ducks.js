@@ -3,7 +3,7 @@ import axiosMock from "../App/axiosMock";
 import apiURL from "../api";
 import PopupController from "../PopupController/PopupController";
 
-const route = `${apiURL}/users/login`;
+const route = `${apiURL}/users/login/`;
 
 axiosMock.onPost(route).reply(200, {
   token: "fgewr234h482o3321j45o3j1"
@@ -48,11 +48,6 @@ const loginReducer = (state = initialState, action) => {
 const logIn = (payload, dispatch) => {
   axios
     .post(route, payload)
-    .catch(error => {
-      PopupController.pushError({
-        content: error.response.data
-      });
-    })
     .then(response => {
       payload.token = response.data.token;
       payload.isLogged = true;
@@ -64,21 +59,26 @@ const logIn = (payload, dispatch) => {
       localStorage.setItem("user", payload.user);
       localStorage.setItem("token", payload.token);
 
-      axios.defaults.headers.common['Authorization'] = `Bearer ${payload.token}`;
+      axios.defaults.headers.common["Authorization"] = `Token ${payload.token}`;
+    })
+    .catch(error => {
+      console.log(error);
+      PopupController.pushError({
+        content: error.response.data.non_field_errors
+      });
     });
 };
 
-
 const logOut = (payload, dispatch) => {
-      payload = {};
-      dispatch({
-        type: LOG_OUT,
-        payload
-      });
+  payload = {};
+  dispatch({
+    type: LOG_OUT,
+    payload
+  });
 
-      localStorage.clear();
+  localStorage.clear();
 
-      delete axios.defaults.headers.common['Authorization'];
+  delete axios.defaults.headers.common["Authorization"];
 };
 
 // Así hice para testear --manualmente-- que el header se envíe con cada petición.

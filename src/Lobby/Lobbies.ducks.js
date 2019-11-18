@@ -48,11 +48,10 @@ const getMockedLobby = config => {
   const lobbyNumber = Number(config.url.match(/\/(\d+)\/$/)[1]);
   const lobby = mockedLobbies.find(lobby => lobby.id === lobbyNumber);
 
-  if (lobby)
-    return [200, lobby];
-  
+  if (lobby) return [200, lobby];
+
   return [400, {}];
-}
+};
 
 for (let i = 0; i < 15; i++) {
   axiosMock.onGet(`${apiURL}/rooms/${i}/`).reply(getMockedLobby);
@@ -132,10 +131,10 @@ const updateLobbies = (_, dispatch) => {
       });
     })
     .catch(error => {
-      PopupController.pushError({
-        content: `Hubo un error al cargar la lista de lobbies.`
-      });
       console.log(error);
+      PopupController.pushError({
+        content: error.response.data.detail
+      });
     });
 };
 
@@ -149,10 +148,10 @@ const loadLobby = (id, dispatch) => {
       });
     })
     .catch(error => {
-      PopupController.pushError({
-        content: `Hubo un error al cargar el lobby.`
-      });
       console.log(error);
+      PopupController.pushError({
+        content: error.response.data
+      });
     });
 };
 
@@ -175,10 +174,10 @@ const startGame = (id, dispatch) => {
       // la propiedad "game_has_started" es `true`.
     })
     .catch(error => {
-      PopupController.pushError({
-        content: `Hubo un error al iniciar la partida.`
-      });
       console.log(error);
+      PopupController.pushError({
+        content: error.response.data
+      });
     });
 };
 

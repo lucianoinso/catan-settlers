@@ -36,8 +36,7 @@ class Signup extends Component {
         .catch(error => {
           console.log(error);
           PopupController.pushError({
-          content:
-            "Ha ocurrido un error con la comunicación con el servidor"
+            content: error.response.data
           });
         });
     } else {
@@ -49,7 +48,7 @@ class Signup extends Component {
   };
 
   handleResponse = res => {
-    if (res.status === 200) {
+    if (res.status === 201) {
       console.log("success!");
       console.log(res);
 
@@ -77,30 +76,47 @@ class Signup extends Component {
       return <p>"Something went very wrong"</p>;
     } else if (!this.state.isLogged) {
       return (
-        <div id="registerForm" style={{ textAlign:'center', width:'100%' }}>
-          <form className = "regist-log-form" onSubmit={this.handleSubmit} style={{ display:'inline-block', margin: '0 auto', width:'413px'}}>
-            <fieldset style={{ border:'4px double red' }}>
+        <div id="registerForm" style={{ textAlign: "center", width: "100%" }}>
+          <form
+            className="regist-log-form"
+            onSubmit={this.handleSubmit}
+            style={{
+              display: "inline-block",
+              margin: "0 auto",
+              width: "413px"
+            }}
+          >
+            <fieldset style={{ border: "4px double red" }}>
               <legend>Registro</legend>
               <p>
-                <label className = "regInput" htmlFor="username">Nombre de usuario</label> <br/>
+                <label className="regInput" htmlFor="username">
+                  Nombre de usuario
+                </label>{" "}
+                <br />
                 <input type="text" id="username" onChange={this.handleChange} />
               </p>
               <p>
-                <label className = "regInput" htmlFor="password">Password</label> <br/>
+                <label className="regInput" htmlFor="password">
+                  Password
+                </label>{" "}
+                <br />
                 <input
                   type="password"
                   id="password"
                   onChange={this.handleChange}
                 />
                 <span style={{ fontSize: "12px" }}>
-                  <br/>(exactamente 8 caracteres)
+                  <br />
+                  (exactamente 8 caracteres)
                 </span>
               </p>
-              <p> <br />
+              <p>
+                {" "}
+                <br />
                 <button
                   type="submit"
                   disabled={!this.state.user || !this.state.pass}
-                  style={{padding: '7px 15px 8px 15px'}}
+                  style={{ padding: "7px 15px 8px 15px" }}
                 >
                   Registrarse
                 </button>
@@ -108,7 +124,8 @@ class Signup extends Component {
             </fieldset>
           </form>
           <div>
-            ¿Ya tenés una cuenta? <Link to="/users/login">Entrar al infierno</Link>
+            ¿Ya tenés una cuenta?{" "}
+            <Link to="/users/login">Entrar al infierno</Link>
           </div>
         </div>
       ); // End return (not logged in)

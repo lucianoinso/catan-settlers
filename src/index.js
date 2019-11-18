@@ -9,6 +9,8 @@ import axios from "axios";
 // (Antes esto estaba en Login.ducks, y pasaba que las primeras peticiones
 //  --antes que se cargue el Login.ducks-- se enviaban sin header).
 if (localStorage.getItem("token"))
-  axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem("token")}`;
+  axios.defaults.headers.common[
+    "Authorization"
+  ] = `Token ${localStorage.getItem("token")}`;
 
 ReactDOM.render(<App />, document.getElementById("root"));
