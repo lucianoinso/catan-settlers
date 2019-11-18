@@ -10,16 +10,16 @@ import { logIn } from "../Login/Login.ducks";
 describe("Logout", function() {
     let logout;
 
-    beforeAll(async () => {
+    beforeEach(() => {
         logout = mount(
             <Provider store={store}>
                 <Logout />
             </Provider>
         );
+    });
 
-        logout.update();
-
-        await waitForSeconds(0.3);
+    afterEach(() => {
+        logout = undefined;
     });
 
     it("Renders hidden 'not logged' when not logged in", function() {
@@ -27,12 +27,12 @@ describe("Logout", function() {
         expect(logout.contains(notLogged)).to.equal(true);
     });
 
-    // TODO: false positive, check how to test using redux
-    // it("Renders Welcome message when logged in", function() {
-    //     const payload = { user: "user1", pass: "12345678" };
-    //     logIn(payload, store.dispatch);
-    //     const welcome = 'header-welcomx';
-    //     console.log(logout.debug());
-    //     expect(logout.find(welcome)).to.exist;
-    // });
+    it("Renders Welcome message when logged in", async function() {
+        const payload = { user: "user1", pass: "12345678" };
+        logIn(payload, store.dispatch);
+        await waitForSeconds(0.3);
+        logout.update();
+        const welcome = "Bienvenid@";
+        expect(logout.text()).to.contain(welcome);
+    });
 });
