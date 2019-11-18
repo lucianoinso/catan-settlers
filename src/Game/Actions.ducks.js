@@ -28,8 +28,8 @@ let availableActionsMock = [
   {
     type: "move_robber",
     payload: [
-      { position: { level: 2, index: 1 }, players: ["batman"] },
-      { position: { level: 1, index: 3 }, players: ["batman", "joker"] }
+      { position: { level: 2, index: 1 }, players: ["Batman"] },
+      { position: { level: 1, index: 3 }, players: [] }
     ]
   },
   { type: "bank_trade", payload: {} },
@@ -44,8 +44,11 @@ let availableActionsMock = [
     payload: [{ level: 0, index: 1 }, { level: 1, index: 5 }]
   },
   {
-    type: "play_road_building_card",
-    payload: availableVerticesMock
+    type: "play_knight_card",
+    payload: [
+      { position: { level: 2, index: 1 }, players: [] },
+      { position: { level: 1, index: 3 }, players: [] }
+    ]
   }
 ];
 
@@ -174,6 +177,7 @@ const initialState = {
 };
 
 const actionsReducer = (state = initialState, action) => {
+  //console.log(action)
   switch (action.type) {
     case SAVE_ACTIONS:
       return {

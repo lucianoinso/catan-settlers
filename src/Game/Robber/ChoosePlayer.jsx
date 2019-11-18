@@ -1,11 +1,16 @@
 import React from "react";
 import { connect } from "react-redux";
 import { mapStateToProps, mapDispatchToProps } from "./Robber.ducks";
+import { checkRobberKnight } from "./ChooseHex";
 
 class ChoosePlayer extends React.Component {
-  listAvailablePlayers() {
+  listavailableRobber() {
     let listPlayer = [];
-    this.props.availablePlayers.forEach(robberData => {
+    const availableThing = checkRobberKnight(
+      this.props.availableRobber,
+      this.props.availableKnight
+    );
+    availableThing.forEach(robberData => {
       if (this.props.selectedHex !== null) {
         if (
           robberData.position.level === this.props.selectedHex.level &&
@@ -19,29 +24,52 @@ class ChoosePlayer extends React.Component {
   }
 
   render() {
-    const listPlayer = this.listAvailablePlayers();
+    const listPlayer = this.listavailableRobber();
     this.props.updateGameStatus();
-
-    if (this.props.availablePlayers !== null) {
-      return listPlayer.map(Player => (
-        <button
-          key={`(${Player})`}
-          onClick={() => {
-            this.props.chooseRobbedPlayer(Player);
-            this.props.moveRobber({
-              position: this.props.selectedHex,
-              player: Player
-            });
-            this.props.endMoveRobber();
-            this.props.updateGameStatus();
-          }}
-        >
-          {`${Player}`}
-        </button>
-      ));
-    } 
-      return null;
-    
+    if (listPlayer.length !== 0) {
+      return (
+        <div className="actions">
+          Elegir alma a la que condenar con un Mal Augurio:
+          <br />
+          <br />
+          {listPlayer.map(Player => (
+            <button
+              key={`(${Player})`}
+              onClick={() => {
+                this.props.chooseRobbedPlayer(Player);
+                this.props.moveRobber({
+                  position: this.props.selectedHex,
+                  player: Player
+                });
+                this.props.endMoveRobber();
+                this.props.updateGameStatus();
+              }}
+            >
+              {`${Player}`}
+            </button>
+          ))}
+        </div>
+      );
+    } else {
+      return (
+        <div className="actions">
+          Ningun alma sera condenada por un Mal Augurio
+          <br />
+          <br />
+          <button
+            onClick={() => {
+              this.props.moveRobber({
+                position: this.props.selectedHex
+              });
+              this.props.endMoveRobber();
+              this.props.updateGameStatus();
+            }}
+          >
+            Dar Mal Augurio
+          </button>
+        </div>
+      );
+    }
   }
 }
 

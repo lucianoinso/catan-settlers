@@ -5,27 +5,36 @@ import { mapStateToProps, mapDispatchToProps } from "./Robber.ducks";
 import ChoosePlayer from "./ChoosePlayer.jsx";
 
 class MoveRobber extends React.Component {
+  check_knight() {
+    return this.props.availableRobber
+      ? "Dar mal augurio"
+      : "Jugar Llamada de Valefar";
+  }
+
   render() {
     if (!this.props.isMovingRobber)
       return (
         <button
           type="button"
           onClick={() => this.props.beginMoveRobber()}
-          disabled={!this.props.availableHexes}
+          disabled={!this.props.availableRobber && !this.props.availableKnight}
         >
-          Dar mal augurio
+          {this.check_knight()}
         </button>
       );
     return (
       <span>
         <Popup
-          trigger={(
+          trigger={
             <button type="button" disabled={!this.props.selectedHex}>
               Confirmar lugar
             </button>
-          )}
+          }
           modal
         >
+          <div className="header">
+            <h2>{this.check_knight()}</h2>
+          </div>
           <ChoosePlayer />
         </Popup>
         <button

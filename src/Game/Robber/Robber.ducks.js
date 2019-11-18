@@ -14,7 +14,8 @@ const initialState = {
   isMovingRobber: false,
   selectedHex: null,
   playerToRob: null,
-  availablePlayers: null
+  availableRobber: null,
+  isPlayingKnight: false
 };
 
 const moveRobberReducer = (state = initialState, action) => {
@@ -50,7 +51,7 @@ const moveRobberReducer = (state = initialState, action) => {
     case SAVE_AVAILABLE_PLAYERS:
       return {
         ...state,
-        availablePlayers: action.payload
+        availableRobber: action.payload
       };
     case MOVE_ROBBER:
       return {
@@ -105,10 +106,10 @@ const moveRobber = (payload, dispatch) => {
 };
 
 const mapStateToProps = state => ({
-  availableHexes: state.game.actions.move_robber,
+  availableRobber: state.game.actions.move_robber,
   isMovingRobber: state.game.moveRobber.isMovingRobber,
   selectedHex: state.game.moveRobber.selectedHex,
-  availablePlayers: state.game.actions.move_robber
+  availableKnight: state.game.actions.play_knight_card
 });
 
 const mapDispatchToProps = dispatch => ({
