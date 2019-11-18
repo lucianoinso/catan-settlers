@@ -121,4 +121,10 @@ const mapDispatchToProps = dispatch => ({
   updateGameStatus: payload => updateGameStatus(payload, dispatch)
 });
 
-export { moveRobberReducer, mapStateToProps, mapDispatchToProps };
+export {
+  moveRobberReducer,
+  mapStateToProps,
+  mapDispatchToProps,
+  chooseRobberHex,
+  chooseRobbedPlayer
+};
