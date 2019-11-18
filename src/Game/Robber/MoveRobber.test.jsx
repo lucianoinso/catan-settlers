@@ -8,6 +8,7 @@ import store from "../../store";
 import { updateGameStatus, setGameId } from "../Status.ducks";
 import { updateAvailableActions } from "../Actions.ducks";
 import { waitForSeconds } from "../../../setupTest";
+import ChoosePlayer from "./ChoosePlayer";
 
 describe("Move Robber", () => {
   let moverobber;
@@ -59,5 +60,15 @@ describe("Move Robber", () => {
     moverobber.update();
 
     expect(moverobber.find(".confirm").prop("disabled")).to.be.false;
+  });
+});
+describe("Choose player", () => {
+  let chooseplayer;
+  it("should mount", () => {
+    chooseplayer = mount(
+      <Provider store={store}>
+        <ChoosePlayer />
+      </Provider>
+    );
   });
 });
