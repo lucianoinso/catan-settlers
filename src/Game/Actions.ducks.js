@@ -77,6 +77,9 @@ axiosMock.onPost(`${apiURL}/games/${id}/player/actions`).reply(config => {
 
     case "buy_card":
       console.log("Se compró una carta", params.payload);
+      window.resourcesMock.cards = window.resourcesMock.cards.concat(
+        "victoryPoints"
+      );
       return [200, {}];
 
     case "build_settlement":

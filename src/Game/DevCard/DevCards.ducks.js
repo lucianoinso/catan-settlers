@@ -1,10 +1,9 @@
 import axios from "axios";
 import PopupController from "../../PopupController/PopupController";
 import apiURL from "../../api";
-import axiosMock from "../../App/axiosMock";
+import { updateAvailableActions } from "../Actions.ducks";
 
 const id = 1;
-axiosMock.onPost(`${apiURL}/games/${id}/player/actions`).reply(200, {});
 
 // Action types
 const BUY_CARD = "buy_card";
@@ -74,9 +73,13 @@ const updateCards = (payload, dispatch) => {
 
 const buyCard = (payload, dispatch) => {
   axios
-    .post(`${apiURL}/games/${id}/player/actions`, payload)
+    .post(`${apiURL}/games/${id}/player/actions`, {
+      type: "buy_card",
+      payload: ""
+    })
     .then(() => {
       updateCards({}, dispatch);
+      updateAvailableActions({}, dispatch);
     })
     .catch(err => {
       PopupController.pushError({
@@ -92,7 +95,8 @@ const mapStateToProps = state => {
     roadBuildingAmount: state.game.devCards.roadBuildingAmount,
     yearOfPlentyAmount: state.game.devCards.yearOfPlentyAmount,
     monopolyAmount: state.game.devCards.monopolyAmount,
-    victoryPointsAmount: state.game.devCards.victoryPointsAmount
+    victoryPointsAmount: state.game.devCards.victoryPointsAmount,
+    buyCard: state.game.actions.buy_card
   };
 };
 
