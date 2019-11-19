@@ -1,0 +1,40 @@
+.dices {
+  margin-bottom: 0.9em;
+}
+
+.column {
+  box-sizing: border-box;
+  max-width: 50%;
+  display: inline-block;
+}
+
+.dices .column:first-child {
+  min-width: 500px;
+}
+
+.dices h2 {
+  display: inline-block;
+  margin: 0 0.1em;
+  padding: 0.1em 0.3em;
+  border-radius: 6px;
+}
+
+.player-info {
+  transition: 1s all;
+  background-color: transparent;
+}
+
+.player-info.current {
+  text-decoration: underline;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), black);
+  animation: 1s start-turn;
+}
+
+@keyframes start-turn {
+  from {
+    background-color: red;
+  }
+  to {
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), black);
+  }
+}

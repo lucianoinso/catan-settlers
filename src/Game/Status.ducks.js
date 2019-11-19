@@ -16,7 +16,8 @@ const initialState = {
   roads: [],
   robber: null,
   id: null,
-  dices: [],
+  dices: null,
+  allPlayers: null,
   winner: ""
 };
 
@@ -42,6 +43,10 @@ const statusReducer = (state = initialState, action) => {
             color: playerInfo.colour
           }))
         ),
+        allPlayers: action.payload.players.map(playerInfo => ({
+          name: playerInfo.username,
+          color: playerInfo.colour
+        })),
         winner: (action.payload.winner || "")
       };
     case SET_GAME_ID:
@@ -83,6 +88,7 @@ const mapStateToProps = state => {
     currentPlayer: state.game.status.currentPlayer,
     id: state.game.status.id,
     dices: state.game.status.dices,
+    allPlayers: state.game.status.allPlayers,
     winner: state.game.status.winner
   };
 };

@@ -30,6 +30,8 @@ class Game extends React.Component {
   }
 
   componentDidMount() {
+    this.props.updateGameStatus({ id: this.props.id });
+    this.props.updateAvailableActions({ id: this.props.id });
     this.interval = setInterval(() => {
       this.props.updateGameStatus({ id: this.props.id });
       this.props.updateAvailableActions({ id: this.props.id });
@@ -48,9 +50,9 @@ class Game extends React.Component {
     return (
       <div className="game" style={{ padding: "0px 10px" }}>
         <IsLoggedIn />
+        <Dice />
         <Board />
         <WinGame />
-        <Dice />
         <TradeBank />
         <BuildSettlement />
         <MoveRobber />
