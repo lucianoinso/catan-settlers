@@ -32,14 +32,14 @@ class DevCards extends React.Component {
           </li>
           <li>
             <DevCard
-              cardName="roadBuilding"
+              cardName="road_building"
               amount={this.props.roadBuildingAmount}
               description="El Conjuro de Malphas te deja construir dos portales"
             />
           </li>
           <li>
             <DevCard
-              cardName="yearOfPlenty"
+              cardName="year_of_plenty"
               amount={this.props.yearOfPlentyAmount}
             />
           </li>
@@ -48,7 +48,7 @@ class DevCards extends React.Component {
           </li>
           <li>
             <DevCard
-              cardName="victoryPoints"
+              cardName="victory_points"
               amount={this.props.victoryPointsAmount}
             />
           </li>

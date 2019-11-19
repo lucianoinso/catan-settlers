@@ -8,10 +8,10 @@ const resourceNames = {
 
 const devCardNames = {
     knight: "Llamada de Valefar",
-    roadBuilding: "Conjuro de Malphas",
-    yearOfPlenty: "Regalo de Seire",
+    road_building: "Conjuro de Malphas",
+    year_of_plenty: "Regalo de Seire",
     monopoly: "Justicia de Andromalius",
-    victoryPoints: "Beleth"
+    victory_points: "Beleth"
 };
 
 export { resourceNames, devCardNames };

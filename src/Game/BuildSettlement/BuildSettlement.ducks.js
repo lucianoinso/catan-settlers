@@ -1,6 +1,8 @@
 import axios from "axios";
 import PopupController from "../../PopupController/PopupController";
 import apiURL from "../../api";
+import { updateAvailableActions } from "../Actions.ducks";
+import { updateBoard } from "../Board/Board.ducks";
 
 
 const BEGIN_BUILDING_SETTLEMENT = "begin_building_settlement";
@@ -56,6 +58,8 @@ const buildSettlement = (payload, dispatch) => {
       type: BUILD_SETTLEMENT,
       payload: payload.vertex
     });
+    updateAvailableActions(payload, dispatch);
+    updateBoard(payload, dispatch);
   }).catch(err => {
     PopupController.pushError({ content: "Hubo un error al construir el templo." });
   });

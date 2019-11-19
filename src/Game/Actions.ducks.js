@@ -207,7 +207,7 @@ const actionsReducer = (state = initialState, action) => {
 function possibleActions(actions) {
   return actions.reduce(
     (possibleActions, action) => {
-      possibleActions[action.type] = action.payload;
+      possibleActions[action.type] = action.payload || true;
       return possibleActions;
     },
     {
@@ -263,6 +263,7 @@ const mapStateToPropsBank = state => {
   return {
     id: state.game.status.id,
     bank_trade: state.game.actions.bank_trade,
+    end_turn: state.game.actions.end_turn,
     brickAmount: state.game.resources.brickAmount,
     woolAmount: state.game.resources.woolAmount,
     grainAmount: state.game.resources.grainAmount,

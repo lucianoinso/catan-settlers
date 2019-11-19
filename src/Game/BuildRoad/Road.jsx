@@ -13,6 +13,7 @@ function getRectDimensions([x0, y0], [x1, y1]) {
 }
 
 function getLineSlope([x0, y0], [x1, y1]) {
+  if (Math.abs(x0 - x1) < 0.1) return Infinity;
   return (y1 - y0) / (x1 - x0);
 }
 
