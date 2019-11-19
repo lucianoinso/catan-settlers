@@ -32,7 +32,8 @@ class MyLobby extends React.Component {
     const currentLobby = this.props.lobby;
 
     if (currentLobby.game_has_started === true)
-      return <Redirect to={`/games/${currentLobby.id}`} />;
+      // Usamos `|| currentLobby.id` por si no está implementado game_id.
+      return <Redirect to={`/games/${currentLobby.game_id || currentLobby.id}`} />;
 
     let startGameButton = "";
 

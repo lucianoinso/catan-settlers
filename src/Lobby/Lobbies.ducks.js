@@ -66,6 +66,7 @@ const startMockedLobby = config => {
   if (lobby === null) return [400, {}];
 
   lobby.game_has_started = true;
+  lobby.game_id = lobby.id;
 
   return [200, {}];
 };

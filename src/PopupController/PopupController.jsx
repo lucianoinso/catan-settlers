@@ -35,7 +35,7 @@ class PopupController extends React.Component {
         className={className}
         content={content}
         onClose={onClose}
-        autoClose={autoClose}
+        autoClose={autoClose || 1500}
         id={popupId}
         key={popupId}
       />
@@ -72,7 +72,7 @@ class PopupController extends React.Component {
       className: "log",
       content,
       onClose,
-      autoClose: autoClose || 4500
+      autoClose: autoClose
     });
   }
 

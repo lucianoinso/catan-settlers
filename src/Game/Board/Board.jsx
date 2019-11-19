@@ -8,12 +8,12 @@ import ChooseVertex from "../BuildSettlement/ChooseVertex";
 import ChooseHex from "../Robber/ChooseHex";
 import Roads from "../BuildRoad/Roads";
 
-function makeComponentFromHex({ position, resource, token }) {
+function makeComponentFromHex({ position, resource, terrain, token }) {
   return (
     <Hex
       key={`(${position.level},${position.index})`}
       position={position}
-      resource={resource}
+      resource={resource || terrain}
       token={token}
     />
   );

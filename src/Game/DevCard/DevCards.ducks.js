@@ -97,7 +97,7 @@ const mapStateToProps = state => {
     yearOfPlentyAmount: state.game.devCards.yearOfPlentyAmount,
     monopolyAmount: state.game.devCards.monopolyAmount,
     victoryPointsAmount: state.game.devCards.victoryPointsAmount,
-    buyCard: state.game.actions.buy_card
+    canBuyCard: state.game.actions.buy_card
   };
 };
 

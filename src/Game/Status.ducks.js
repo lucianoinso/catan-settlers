@@ -1,6 +1,7 @@
 import axios from "axios";
 import PopupController from "../PopupController/PopupController.jsx";
 import apiURL from "../api";
+import { updateAvailableActions } from "./Actions.ducks.js";
 
 // Action types
 
@@ -89,6 +90,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     setGameId: payload => setGameId(payload, dispatch),
+    updateAvailableActions: payload => updateAvailableActions(payload, dispatch),
     updateGameStatus: payload => updateGameStatus(payload, dispatch)
   };
 };

@@ -8,7 +8,7 @@ class BuyCard extends React.Component {
     return (
       <Popup
         trigger={
-          <button className="button" disabled={!this.props.buyCard}>
+          <button className="button" disabled={!this.props.canBuyCard}>
             Comprar conjuro
           </button>
         }

@@ -68,7 +68,7 @@ class Lobbies extends React.Component {
         <div className="margin-left-10 fade-in">
           {noStartedLobbiesTooltip}
           {started_lobbies.map(lobby => {
-            const { id, name, owner, players, max_players } = lobby;
+            const { game_id, id, name, owner, players, max_players } = lobby;
 
             return (
               <div className="lobby-list-item" key={id}>
@@ -80,7 +80,7 @@ class Lobbies extends React.Component {
                   max_players={max_players}
                 />
                 <div>
-                  <Link to={`/games/${id}`}>Ir a la partida</Link>
+                  <Link to={`/games/${game_id || id}`}>Ir a la partida</Link>
                 </div>
               </div>
             );
