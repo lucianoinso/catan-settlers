@@ -55,7 +55,7 @@ const selectEdge = (edge, dispatch) => {
 const buildRoad = (payload, dispatch) => {
   const id = 1; // me da dolor de panza cada vez que hago esto xD
   axios
-    .post(`${apiURL}/games/${id}/player/actions`, {
+    .post(`${apiURL}/games/${id}/player/actions/`, {
       type: "build_road",
       payload
     })

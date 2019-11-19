@@ -106,7 +106,7 @@ describe("Build Road button", () => {
     expect(
       axiosMock.history.post.filter(
         request =>
-          request.url.endsWith("/player/actions") &&
+          request.url.endsWith("/player/actions/") &&
           request.data.includes(`build_road`)
       )
     ).to.not.have.lengthOf(0);

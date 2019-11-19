@@ -50,7 +50,7 @@ const chooseSettlementVertex = (vertex, dispatch) => {
 const buildSettlement = (vertex, dispatch) => {
   const id = 1;
 
-  axios.post(`${apiURL}/games/${id}/player/actions`, {
+  axios.post(`${apiURL}/games/${id}/player/actions/`, {
     type: "build_settlement",
     payload: vertex
   }).then(resp => {

@@ -8,7 +8,7 @@ import apiURL from "../../api";
 
 const id = 1; // (!)
 
-axiosMock.onGet(`${apiURL}/games/${id}/board`).reply(200, {
+axiosMock.onGet(`${apiURL}/games/${id}/board/`).reply(200, {
   hexes: getMockHexes()
 });
 
@@ -33,7 +33,7 @@ const boardReducer = (state = initialState, action) => {
 
 const updateBoard = (_, dispatch) => {
   axios
-    .get(`${apiURL}/games/${id}/board`)
+    .get(`${apiURL}/games/${id}/board/`)
     .then(response => {
       dispatch({
         type: UPDATE_BOARD,

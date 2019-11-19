@@ -10,7 +10,7 @@ function EndTurn() {
 
   function endTurn() {
     axios
-      .post(`${apiURL}/games/${id}/player/actions`, {
+      .post(`${apiURL}/games/${id}/player/actions/`, {
         type: "end_turn",
         payload: ""
       })

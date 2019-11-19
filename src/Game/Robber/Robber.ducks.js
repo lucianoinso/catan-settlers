@@ -94,7 +94,7 @@ const chooseRobbedPlayer = (player, dispatch) => {
 const moveRobber = (payload, dispatch) => {
   const id = 1;
   axios
-    .post(`${apiURL}/games/${id}/player/actions`, {
+    .post(`${apiURL}/games/${id}/player/actions/`, {
       type: "move_robber",
       payload
     })

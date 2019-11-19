@@ -91,7 +91,7 @@ describe("Use road building card", () => {
     await waitForSeconds(0.3);
 
     const postReq = axiosMock.history.post.find(post =>
-      post.url.endsWith("/player/actions")
+      post.url.endsWith("/player/actions/")
     );
 
     expect(postReq).to.exist;
