@@ -8,11 +8,14 @@ import "./TradeBank.css";
 class TradeBank extends React.Component {
   constructor(props) {
     super(props);
-    this.props.saveAction();
     this.state = {
       offer: "",
       request: ""
     };
+  }
+
+  componentDidMount() {
+    this.props.saveAction({ id: this.props.id });
   }
 
   canTrade() {
@@ -111,11 +114,12 @@ class TradeBank extends React.Component {
                 className="confirm"
                 onClick={() => {
                   this.props.tradeBank({
+                    id: this.props.id,
                     give: this.state.offer,
                     receive: this.state.request
                   });
                   this.setState({ offer: "", request: "" });
-                  this.props.updateResources();
+                  this.props.updateResources({ id: this.props.id });
                   close();
                 }}
                 disabled={

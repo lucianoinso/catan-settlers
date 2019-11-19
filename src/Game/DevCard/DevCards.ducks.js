@@ -3,8 +3,6 @@ import PopupController from "../../PopupController/PopupController";
 import apiURL from "../../api";
 import { updateAvailableActions } from "../Actions.ducks";
 
-const id = 1;
-
 // Action types
 const BUY_CARD = "buy_card";
 const UPDATE_CARDS = "update_cards";
@@ -54,8 +52,10 @@ function countDevCards(devCards) {
 }
 
 const updateCards = (payload, dispatch) => {
+  if (payload.id === null) return;
+
   axios
-    .get(`${apiURL}/games/${id}/player/`)
+    .get(`${apiURL}/games/${payload.id}/player/`)
     .then(response => {
       const countedDevCards = countDevCards(response.data.cards);
       dispatch({
@@ -73,13 +73,13 @@ const updateCards = (payload, dispatch) => {
 
 const buyCard = (payload, dispatch) => {
   axios
-    .post(`${apiURL}/games/${id}/player/actions/`, {
+    .post(`${apiURL}/games/${payload.id}/player/actions/`, {
       type: "buy_card",
       payload: ""
     })
     .then(() => {
-      updateCards({}, dispatch);
-      updateAvailableActions({}, dispatch);
+      updateCards(payload, dispatch);
+      updateAvailableActions(payload, dispatch);
     })
     .catch(err => {
       PopupController.pushError({
@@ -91,6 +91,7 @@ const buyCard = (payload, dispatch) => {
 
 const mapStateToProps = state => {
   return {
+    id: state.game.status.id,
     knightAmount: state.game.devCards.knightAmount,
     roadBuildingAmount: state.game.devCards.roadBuildingAmount,
     yearOfPlentyAmount: state.game.devCards.yearOfPlentyAmount,

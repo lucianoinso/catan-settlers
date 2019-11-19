@@ -8,11 +8,13 @@ import { waitForSeconds } from "../../../setupTest";
 
 import { Provider } from "react-redux";
 import store from "../../store";
+import { setGameId } from "../Status.ducks";
 
 describe("Board", () => {
   let board;
 
   beforeAll(async () => {
+    setGameId({ id: 1 }, store.dispatch);
     board = mount(
       <Provider store={store}>
         <Board />

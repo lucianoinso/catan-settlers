@@ -25,7 +25,6 @@ class ChoosePlayer extends React.Component {
 
   render() {
     const listPlayer = this.listavailableRobber();
-    this.props.updateGameStatus();
     if (listPlayer.length !== 0) {
       return (
         <div className="actions">
@@ -39,11 +38,10 @@ class ChoosePlayer extends React.Component {
               onClick={() => {
                 this.props.chooseRobbedPlayer(Player);
                 this.props.moveRobber({
+                  id: this.props.id,
                   position: this.props.selectedHex,
                   player: Player
                 });
-                this.props.endMoveRobber();
-                this.props.updateGameStatus();
               }}
             >
               {`${Player}`}
@@ -60,10 +58,9 @@ class ChoosePlayer extends React.Component {
         <button
           onClick={() => {
             this.props.moveRobber({
+              id: this.props.id,
               position: this.props.selectedHex
             });
-            this.props.endMoveRobber();
-            this.props.updateGameStatus();
           }}
         >
           Dar Mal Augurio

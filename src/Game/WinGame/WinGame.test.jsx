@@ -11,6 +11,7 @@ describe("Winner message", () => {
   let wingame;
 
   beforeEach(() => {
+    setGameId({ id: 1 }, store.dispatch);
     wingame = mount(
       <Provider store={store}>
         <WinGame />
@@ -27,7 +28,7 @@ describe("Winner message", () => {
   });
 
   it("Renders the winner when field set", async () => {
-    updateGameStatus(null, store.dispatch);
+    updateGameStatus({ id: 1 }, store.dispatch);
     await waitForSeconds(0.3);
     wingame.update();
 

@@ -51,9 +51,10 @@ const statusReducer = (state = initialState, action) => {
 };
 
 const updateGameStatus = (payload, dispatch) => {
-  const id = 1;
+  if (payload.id === null) return;
+
   axios
-    .get(`${apiURL}/games/${id}/`)
+    .get(`${apiURL}/games/${payload.id}/`)
     .then(response => {
       payload = response.data;
       dispatch({

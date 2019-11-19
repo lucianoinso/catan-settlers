@@ -38,8 +38,8 @@ function makeComponentFromRobber(robber) {
   return "";
 }
 
-function Board({ board, updateBoard, settlements, robber }) {
-  if (board.length === 0) updateBoard();
+function Board({ board, updateBoard, settlements, robber, id }) {
+  if (board.length === 0) updateBoard({ id: id });
 
   return (
     <div

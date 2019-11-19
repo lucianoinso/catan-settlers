@@ -9,7 +9,7 @@ class BuildRoad extends React.Component {
         <span>
           <button
             disabled={!this.props.selectedEdge}
-            onClick={() => this.props.buildRoad(this.props.selectedEdge)}
+            onClick={() => this.props.buildRoad({ id: this.props.id, edge: this.props.selectedEdge })}
           >
             Confirmar
           </button>

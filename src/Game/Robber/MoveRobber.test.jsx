@@ -14,6 +14,7 @@ describe("Move Robber", () => {
   let moverobber;
 
   it("should mount", () => {
+    setGameId({ id: 1 }, store.dispatch);
     moverobber = mount(
       <Provider store={store}>
         <MoveRobber />
@@ -28,8 +29,8 @@ describe("Move Robber", () => {
   it("should enable the button when it's an available option", async () => {
     expect(moverobber.find("button").prop("disabled")).to.be.true;
     // enable button
-    updateGameStatus(null, store.dispatch);
-    updateAvailableActions(null, store.dispatch);
+    updateGameStatus({ id: 1 }, store.dispatch);
+    updateAvailableActions({ id: 1 }, store.dispatch);
     await waitForSeconds(0.3);
     moverobber.update();
     expect(moverobber.find("button").prop("disabled")).to.be.false;
@@ -65,6 +66,7 @@ describe("Move Robber", () => {
 describe("Choose player", () => {
   let chooseplayer;
   it("should mount", () => {
+    setGameId({ id: 1 }, store.dispatch);
     chooseplayer = mount(
       <Provider store={store}>
         <ChoosePlayer />

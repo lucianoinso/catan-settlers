@@ -53,17 +53,16 @@ const selectEdge = (edge, dispatch) => {
 };
 
 const buildRoad = (payload, dispatch) => {
-  const id = 1; // me da dolor de panza cada vez que hago esto xD
   axios
-    .post(`${apiURL}/games/${id}/player/actions/`, {
+    .post(`${apiURL}/games/${payload.id}/player/actions/`, {
       type: "build_road",
-      payload
+      payload: payload.edge
     })
     .then(_ => {
       endBuildingRoad(null, dispatch);
-      updateGameStatus(null, dispatch);
-      updateAvailableActions(null, dispatch);
-      updateResources(null, dispatch);
+      updateGameStatus(payload, dispatch);
+      updateAvailableActions(payload, dispatch);
+      updateResources(payload, dispatch);
     })
     .catch(error => {
       endBuildingRoad(null, dispatch);
@@ -75,6 +74,7 @@ const buildRoad = (payload, dispatch) => {
 };
 
 const mapStateToProps = state => ({
+  id: state.game.status.id,
   roads: state.game.status.roads,
   isBuildingRoad: state.game.buildRoad.isBuildingRoad,
   selectedEdge: state.game.buildRoad.selectedEdge,
@@ -85,7 +85,7 @@ const mapDispatchToProps = dispatch => ({
   startBuildingRoad: _ => startBuildingRoad(_, dispatch),
   endBuildingRoad: _ => endBuildingRoad(_, dispatch),
   selectEdge: edge => selectEdge(edge, dispatch),
-  buildRoad: edge => buildRoad(edge, dispatch)
+  buildRoad: payload => buildRoad(payload, dispatch)
 });
 
 export { mapStateToProps, mapDispatchToProps, buildRoadReducer, selectEdge };

@@ -19,6 +19,7 @@ describe('Build settlement "start building" button', () => {
       <BuildSettlement
         availableVertices={[{}, {}]}
         beginBuildingSettlement={spy}
+        id={1}
       />
     );
 
@@ -34,6 +35,7 @@ describe('Build settlement "start building" button', () => {
         buildSettlement={jest.fn()}
         endBuildingSettlement={jest.fn()}
         selectedVertex={{ level: 0, index: 0 }}
+        id={1}
       />
     );
 
@@ -49,6 +51,7 @@ describe('Build settlement "start building" button', () => {
         buildSettlement={buildSettlementFunction}
         endBuildingSettlement={endBuildingSettlementFunction}
         selectedVertex={{ level: 0, index: 0 }}
+        id={1}
       />
     );
 

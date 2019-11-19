@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { mapStateToProps, mapDispatchToProps } from "./BuildSettlement.ducks";
 
 function BuildSettlement({
+  id,
   availableVertices,
   beginBuildingSettlement,
   selectedVertex,
@@ -22,7 +23,10 @@ function BuildSettlement({
 
   return (
     <span>
-      <button disabled={!selectedVertex} onClick={() => buildSettlement(selectedVertex)}>
+      <button
+        disabled={!selectedVertex}
+        onClick={() => buildSettlement({ vertex: selectedVertex, id: id })}
+      >
         Confirmar
       </button>
       <button className="cancel" onClick={() => endBuildingSettlement()}>

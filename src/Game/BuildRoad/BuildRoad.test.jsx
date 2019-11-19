@@ -10,11 +10,13 @@ import BuildRoad from "./BuildRoad";
 import { updateAvailableActions } from "../Actions.ducks";
 import { waitForSeconds } from "../../../setupTest";
 import { selectEdge } from "./BuildRoad.ducks";
+import { setGameId } from "../Status.ducks";
 
 describe("Build Road button", () => {
   let buildRoadWrapper;
 
   beforeAll(async () => {
+    setGameId({ id: 1 }, store.dispatch);
     buildRoadWrapper = mount(
       <Provider store={store}>
         <BuildRoad />
@@ -22,7 +24,7 @@ describe("Build Road button", () => {
     );
     // Actualizamos la lista de acciones para tener los
     // lugares disponibles para construir.
-    updateAvailableActions(null, store.dispatch);
+    updateAvailableActions({ id: 1 }, store.dispatch);
 
     await waitForSeconds(0.3);
 
@@ -120,6 +122,7 @@ import { updateGameStatus } from "../Status.ducks";
 describe("Roads", () => {
   let roadsWrapper;
   beforeAll(async () => {
+    setGameId({ id: 1 }, store.dispatch);
     roadsWrapper = mount(
       <Provider store={store}>
         <Roads />
@@ -127,7 +130,7 @@ describe("Roads", () => {
     );
 
     // Actualizamos la lista de roads para poder testearlas.
-    updateGameStatus(null, store.dispatch);
+    updateGameStatus({ id: 1 }, store.dispatch);
 
     await waitForSeconds(0.3);
 
@@ -147,6 +150,7 @@ describe("Choosable edges (when building road)", () => {
   let roadsWrapper;
 
   beforeAll(async () => {
+    setGameId({ id: 1 }, store.dispatch);
     roadsWrapper = mount(
       <Provider store={store}>
         <Roads />
@@ -156,7 +160,7 @@ describe("Choosable edges (when building road)", () => {
 
     // Actualizamos la lista de acciones para tener los
     // lugares disponibles para construir.
-    updateAvailableActions(null, store.dispatch);
+    updateAvailableActions({ id: 1 }, store.dispatch);
 
     await waitForSeconds(0.3);
 

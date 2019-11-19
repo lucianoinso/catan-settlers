@@ -7,9 +7,9 @@ import "./DevCards.css";
 
 class DevCards extends React.Component {
   componentDidMount() {
-    this.props.updateCards();
+    this.props.updateCards({ id: this.props.id });
     this.interval = setInterval(() => {
-      this.props.updateCards();
+      this.props.updateCards({ id: this.props.id });
     }, 3000);
   }
 
@@ -21,7 +21,7 @@ class DevCards extends React.Component {
     return (
       <div className="devCards">
         <h4>Conjuros</h4>
-        <BuyCard />
+        <BuyCard id={this.props.id} />
         <ul>
           <li>
             <DevCard

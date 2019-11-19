@@ -31,9 +31,11 @@ const boardReducer = (state = initialState, action) => {
 
 // Action dispatchers
 
-const updateBoard = (_, dispatch) => {
+const updateBoard = (payload, dispatch) => {
+  if (payload.id === null) return;
+
   axios
-    .get(`${apiURL}/games/${id}/board/`)
+    .get(`${apiURL}/games/${payload.id}/board/`)
     .then(response => {
       dispatch({
         type: UPDATE_BOARD,
@@ -51,6 +53,7 @@ const updateBoard = (_, dispatch) => {
 // Map to Props
 
 const mapStateToProps = state => ({
+  id: state.game.status.id,
   board: state.game.board,
   settlements: state.game.status.settlements,
   robber: state.game.status.robber
