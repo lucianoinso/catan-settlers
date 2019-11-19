@@ -5,7 +5,7 @@ import { mapStateToProps, mapDispatchToProps } from "../Status.ducks";
 class Dice extends React.Component {
   constructor(props) {
     super(props);
-    this.props.updateGameStatus();
+    this.props.updateGameStatus({ id: this.props.id });
   }
 
   render() {

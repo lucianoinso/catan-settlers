@@ -13,17 +13,25 @@ import EndTurn from "./EndTurn/EndTurn";
 import IsLoggedIn from "../IsLoggedIn/IsLoggedIn";
 import RoadBuilding from "./RoadBuilding/RoadBuilding";
 import WinGame from "./WinGame/WinGame";
+import { Redirect } from "react-router-dom";
 
 class Game extends React.Component {
-  componentDidMount() {
+  constructor(props) {
+    super(props);
+    this.state = { hasValidId: true };
     const id = Number(this.props.match.params.id);
-
-    if (Number.isNaN(id)) return;
-
+  
+    if (Number.isNaN(id)) {
+      this.setState({ hasValidId: false });
+      return;
+    }
+  
     this.props.setGameId({ id });
-
+  }
+  
+  componentDidMount() {
     this.interval = setInterval(() => {
-			this.props.updateGameStatus({ id });
+			this.props.updateGameStatus({ id: this.props.id });
     }, 3000);
   }
   
@@ -33,6 +41,10 @@ class Game extends React.Component {
   }
   
 	render() {
+    if (!this.state.hasValidId) {
+      return <Redirect to="/rooms" />;
+    }
+
     return (
       <div className="game" style={{padding:"0px 10px"}}>
         <IsLoggedIn />
@@ -44,7 +56,7 @@ class Game extends React.Component {
 				<MoveRobber />
 				<BuildRoad />
         <RoadBuilding />
-        <EndTurn />
+        <EndTurn id={this.props.id} />
 				<DevCards />
 				<Resources />
 			</div>

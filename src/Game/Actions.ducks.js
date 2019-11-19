@@ -228,14 +228,14 @@ function possibleActions(actions) {
 // Action creators
 
 const saveAction = (payload, dispatch) => {
+  if (payload.id === null) return;
+
   axios
-    .get(`${apiURL}/games/${id}/player/actions/`)
+    .get(`${apiURL}/games/${payload.id}/player/actions/`)
     .then(response => {
-      const possibleAction = possibleActions(response.data);
-      payload = possibleAction;
       dispatch({
         type: SAVE_ACTIONS,
-        payload
+        payload: possibleActions(response.data)
       });
     })
     .catch(err => {
@@ -248,7 +248,7 @@ const saveAction = (payload, dispatch) => {
 
 const tradeBank = payload => {
   axios
-    .post(`${apiURL}/games/${id}/player/actions/`, {
+    .post(`${apiURL}/games/${payload.id}/player/actions/`, {
       type: "bank_trade",
       payload
     })
@@ -261,6 +261,7 @@ const tradeBank = payload => {
 
 const mapStateToPropsBank = state => {
   return {
+    id: state.game.status.id,
     bank_trade: state.game.actions.bank_trade,
     brickAmount: state.game.resources.brickAmount,
     woolAmount: state.game.resources.woolAmount,

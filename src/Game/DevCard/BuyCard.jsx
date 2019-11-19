@@ -22,7 +22,7 @@ class BuyCard extends React.Component {
               <br />
               <button
                 onClick={() => {
-                  this.props.buyCard();
+                  this.props.buyCard({ id: this.props.id });
                   close();
                 }}
               >

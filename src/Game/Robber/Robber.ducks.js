@@ -92,11 +92,14 @@ const chooseRobbedPlayer = (player, dispatch) => {
 };
 
 const moveRobber = (payload, dispatch) => {
-  const id = 1;
   axios
-    .post(`${apiURL}/games/${id}/player/actions/`, {
+    .post(`${apiURL}/games/${payload.id}/player/actions/`, {
       type: "move_robber",
       payload
+    })
+    .then(response => {
+      endMoveRobber(payload, dispatch);
+      updateGameStatus(payload, dispatch);
     })
     .catch(err => {
       PopupController.pushError({
@@ -106,6 +109,7 @@ const moveRobber = (payload, dispatch) => {
 };
 
 const mapStateToProps = state => ({
+  id: state.game.status.id,
   availableRobber: state.game.actions.move_robber,
   isMovingRobber: state.game.moveRobber.isMovingRobber,
   selectedHex: state.game.moveRobber.selectedHex,
@@ -117,8 +121,7 @@ const mapDispatchToProps = dispatch => ({
   endMoveRobber: _ => endMoveRobber(_, dispatch),
   chooseRobberHex: hex => chooseRobberHex(hex, dispatch),
   chooseRobbedPlayer: player => chooseRobbedPlayer(player, dispatch),
-  moveRobber: hex => moveRobber(hex, dispatch),
-  updateGameStatus: payload => updateGameStatus(payload, dispatch)
+  moveRobber: hex => moveRobber(hex, dispatch)
 });
 
 export {

@@ -47,16 +47,14 @@ const chooseSettlementVertex = (vertex, dispatch) => {
   });
 };
 
-const buildSettlement = (vertex, dispatch) => {
-  const id = 1;
-
-  axios.post(`${apiURL}/games/${id}/player/actions/`, {
+const buildSettlement = (payload, dispatch) => {
+  axios.post(`${apiURL}/games/${payload.id}/player/actions/`, {
     type: "build_settlement",
-    payload: vertex
+    payload: payload.vertex
   }).then(resp => {
     dispatch({
       type: BUILD_SETTLEMENT,
-      payload: vertex
+      payload: payload.vertex
     });
   }).catch(err => {
     PopupController.pushError({ content: "Hubo un error al construir el templo." });
@@ -64,6 +62,7 @@ const buildSettlement = (vertex, dispatch) => {
 };
 
 const mapStateToProps = state => ({
+  id: state.game.status.id,
   availableVertices: state.game.actions.build_settlement,
   isBuilding: state.game.buildSettlement.isBuilding,
   selectedVertex: state.game.buildSettlement.selectedVertex
@@ -73,7 +72,7 @@ const mapDispatchToProps = dispatch => ({
   beginBuildingSettlement: _ => beginBuildingSettlement(_, dispatch),
   endBuildingSettlement: _ => endBuildingSettlement(_, dispatch),
   chooseSettlementVertex: vertex => chooseSettlementVertex(vertex, dispatch),
-  buildSettlement: vertex => buildSettlement(vertex, dispatch)
+  buildSettlement: payload => buildSettlement(payload, dispatch)
 });
 
 export { buildSettlementReducer, mapStateToProps, mapDispatchToProps };

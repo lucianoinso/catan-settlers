@@ -5,9 +5,7 @@ import PopupController from "../../PopupController/PopupController";
 import { updateGameStatus } from "../Status.ducks";
 import store from "../../store.js";
 
-function EndTurn() {
-  const id = 1;
-
+function EndTurn({ id }) {
   function endTurn() {
     axios
       .post(`${apiURL}/games/${id}/player/actions/`, {
@@ -22,7 +20,7 @@ function EndTurn() {
       })
       .then(response => {
         PopupController.pushLog({ content: "Tu turno ha terminado" });
-        updateGameStatus(null, store.dispatch);
+        updateGameStatus({ id }, store.dispatch);
       });
   }
 

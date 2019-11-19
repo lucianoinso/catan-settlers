@@ -20,9 +20,9 @@ class Resources extends React.Component {
   }
 
   componentDidMount() {
-    this.props.updateResources();
+    this.props.updateResources({ id: this.props.id });
     this.interval = setInterval(() => {
-      this.props.updateResources();
+      this.props.updateResources({ id: this.props.id });
     }, 3000);
 
     const {

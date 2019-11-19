@@ -36,10 +36,10 @@ const resourcesReducer = (state = initialState, action) => {
 // Action creators
 
 const updateResources = (payload, dispatch) => {
-  const id = 1;
+  if (payload.id === null) return;
 
   axios
-    .get(`${apiURL}/games/${id}/player/`)
+    .get(`${apiURL}/games/${payload.id}/player/`)
     .then(response => {
       const countedResources = countResources(response.data.resources);
       payload = countedResources;
@@ -60,6 +60,7 @@ const updateResources = (payload, dispatch) => {
 
 const mapStateToProps = state => {
   return {
+    id: state.game.status.id,
     brickAmount: state.game.resources.brickAmount,
     woolAmount: state.game.resources.woolAmount,
     grainAmount: state.game.resources.grainAmount,

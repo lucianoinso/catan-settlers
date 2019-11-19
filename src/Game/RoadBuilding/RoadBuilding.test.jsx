@@ -16,6 +16,7 @@ describe("Use road building card", () => {
   let roadBuilding;
 
   it("should mount", () => {
+    setGameId({ id: 1 }, store.dispatch);
     roadBuilding = mount(
       <Provider store={store}>
         <RoadBuilding />
@@ -31,8 +32,8 @@ describe("Use road building card", () => {
     expect(roadBuilding.find("button").prop("disabled")).to.be.true;
 
     // Enable button
-    updateGameStatus(null, store.dispatch);
-    updateAvailableActions(null, store.dispatch);
+    updateGameStatus({ id: 1 }, store.dispatch);
+    updateAvailableActions({ id: 1 }, store.dispatch);
 
     await waitForSeconds(0.3);
 
