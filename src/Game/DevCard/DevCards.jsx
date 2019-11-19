@@ -4,6 +4,12 @@ import DevCard from "./DevCard";
 import BuyCard from "./BuyCard";
 import { mapStateToProps, mapDispatchToProps } from "./DevCards.ducks";
 import "./DevCards.css";
+import PopupController from "../../PopupController/PopupController";
+import { devCardNames } from "../SatanDictionary";
+
+function camelCaseToUnderscore(resourceName) {
+  return resourceName.replace(/[A-Z]/g, "_$&").toLowerCase();
+}
 
 class DevCards extends React.Component {
   componentDidMount() {
@@ -11,6 +17,32 @@ class DevCards extends React.Component {
     this.interval = setInterval(() => {
       this.props.updateCards({ id: this.props.id });
     }, 3000);
+
+    this.previousState = { ...this.props };
+  }
+
+  componentDidUpdate() {
+    for (let resource of [
+      "knight",
+      "roadBuilding",
+      "yearOfPlenty",
+      "monopoly",
+      "victoryPoints"
+    ]) {
+      let diff =
+        this.props[resource + "Amount"] -
+        this.previousState[resource + "Amount"];
+      if (diff !== 0) {
+        PopupController.pushLog({
+          content:
+            (diff < 0 ? "Perdiste " : "Recibiste ") +
+            Math.abs(diff) + " " +
+            devCardNames[camelCaseToUnderscore(resource)]
+        });
+      }
+    }
+
+    this.previousState = { ...this.props };
   }
 
   componentWillUnmount() {
