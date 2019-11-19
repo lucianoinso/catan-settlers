@@ -8,6 +8,13 @@ import "./DevCards.css";
 class DevCards extends React.Component {
   componentDidMount() {
     this.props.updateCards();
+    this.interval = setInterval(() => {
+      this.props.updateCards();
+    }, 3000);
+  }
+
+  componentWillUnmount() {
+    if (this.interval) clearInterval(this.interval);
   }
 
   render() {

@@ -1,76 +1,43 @@
 import React from "react";
 import Popup from "reactjs-popup";
-import axios from "axios";
-import apiURL from "../../api";
-import PopupController from "../../PopupController/PopupController";
-import store from "../../store";
+import { connect } from "react-redux";
+import { mapStateToProps, mapDispatchToProps } from "./DevCards.ducks";
 
-function BuyCard() {
-  const id = 1;
-
-  function buy() {
-    axios
-      .post(`${apiURL}/games/${id}/player/actions`, {
-        type: "buy_card",
-        payload: ""
-      })
-      .catch(err => {
-        PopupController.pushError({
-          content: "Hubo un error al conectarse con el servidor."
-        });
-        console.error(err);
-      });
-  }
-
-  function canBuy() {
-    const { grainAmount, oreAmount, woolAmount } = store.getState().resources;
-    // console.log(store.getState().resources);
-    // Buying a development card requires 1 grain 1 ore and 1 wool
-    return grainAmount > 0 && oreAmount > 0 && woolAmount > 0;
-  }
-
-  function enoughResources() {
-    if (!canBuy()) {
-      return "No tienes suficientes recursos";
-    }
-
-    return "¿Comprar un conjuro al azar?";
-  }
-
-  return (
-    <Popup
-      trigger={(
-        <button className="button" disabled={!canBuy()}>
-          Comprar conjuro
-        </button>
-      )}
-      modal
-    >
-      {close => (
-        <div className="modal">
-          <h2 className="header">Comprar conjuro</h2>
-          <div className="actions">
-            {enoughResources()}
-            <br />
-            <button
-              className="confirm"
-              onClick={() => {
-                if (canBuy()) {
-                  buy();
-                }
-                close();
-              }}
-            >
-              Confirmar
-            </button>
-            <button className="cancel" onClick={close}>
-              Cancelar
-            </button>
+class BuyCard extends React.Component {
+  render() {
+    return (
+      <Popup
+        trigger={
+          <button className="button" disabled={!this.props.buyCard}>
+            Comprar conjuro
+          </button>
+        }
+        modal
+      >
+        {close => (
+          <div className="modal">
+            <h2 className="header">Comprar conjuro</h2>
+            <div className="actions">
+              ¿Comprar un conjuro al azar?
+              <br />
+              <button
+                onClick={() => {
+                  this.props.buyCard();
+                  close();
+                }}
+              >
+                Confirmar
+              </button>
+              <button onClick={close}>Cancelar</button>
+            </div>
           </div>
-        </div>
-      )}
-    </Popup>
-  );
+        )}
+      </Popup>
+    );
+  }
 }
 
-export default BuyCard;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(BuyCard);
