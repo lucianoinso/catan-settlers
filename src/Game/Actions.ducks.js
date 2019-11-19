@@ -63,10 +63,10 @@ Object.defineProperty(window, "availableActionsMock", {
 
 const id = 1;
 axiosMock
-  .onGet(`${apiURL}/games/${id}/player/actions`)
+  .onGet(`${apiURL}/games/${id}/player/actions/`)
   .reply(config => [200, availableActionsMock]);
 
-axiosMock.onPost(`${apiURL}/games/${id}/player/actions`).reply(config => {
+axiosMock.onPost(`${apiURL}/games/${id}/player/actions/`).reply(config => {
   const params = JSON.parse(config.data);
   switch (params.type) {
     case "end_turn":
@@ -229,7 +229,7 @@ function possibleActions(actions) {
 
 const saveAction = (payload, dispatch) => {
   axios
-    .get(`${apiURL}/games/${id}/player/actions`)
+    .get(`${apiURL}/games/${id}/player/actions/`)
     .then(response => {
       const possibleAction = possibleActions(response.data);
       payload = possibleAction;
@@ -248,7 +248,7 @@ const saveAction = (payload, dispatch) => {
 
 const tradeBank = payload => {
   axios
-    .post(`${apiURL}/games/${id}/player/actions`, {
+    .post(`${apiURL}/games/${id}/player/actions/`, {
       type: "bank_trade",
       payload
     })

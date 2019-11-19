@@ -55,7 +55,7 @@ function countDevCards(devCards) {
 
 const updateCards = (payload, dispatch) => {
   axios
-    .get(`${apiURL}/games/${id}/player`)
+    .get(`${apiURL}/games/${id}/player/`)
     .then(response => {
       const countedDevCards = countDevCards(response.data.cards);
       dispatch({
@@ -73,7 +73,7 @@ const updateCards = (payload, dispatch) => {
 
 const buyCard = (payload, dispatch) => {
   axios
-    .post(`${apiURL}/games/${id}/player/actions`, {
+    .post(`${apiURL}/games/${id}/player/actions/`, {
       type: "buy_card",
       payload: ""
     })

@@ -29,11 +29,11 @@ describe("Board", () => {
   it("should have called /games/{id}/board", () => {
     expect(
       axiosMock.history.get.filter(requestInfo =>
-        requestInfo.url.match(/\/games\/\d+\/board$/)
+        requestInfo.url.match(/\/games\/\d+\/board\/$/)
       )
     ).to.have.length.greaterThan(0);
   });
-  
+
   it("shows 19 hexagons", () => {
     expect(board.find(".hex")).to.have.lengthOf(19);
   });

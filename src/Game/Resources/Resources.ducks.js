@@ -39,7 +39,7 @@ const updateResources = (payload, dispatch) => {
   const id = 1;
 
   axios
-    .get(`${apiURL}/games/${id}/player`)
+    .get(`${apiURL}/games/${id}/player/`)
     .then(response => {
       const countedResources = countResources(response.data.resources);
       payload = countedResources;

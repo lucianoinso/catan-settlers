@@ -41,7 +41,7 @@ function confirmRoadBuilding(payload, dispatch) {
   if (payload.id === null) return;
 
   axios
-    .post(`${apiURL}/games/${payload.id}/player/actions`, {
+    .post(`${apiURL}/games/${payload.id}/player/actions/`, {
       type: "play_road_building_card",
       payload: payload.selectedEdges
     })
