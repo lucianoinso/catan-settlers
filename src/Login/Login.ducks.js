@@ -51,15 +51,16 @@ const logIn = (payload, dispatch) => {
     .then(response => {
       payload.token = response.data.token;
       payload.isLogged = true;
-      dispatch({
-        type: LOG_IN,
-        payload
-      });
-
+      
       localStorage.setItem("user", payload.user);
       localStorage.setItem("token", payload.token);
 
       axios.defaults.headers.common["Authorization"] = `Token ${payload.token}`;
+      
+      dispatch({
+        type: LOG_IN,
+        payload
+      });
     })
     .catch(error => {
       console.log(error);

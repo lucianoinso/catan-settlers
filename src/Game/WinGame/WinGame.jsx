@@ -14,14 +14,14 @@ class WinGame extends React.Component {
   render() {
     if (this.props.winner) {
       return (
-        <div className="playerWon" style={{ fontSize: "46px" }}>
+        <div className="playerWon" style={{ fontSize: "46px", float:"right", position:"relative"}}>
           <span style={{ color: "#FF1122" }}>{this.props.winner}</span> ha
           conquistado el infierno
         </div>
       );
-    } else {
+    } 
       return "";
-    }
+    
   }
 }
 

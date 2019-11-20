@@ -5,8 +5,8 @@
 
 .devCards li {
   float: left;
-
-  width: 100px;
+  
+  width: 94px;
   padding: 5px;
   margin: 5px;
 
@@ -15,8 +15,7 @@
 }
 
 .devCards img {
-  width: 100px;
-  height: 100px;
+  width: 90px;
 }
 
 .devCards span {

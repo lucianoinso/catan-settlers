@@ -246,11 +246,15 @@ const saveAction = (payload, dispatch) => {
     });
 };
 
-const tradeBank = payload => {
+const tradeBank = (payload, dispatch) => {
   axios
     .post(`${apiURL}/games/${payload.id}/player/actions/`, {
       type: "bank_trade",
       payload
+    })
+    .then(resp => {
+      updateResources(payload, dispatch);
+      saveAction(payload, dispatch); // updateAvailableActions
     })
     .catch(err => {
       PopupController.pushError({
@@ -275,7 +279,7 @@ const mapStateToPropsBank = state => {
 const mapDispatchToProps = dispatch => {
   return {
     saveAction: payload => saveAction(payload, dispatch),
-    tradeBank: payload => tradeBank(payload),
+    tradeBank: payload => tradeBank(payload, dispatch),
     updateResources: payload => updateResources(payload, dispatch)
   };
 };

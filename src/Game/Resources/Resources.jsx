@@ -48,13 +48,18 @@ class Resources extends React.Component {
 
   updateAndNotify(previous, current, type) {
     const amount = current - previous;
-    if (previous === current || amount < 0) {
+    if (previous === current) {
       return "";
     }
 
-    let changed = `Recibiste ${amount} ${resourceNames[type]}`;
-    if (amount > 1 && !resourceNames[type].endsWith("s")) {
-      changed += `s`;
+    let changed;
+
+    if (amount < 0) {
+      changed = `Perdiste ${-amount} ${resourceNames[type]}`;
+      if (amount < -1 && !changed.endsWith("s")) changed += `s`;
+    } else {
+      changed = `Recibiste ${amount} ${resourceNames[type]}`;
+      if (amount > 1 && !changed.endsWith("s")) changed += `s`;
     }
 
     PopupController.pushLog({ content: changed, autoClose: 2000 });
@@ -107,7 +112,10 @@ class Resources extends React.Component {
 
   render() {
     return (
-      <div className="resourceCards">
+      <div
+        className="resourceCards"
+        style={{ height: "150px", textAlign: "center", position:"relative", float:"left", width: "100%" }}
+      >
         <h4>Ofrendas</h4>
         <ul>
           <li>

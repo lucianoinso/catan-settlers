@@ -1,4 +1,6 @@
 import React from "react";
+import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 import Board from "./Board/Board";
 import BuildSettlement from "./BuildSettlement/BuildSettlement";
 import Dice from "./Dice/Dice";
@@ -7,13 +9,12 @@ import Resources from "./Resources/Resources";
 import TradeBank from "./TradeBank/TradeBank";
 import MoveRobber from "./Robber/MoveRobber";
 import BuildRoad from "./BuildRoad/BuildRoad";
-import { connect } from "react-redux";
+import BuyCard from "./DevCard/BuyCard";
 import { mapStateToProps, mapDispatchToProps } from "./Status.ducks";
 import EndTurn from "./EndTurn/EndTurn";
 import IsLoggedIn from "../IsLoggedIn/IsLoggedIn";
 import RoadBuilding from "./RoadBuilding/RoadBuilding";
 import WinGame from "./WinGame/WinGame";
-import { Redirect } from "react-router-dom";
 
 class Game extends React.Component {
   constructor(props) {
@@ -30,6 +31,8 @@ class Game extends React.Component {
   }
 
   componentDidMount() {
+    this.props.updateGameStatus({ id: this.props.id });
+    this.props.updateAvailableActions({ id: this.props.id });
     this.interval = setInterval(() => {
       this.props.updateGameStatus({ id: this.props.id });
       this.props.updateAvailableActions({ id: this.props.id });
@@ -46,19 +49,36 @@ class Game extends React.Component {
     }
 
     return (
-      <div className="game" style={{ padding: "0px 10px" }}>
+      <div className="game" style={{ padding: "0px 10px", height: "510px"}}>
         <IsLoggedIn />
-        <Board />
-        <WinGame />
-        <Dice />
-        <TradeBank />
-        <BuildSettlement />
-        <MoveRobber />
-        <BuildRoad />
-        <RoadBuilding />
-        <EndTurn id={this.props.id} />
-        <DevCards />
-        <Resources />
+        <div className="board-and-actions">
+          <div
+            className="actions-menu"
+            style={{
+              width: "130px",
+              float: "left",
+              position: "relative",
+              paddingTop: "50px"
+            }}
+          >
+            <TradeBank />
+            <BuildSettlement />
+            <MoveRobber />
+            <BuyCard id={this.props.id} />
+            <BuildRoad />
+            <RoadBuilding />
+            <EndTurn id={this.props.id} />
+          </div>
+          <Board />
+        </div>
+        <div className="right-panel" style={{float:"left", position:"relative", width:"600px"}}>
+          <Dice />
+          <Resources />
+          <div className="devcards-all" style={{ width:"100%", marginTop: "190px"}}>
+            <DevCards />
+          </div>
+        </div>
+         
       </div>
     );
   }
