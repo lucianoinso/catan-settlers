@@ -1,92 +1,95 @@
 import React from "react";
-import axios from "axios";
-import DevCard from "./DevCard.jsx";
-import PopupController from "../../PopupController/PopupController.jsx";
+import { connect } from "react-redux";
+import DevCard from "./DevCard";
+import { mapStateToProps, mapDispatchToProps } from "./DevCards.ducks";
+import "./DevCards.css";
+import PopupController from "../../PopupController/PopupController";
+import { devCardNames } from "../SatanDictionary";
+
+function camelCaseToUnderscore(resourceName) {
+  return resourceName.replace(/[A-Z]/g, "_$&").toLowerCase();
+}
 
 class DevCards extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      knightAmount: 0,
-      roadBuildingAmount: 0,
-      yearOfPlentyAmount: 0,
-      monopolyAmount: 0,
-      victoryPointsAmount: 0
-    };
-  }
-
   componentDidMount() {
-    const id = 1;
+    this.props.updateCards({ id: this.props.id });
+    this.interval = setInterval(() => {
+      this.props.updateCards({ id: this.props.id });
+    }, 3000);
 
-    axios
-      .get(`/games/${id}/player`)
-      .then(response => {
-        const countedDevCards = this.countDevCards(response.data.cards);
-        this.setState(countedDevCards);
-      })
-      .catch(err => {
-        PopupController.pushError({
-          content: `Hubo un error al conectarse con el servidor.`
-        });
-        console.error(err);
-      });
+    this.previousState = { ...this.props };
   }
 
-  countDevCards(devCards) {
-    return devCards.reduce(
-      (countedDevCards, devCard) => {
-        countedDevCards[`${devCard}Amount`]++;
-        return countedDevCards;
-      },
-      {
-        knightAmount: 0,
-        roadBuildingAmount: 0,
-        yearOfPlentyAmount: 0,
-        monopolyAmount: 0,
-        victoryPointsAmount: 0
+  componentDidUpdate() {
+    for (const resource of [
+      "knight",
+      "roadBuilding",
+      "yearOfPlenty",
+      "monopoly",
+      "victoryPoints"
+    ]) {
+      const diff =
+        this.props[`${resource  }Amount`] -
+        this.previousState[`${resource  }Amount`];
+      if (diff !== 0) {
+        PopupController.pushLog({
+          content:
+            `${(diff < 0 ? "Perdiste " : "Recibiste ") +
+            Math.abs(diff)  } ${ 
+            devCardNames[camelCaseToUnderscore(resource)]}`
+        });
       }
-    );
+    }
+
+    this.previousState = { ...this.props };
+  }
+
+  componentWillUnmount() {
+    if (this.interval) clearInterval(this.interval);
   }
 
   render() {
     return (
-      <div className="devCards">
-        <h4>Cartas de desarrollo</h4>
+      <div className="devCards" style={{ textAlign: "center" }}>
+        <h4>Conjuros</h4>
         <ul>
           <li>
             <DevCard
               cardName="knight"
-              amount={this.state.knightAmount}
+              amount={this.props.knightAmount}
+              description="La llamada de Valefar te deja dar un mal augurio"
             />
           </li>
           <li>
             <DevCard
-              cardName="roadBuilding"
-              amount={this.state.roadBuildingAmount}
+              cardName="road_building"
+              amount={this.props.roadBuildingAmount}
+              description="El Conjuro de Malphas te deja construir dos portales"
             />
           </li>
           <li>
             <DevCard
-              cardName="yearOfPlenty"
-              amount={this.state.yearOfPlentyAmount}
+              cardName="year_of_plenty"
+              amount={this.props.yearOfPlentyAmount}
             />
           </li>
           <li>
-            <DevCard
-              cardName="monopoly"
-              amount={this.state.monopolyAmount}
-            />
+            <DevCard cardName="monopoly" amount={this.props.monopolyAmount} />
           </li>
           <li>
             <DevCard
-              cardName="victoryPoints"
-              amount={this.state.victoryPointsAmount}
+              cardName="victory_points"
+              amount={this.props.victoryPointsAmount}
             />
           </li>
         </ul>
+        <div style={{ clear: "both" }} />
       </div>
     );
   }
 }
 
-export default DevCards;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(DevCards);

@@ -1,8 +1,17 @@
 import React from "react";
+import Signup from "../Signup/Signup";
 
-function Home(){
-    return(<div>Main Page</div>);
+class Home extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      userName: ""
+    };
+  }
+
+  render() {
+    return <Signup />;
+  }
 }
 
 export default Home;
-

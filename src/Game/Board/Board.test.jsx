@@ -4,13 +4,22 @@ import { expect } from "chai";
 
 import axiosMock from "../../App/axiosMock";
 import Board from "./Board";
-import { waitForSeconds } from "../../setupTests";
+import { waitForSeconds } from "../../../setupTest";
+
+import { Provider } from "react-redux";
+import store from "../../store";
+import { setGameId } from "../Status.ducks";
 
 describe("Board", () => {
   let board;
 
   beforeAll(async () => {
-    board = mount(<Board />);
+    setGameId({ id: 1 }, store.dispatch);
+    board = mount(
+      <Provider store={store}>
+        <Board />
+      </Provider>
+    );
 
     await waitForSeconds(0.3);
 
@@ -22,7 +31,7 @@ describe("Board", () => {
   it("should have called /games/{id}/board", () => {
     expect(
       axiosMock.history.get.filter(requestInfo =>
-        requestInfo.url.match(/\/games\/\d+\/board$/)
+        requestInfo.url.match(/\/games\/\d+\/board\/$/)
       )
     ).to.have.length.greaterThan(0);
   });

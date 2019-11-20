@@ -20,10 +20,13 @@ class PopupController extends React.Component {
 
   static _lastPopupId = -1;
 
-  static pushPopup({ className, content, onClose }) {
+  static pushPopup({ className, content, onClose, autoClose }) {
     const instance = PopupController._instance;
 
-    console.assert(instance, "PopupController is not initialized yet");
+    if (!instance) {
+      console.warn("PopupController is not initialized yet");
+      return;
+    }
 
     const popupId = ++PopupController._lastPopupId;
 
@@ -32,6 +35,7 @@ class PopupController extends React.Component {
         className={className}
         content={content}
         onClose={onClose}
+        autoClose={autoClose || 1500}
         id={popupId}
         key={popupId}
       />
@@ -61,6 +65,15 @@ class PopupController extends React.Component {
 
   static pushError({ content, onClose }) {
     return PopupController.pushPopup({ className: "error", content, onClose });
+  }
+
+  static pushLog({ content, onClose, autoClose }) {
+    return PopupController.pushPopup({
+      className: "log",
+      content,
+      onClose,
+      autoClose: autoClose
+    });
   }
 
   render() {

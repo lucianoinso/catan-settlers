@@ -1,4 +1,6 @@
-# beleth
+# Beleth
+
+![](screen.png)
 
 Free interpretation and implementation of the game Colonos de Catán. 
 
@@ -12,9 +14,15 @@ Install the dependencies
 
     npm install
 
-Run the server
+Run the server with the mock
 
     npm start
 
-> It's not working on Firefox; there's a configuration error that we haven't figured out yet.
+Run with the actual server
+
+    REACT_APP_API="<address here>" npm start
+
+# Run tests
+
+    npm test
 

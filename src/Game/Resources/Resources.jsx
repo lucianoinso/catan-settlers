@@ -1,57 +1,137 @@
 import React from "react";
-import axios from "axios";
-import Resource from "./Resource.jsx";
-import countResources from "./utils";
-import PopupController from "../../PopupController/PopupController.jsx";
+import { connect } from "react-redux";
+import PopupController from "../../PopupController/PopupController";
+import Resource from "./Resource";
+import { mapStateToProps, mapDispatchToProps } from "./Resources.ducks";
+import { resourceNames } from "../SatanDictionary";
+import "./Resources.css";
 
 class Resources extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      brickAmount: 0,
-      woolAmount: 0,
-      grainAmount: 0,
-      lumberAmount: 0,
-      oreAmount: 0
+
+    this.previousState = {
+      prevBrick: 0,
+      prevWool: 0,
+      prevGrain: 0,
+      prevLumber: 0,
+      prevOre: 0
     };
   }
 
   componentDidMount() {
-    const id = 1;
+    this.props.updateResources({ id: this.props.id });
+    this.interval = setInterval(() => {
+      this.props.updateResources({ id: this.props.id });
+    }, 3000);
 
-    axios
-      .get(`/games/${id}/player`)
-      .then(response => {
-        const countedResources = countResources(response.data.resources);
-        this.setState(countedResources);
-      })
-      .catch(err => {
-        PopupController.pushError({
-          content: `Hubo un error al conectarse con el servidor.`
-        });
-        console.error(err);
-      });
+    const {
+      brickAmount,
+      woolAmount,
+      grainAmount,
+      lumberAmount,
+      oreAmount
+    } = this.props;
+
+    this.previousState = {
+      prevBrick: brickAmount,
+      prevWool: woolAmount,
+      prevGrain: grainAmount,
+      prevLumber: lumberAmount,
+      prevOre: oreAmount
+    };
+  }
+
+  componentWillUnmount() {
+    if (this.interval) clearInterval(this.interval);
+  }
+
+  updateAndNotify(previous, current, type) {
+    const amount = current - previous;
+    if (previous === current) {
+      return "";
+    }
+
+    let changed;
+
+    if (amount < 0) {
+      changed = `Perdiste ${-amount} ${resourceNames[type]}`;
+      if (amount < -1 && !changed.endsWith("s")) changed += `s`;
+    } else {
+      changed = `Recibiste ${amount} ${resourceNames[type]}`;
+      if (amount > 1 && !changed.endsWith("s")) changed += `s`;
+    }
+
+    PopupController.pushLog({ content: changed, autoClose: 2000 });
+
+    return changed;
+  }
+
+  checkChangedResources() {
+    const {
+      prevBrick,
+      prevWool,
+      prevGrain,
+      prevLumber,
+      prevOre
+    } = this.previousState;
+
+    const {
+      brickAmount,
+      woolAmount,
+      grainAmount,
+      lumberAmount,
+      oreAmount
+    } = this.props;
+
+    let changed = "";
+
+    changed += this.updateAndNotify(prevBrick, brickAmount, "brick");
+    changed += this.updateAndNotify(prevWool, woolAmount, "wool");
+    changed += this.updateAndNotify(prevGrain, grainAmount, "grain");
+    changed += this.updateAndNotify(prevLumber, lumberAmount, "lumber");
+    changed += this.updateAndNotify(prevOre, oreAmount, "ore");
+
+    this.previousState = {
+      prevBrick: brickAmount,
+      prevWool: woolAmount,
+      prevGrain: grainAmount,
+      prevLumber: lumberAmount,
+      prevOre: oreAmount
+    };
+
+    if (changed === "") {
+      changed = "No recibiste ninguna ofrenda";
+      PopupController.pushLog({ content: changed });
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    this.checkChangedResources();
   }
 
   render() {
     return (
-      <div className="resourceCards">
-        <h4>Cartas de recursos</h4>
+      <div
+        className="resourceCards"
+        style={{ height: "150px", textAlign: "center", position:"relative", float:"left", width: "100%" }}
+      >
+        <h4>Ofrendas</h4>
         <ul>
           <li>
-            <Resource type="brick" amount={this.state.brickAmount} />
+            <Resource type="brick" amount={this.props.brickAmount} />
           </li>
           <li>
-            <Resource type="wool" amount={this.state.woolAmount} />
+            <Resource type="wool" amount={this.props.woolAmount} />
           </li>
           <li>
-            <Resource type="grain" amount={this.state.grainAmount} />
+            <Resource type="grain" amount={this.props.grainAmount} />
           </li>
           <li>
-            <Resource type="lumber" amount={this.state.lumberAmount} />
+            <Resource type="lumber" amount={this.props.lumberAmount} />
           </li>
           <li>
-            <Resource type="ore" amount={this.state.oreAmount} />
+            <Resource type="ore" amount={this.props.oreAmount} />
           </li>
         </ul>
       </div>
@@ -59,4 +139,7 @@ class Resources extends React.Component {
   }
 }
 
-export default Resources;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Resources);

@@ -1,56 +1,68 @@
 import React from "react";
-import axios from "axios";
-import axiosMock from "../../App/axiosMock.js";
-import Hex from "./Hex.jsx";
-import getMockHexes from "./mockHexes.js";
-import PopupController from "../../PopupController/PopupController.jsx";
+import { connect } from "react-redux";
+import Hex from "./Hex";
+import { mapStateToProps, mapDispatchToProps } from "./Board.ducks.js";
+import Settlement from "./Settlement";
+import Robber from "./Robber";
+import ChooseVertex from "../BuildSettlement/ChooseVertex";
+import ChooseHex from "../Robber/ChooseHex";
+import Roads from "../BuildRoad/Roads";
 
-const id = 1;
-
-class Board extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { hexagonComponents: [] };
-  }
-
-  componentDidMount() {
-    axiosMock.onGet(`/games/${id}/board`).reply(200, {
-      hexes: getMockHexes()
-    });
-
-    this.updateBoard();
-  }
-
-  async updateBoard() {
-    axios
-      .get(`/games/${id}/board`)
-      .then(response => {
-        this.setState({
-          hexagonComponents: response.data.hexes.map(
-            this.makeComponentFromHex,
-            this
-          )
-        });
-      })
-      .catch(error => {
-        PopupController.pushError({
-          content: `Hubo un error al conectarse con el servidor.`
-        });
-        console.error(error);
-      });
-  }
-
-  makeComponentFromHex({ position, resource, token }) {
-    return (
-      <li key={`(${position.level},${position.index})`}>
-        <Hex position={position} resource={resource} token={token} />
-      </li>
-    );
-  }
-
-  render() {
-    return <ul className="board">{this.state.hexagonComponents}</ul>;
-  }
+function makeComponentFromHex({ position, resource, terrain, token }) {
+  return (
+    <Hex
+      key={`(${position.level},${position.index})`}
+      position={position}
+      resource={resource || terrain}
+      token={token}
+    />
+  );
 }
 
-export default Board;
+function makeComponentFromSettlement({ level, index, owner, color: colour }) {
+  return (
+    <Settlement
+      key={`(${level},${index})`}
+      level={level}
+      index={index}
+      owner={owner}
+      colour={colour}
+    />
+  );
+}
+
+function makeComponentFromRobber(robber) {
+  if (robber !== null) {
+    return <Robber robber={robber} />;
+  }
+  return "";
+}
+
+function Board({ board, updateBoard, settlements, robber, id }) {
+  if (board.length === 0) updateBoard({ id });
+
+  return (
+    <div
+      style={{
+        position: "relative",
+        width: "550px",
+        height: "500px",
+        float: "left",
+        margin: "0px 5px"
+      }}
+      className="board"
+    >
+      {board.map(makeComponentFromHex)}
+      <Roads />
+      {settlements.map(makeComponentFromSettlement)}
+      {makeComponentFromRobber(robber)}
+      <ChooseHex />
+      <ChooseVertex />
+    </div>
+  );
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Board);
