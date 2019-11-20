@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { mapStateToProps, mapDispatchToProps } from "../Status.ducks";
 import "./Dice.css";
+import { getSatanicColor } from "../SatanDictionary";
 
 class Dice extends React.Component {
   constructor(props) {
@@ -26,7 +27,7 @@ class Dice extends React.Component {
                 `player-info ` +
                 (name === this.props.currentPlayer ? "current" : "")
               }
-              style={{ color }}
+              style={{ color: getSatanicColor(color) }}
               key={name}
             >
               {name}

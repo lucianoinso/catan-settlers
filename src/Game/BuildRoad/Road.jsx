@@ -1,6 +1,7 @@
 import React from "react";
 import { getVertexCoords, getVertexPosition } from "../Board/Settlement";
 import { hexSize } from "../Board/Hex";
+import { getSatanicColor } from "../SatanDictionary";
 
 const margin = 10;
 
@@ -52,7 +53,7 @@ class Road extends React.Component {
       cx.stroke();
     }
 
-    cx.strokeStyle = this.props.road.color;
+    cx.strokeStyle = getSatanicColor(this.props.road.color);
     cx.lineWidth = 10;
     cx.stroke();
   }
