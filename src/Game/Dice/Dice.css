@@ -4,12 +4,13 @@
 
 .column {
   box-sizing: border-box;
-  max-width: 50%;
+  max-width: 72%;
   display: inline-block;
 }
 
 .dices .column:first-child {
-  min-width: 200px;
+  min-width: 164px;
+  float: left;
 }
 
 .dices h2 {
