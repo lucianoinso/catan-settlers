@@ -1,5 +1,6 @@
 import React from "react";
 import { getHexPosition, getHexCoords, hexSize, hexRadius } from "./Hex";
+import { getSatanicColor } from "../SatanDictionary";
 
 const settlementWidth = 30;
 const settlementHeight = 30;
@@ -41,7 +42,7 @@ class Settlement extends React.Component {
     if (!canvas || process.env.JEST_WORKER_ID !== undefined) return;
 
     const ctx = canvas.getContext("2d");
-    ctx.fillStyle = this.props.colour;
+    ctx.fillStyle = getSatanicColor(this.props.colour);
     ctx.fillRect(0, 0, settlementWidth, settlementHeight);
   }
 

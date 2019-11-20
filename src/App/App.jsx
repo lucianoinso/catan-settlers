@@ -11,11 +11,12 @@ import Game from "../Game/Game";
 import Footer from "./Footer";
 import PopupController from "../PopupController/PopupController";
 import Signup from "../Signup/Signup";
+import GameHeader from "./GameHeader";
 
 const InvalidUrl = () => {
   return (
     <div id="404-page" style={{ textAlign: "center" }}>
-        <h3
+      <h3
         style={{
           width: "400px",
           textAlign: "center",
@@ -32,7 +33,12 @@ const InvalidUrl = () => {
 function App() {
   return (
     <Provider store={store}>
-      <Header />
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/games/:id" component={GameHeader} />
+          <Route component={Header} />
+        </Switch>
+      </BrowserRouter>
       <BrowserRouter>
         <Switch>
           <Route exact path="/" component={Home} />
