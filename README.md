@@ -1,4 +1,6 @@
-# beleth
+# Beleth
+
+![](screen.png)
 
 Free interpretation and implementation of the game Colonos de Catán. 
 
