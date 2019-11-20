@@ -14,6 +14,7 @@ import { mapStateToProps, mapDispatchToProps } from "./Status.ducks";
 import EndTurn from "./EndTurn/EndTurn";
 import IsLoggedIn from "../IsLoggedIn/IsLoggedIn";
 import RoadBuilding from "./RoadBuilding/RoadBuilding";
+import WinGame from "./WinGame/WinGame"
 
 class Game extends React.Component {
   constructor(props) {
@@ -48,7 +49,7 @@ class Game extends React.Component {
     }
 
     return (
-      <div className="game" style={{ padding: "0px 10px", height: "510px"}}>
+      <div className="game" style={{ padding: "0px 10px", height: "537px" }}>
         <IsLoggedIn />
         <div className="board-and-actions">
           <div
@@ -70,14 +71,20 @@ class Game extends React.Component {
           </div>
           <Board />
         </div>
-        <div className="right-panel" style={{float:"left", position:"relative", width:"600px"}}>
+        <div
+          className="right-panel"
+          style={{ float: "left", position: "relative", width: "600px" }}
+        >
           <Dice />
           <Resources />
-          <div className="devcards-all" style={{ width:"100%", marginTop: "190px"}}>
+          <div
+            className="devcards-all"
+            style={{ width: "100%", marginTop: "190px" }}
+          >
             <DevCards />
           </div>
         </div>
-         
+        <WinGame />
       </div>
     );
   }

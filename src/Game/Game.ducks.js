@@ -34,6 +34,26 @@ let gameStatusMock = {
       development_cards: 4,
       resources_cards: 2,
       last_gained: ["ore", "ore", "wool"]
+    },
+    {
+      username: "Mr Freeze",
+      colour: "#43450d",
+      settlements: [{ level: 2, index: 3 }, { level: 1, index: 3 }],
+      cities: [{ level: 2, index: 1 }, { level: 1, index: 2 }],
+      roads: [[{ level: 0, index: 0 }, { level: 0, index: 1 }]],
+      development_cards: 4,
+      resources_cards: 2,
+      last_gained: ["ore", "ore", "wool"]
+    },
+    {
+      username: "The Penguin",
+      colour: "#43450d",
+      settlements: [{ level: 2, index: 3 }, { level: 1, index: 3 }],
+      cities: [{ level: 2, index: 1 }, { level: 1, index: 2 }],
+      roads: [[{ level: 0, index: 0 }, { level: 0, index: 1 }]],
+      development_cards: 4,
+      resources_cards: 2,
+      last_gained: ["ore", "ore", "wool"]
     }
   ],
   robber: {
@@ -44,7 +64,7 @@ let gameStatusMock = {
     user: "joker",
     dice: [4, 2]
   },
-  winner: "Akibel"
+  winner: ""
 };
 
 Object.defineProperty(window, "gameStatusMock", {
