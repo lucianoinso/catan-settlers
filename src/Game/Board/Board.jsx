@@ -39,14 +39,16 @@ function makeComponentFromRobber(robber) {
 }
 
 function Board({ board, updateBoard, settlements, robber, id }) {
-  if (board.length === 0) updateBoard({ id: id });
+  if (board.length === 0) updateBoard({ id });
 
   return (
     <div
       style={{
         position: "relative",
-        width: "600px",
-        height: "546px"
+        width: "550px",
+        height: "500px",
+        float: "left",
+        margin: "0px 5px"
       }}
       className="board"
     >
